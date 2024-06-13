@@ -1,4 +1,5 @@
 {
+  "proxy": "https://localhost:7006",
   "name": "filmdive.client",
   "private": true,
   "version": "0.0.0",

@@ -29,3 +29,6 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+.trending-list::-webkit-scrollbar {
+  display: none;
+}

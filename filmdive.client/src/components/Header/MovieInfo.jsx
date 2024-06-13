@@ -5,22 +5,23 @@ import Play from "../Icons/Play";
 import Info from "../Icons/Info";
 import Imdb from "../Imdb/Imdb";
 export default function MovieInfo({ movie }) {
+  const releaseYear = movie.releaseDate.slice(0, 4);
   return (
     <>
       <motion.h2
-        className=" text-[46pt] text-white "
+        className=" text-[46pt] text-white max-w-xl "
         key={movie.imageUrl}
         {...aboveTheFoldAnimation}
       >
-        {movie.name}
+        {movie.title}
       </motion.h2>
       <div className="flex flex-col gap-1">
         <div className="flex flex-row gap-2">
-          <p className="text-accentdrk text-2xl">2024</p>
+          <p className="text-accentdrk text-2xl">{releaseYear}</p>
           <Imdb rating={"8.8"} width={40} text="2xl" />
         </div>
 
-        <p className="movieName text-xl text-secondarydrk overflow-hidden text-ellipsis whitespace-normal">
+        <p className="movieName text-xl text-secondarydrk overflow-hidden max-w-xl text-ellipsis whitespace-normal">
           {movie.overview}
         </p>
       </div>
