@@ -16,7 +16,7 @@ namespace FilmDive.Server.Services.Movie
             configuration= _configuration;
         }
 
-        public async Task<IEnumerable<TrendingMovie>> GetTrendingMoviesAsync()
+        public async Task<IEnumerable<TrendingMovie>> GetTrendingAsync()
         {
             string body = await movieClientService
                 .SendRequestAsync("https://api.themoviedb.org/3/trending/movie/day?language=en-US", GetApiKey());
@@ -27,7 +27,7 @@ namespace FilmDive.Server.Services.Movie
         }
 
 
-        public async Task<IEnumerable<TrendingMovie>> GetMostPopularMoviesAsync()
+        public async Task<IEnumerable<TrendingMovie>> GetMostPopularAsync()
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1", GetApiKey());
@@ -36,7 +36,7 @@ namespace FilmDive.Server.Services.Movie
             return movies.Result;
         }
 
-        public async Task<IEnumerable<TrendingMovie>> GetUpcomingMoviesAsync()
+        public async Task<IEnumerable<TrendingMovie>> GetUpcomingAsync()
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/movie/upcoming", GetApiKey());
@@ -45,11 +45,21 @@ namespace FilmDive.Server.Services.Movie
             return movies.Result;
         }
 
+
+        public async Task<MovieDetails> GetDetailsAsync(string id)
+        {
+            var movieDetailsReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}?language=en-US", GetApiKey());
+            var movie = JsonConvert.DeserializeObject<MovieDetails>(movieDetailsReq);
+            var creditsReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/credits?language=en-US", GetApiKey());
+            var credits = JsonConvert.DeserializeObject<Credit>(creditsReq);
+           //next
+            return movie;
+        }
+
         private string GetApiKey()
         {
             return configuration.GetValue<string>("FilmDive");
         }
 
-       
     }
 }
