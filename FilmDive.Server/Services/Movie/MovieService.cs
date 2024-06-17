@@ -1,42 +1,55 @@
-﻿using FilmDive.Server.Services.Movies;
+﻿using FilmDive.Server.Services.MovieClient;
+using FilmDive.Server.Services.Movies;
 using FilmDive.Server.ViewModels.Movie;
 using Newtonsoft.Json;
-using System.Text.Json.Serialization;
 
 namespace FilmDive.Server.Services.Movie
 {
     public class MovieService : IMovieService
     {
-        private readonly HttpClient client;
+        private readonly IMovieClientService movieClientService;
         private readonly IConfiguration configuration;
 
-        public MovieService(HttpClient _httpClient,IConfiguration _configuration)
+        public MovieService(IMovieClientService _movieClientService, IConfiguration _configuration)
         {
-            client = _httpClient;
+            movieClientService = _movieClientService;
             configuration= _configuration;
         }
 
         public async Task<IEnumerable<TrendingMovie>> GetTrendingMoviesAsync()
         {
-            string? key=configuration.GetValue<string>("FilmDive");
-
-            HttpRequestMessage request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1"),
-                Headers =
-               {
-                    { "accept", "application/json" },
-                    { "Authorization", $"Bearer {key}" },
-               }
-
-            };
-            var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            var body = await response.Content.ReadAsStringAsync();
+            string body = await movieClientService
+                .SendRequestAsync("https://api.themoviedb.org/3/trending/movie/day?language=en-US", GetApiKey());
             var movies=JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
+
             return movies.Result;
             
         }
+
+
+        public async Task<IEnumerable<TrendingMovie>> GetMostPopularMoviesAsync()
+        {
+            string body = await movieClientService
+               .SendRequestAsync("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1", GetApiKey());
+            var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
+
+            return movies.Result;
+        }
+
+        public async Task<IEnumerable<TrendingMovie>> GetUpcomingMoviesAsync()
+        {
+            string body = await movieClientService
+               .SendRequestAsync("https://api.themoviedb.org/3/movie/upcoming", GetApiKey());
+            var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
+
+            return movies.Result;
+        }
+
+        private string GetApiKey()
+        {
+            return configuration.GetValue<string>("FilmDive");
+        }
+
+       
     }
 }
