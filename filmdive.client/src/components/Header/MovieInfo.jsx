@@ -5,11 +5,10 @@ import Play from "../Icons/Play";
 import Info from "../Icons/Info";
 import Imdb from "../Imdb/Imdb";
 export default function MovieInfo({ movie }) {
-  const releaseYear = movie.releaseDate.slice(0, 4);
   return (
     <>
       <motion.h2
-        className=" text-[46pt] text-white max-w-xl "
+        className=" text-[46pt] text-headersdrk max-w-xl "
         key={movie.imageUrl}
         {...aboveTheFoldAnimation}
       >
@@ -17,11 +16,11 @@ export default function MovieInfo({ movie }) {
       </motion.h2>
       <div className="flex flex-col gap-1">
         <div className="flex flex-row gap-2">
-          <p className="text-accentdrk text-2xl">{releaseYear}</p>
-          <Imdb rating={"8.8"} width={40} text="2xl" />
+          <p className="text-highlightdrk text-2xl">{movie.releaseYear}</p>
+          <Imdb rating={movie.voteAverage.toFixed(1)} width={40} text="2xl" />
         </div>
 
-        <p className="movieName text-xl text-secondarydrk overflow-hidden max-w-xl text-ellipsis whitespace-normal">
+        <p className="movieName text-xl text-accentdrk overflow-hidden max-w-xl text-ellipsis whitespace-normal">
           {movie.overview}
         </p>
       </div>
@@ -31,13 +30,17 @@ export default function MovieInfo({ movie }) {
         key={movie.overview}
         {...aboveTheFoldAnimation}
       >
-        <button className="bg-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-2xl flex justify-center items-center gap-1">
+        <motion.button
+          className="bg-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-2xl flex justify-center items-center gap-1"
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 500 }}
+        >
           <span>
             <Play />
           </span>
           Watch now
-        </button>
-        <button className="text-highlightdrk bg-transparentdrk border border-solid border-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-2xl flex justify-center items-center gap-1">
+        </motion.button>
+        <button className="text-accentdrk bg-transparentdrk border border-solid border-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-2xl flex justify-center items-center gap-1">
           <span>
             <Info fill={"#EEEEEE"} />
           </span>
