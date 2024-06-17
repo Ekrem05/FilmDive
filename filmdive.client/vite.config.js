@@ -43,7 +43,7 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/Movies': {
+            '/Movies': {
                 target,
                 secure: false
             }

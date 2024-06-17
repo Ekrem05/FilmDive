@@ -1,4 +1,5 @@
 using FilmDive.Server.Services.Movie;
+using FilmDive.Server.Services.MovieClient;
 using FilmDive.Server.Services.Movies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IMovieClientService, MovieClientService>();
 var app = builder.Build();
 
 app.UseDefaultFiles();

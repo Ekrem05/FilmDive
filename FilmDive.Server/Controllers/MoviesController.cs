@@ -13,11 +13,22 @@ namespace FilmDive.Server.Controllers
         {
             movieService = _movieService;
         }
+        [HttpGet("popular")]
+        public async Task<IActionResult> GetPopularMovies()
+        {
+            return Ok(await movieService.GetMostPopularMoviesAsync());
+        }
 
-        [HttpGet(Name ="trending")]
+        [HttpGet("trending")]
         public async Task<IActionResult> GetTrendingMovies()
         {
             return Ok(await movieService.GetTrendingMoviesAsync());
+        }
+
+        [HttpGet("upcoming")]
+        public async Task<IActionResult> GetUpcomingMovies()
+        {
+            return Ok(await movieService.GetUpcomingMoviesAsync());
         }
     }
 }

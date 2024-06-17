@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FilmDive.Server.Attributes;
+using Newtonsoft.Json;
 
 namespace FilmDive.Server.ViewModels.Movie
 {
@@ -20,6 +21,11 @@ namespace FilmDive.Server.ViewModels.Movie
         public string PosterPath { get; set; } = string.Empty;
 
         [JsonProperty("release_date")]
-        public string ReleaseDate { get; set; } = string.Empty;
+        [JsonConverter(typeof(YearOnlyDateConverter))]
+        public int ReleaseYear { get; set; }
+
+        [JsonProperty("vote_average")]
+        [JsonConverter(typeof(OneDecimalPlaceConverter))]
+        public decimal VoteAverage { get; set; }
     }
 }
