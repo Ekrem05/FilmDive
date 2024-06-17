@@ -8,7 +8,7 @@ import { getTrendingMovies } from "../../http/movies";
 import { useQuery } from "@tanstack/react-query";
 import { movieActions } from "../../store/movie";
 import placeholder from "../../assets/placeholder.jpg";
-import { useScroll } from "framer-motion";
+
 export default function AboveTheFold() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["movies"],

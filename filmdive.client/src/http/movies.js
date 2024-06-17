@@ -34,3 +34,15 @@ export async function getUpcomingMovies() {
   const data = await response.json();
   return data;
 }
+export async function getMovieDetails(id) {
+  const response = await fetch(`/Movies/details?id=${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error();
+  }
+  const data = await response.json();
+  return data;
+}

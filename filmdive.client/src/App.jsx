@@ -1,19 +1,26 @@
-import Navigation from "./components/Navigation/Navigation";
-import AboveTheFold from "./components/Header/AboveTheFold";
-import Header from "./components/Header/Header";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Lists from "./components/Lists/Lists";
-const client = new QueryClient();
+import MovieDetails from "./pages/MovieDetails";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "movie/:id",
+        element: <MovieDetails />,
+      },
+    ],
+  },
+]);
 function App() {
-  return (
-    <QueryClientProvider client={client}>
-      <Header>
-        <Navigation />
-        <AboveTheFold />
-      </Header>
-      <Lists />
-    </QueryClientProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

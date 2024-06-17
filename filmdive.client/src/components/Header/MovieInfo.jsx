@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { aboveTheFoldAnimation } from "../../utils/animations";
-
+import { Link } from "react-router-dom";
 import Play from "../Icons/Play";
 import Info from "../Icons/Info";
 import Imdb from "../Imdb/Imdb";
@@ -40,12 +40,15 @@ export default function MovieInfo({ movie }) {
           </span>
           Watch now
         </motion.button>
-        <button className="text-accentdrk bg-transparentdrk border border-solid border-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-2xl flex justify-center items-center gap-1">
+        <Link
+          className="text-accentdrk bg-transparentdrk border border-solid border-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-2xl flex justify-center items-center gap-1"
+          to={`movie/${movie.id}`}
+        >
           <span>
             <Info fill={"#EEEEEE"} />
           </span>
           More Info
-        </button>
+        </Link>
       </motion.section>
     </>
   );
