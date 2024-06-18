@@ -1,6 +1,7 @@
 ﻿using FilmDive.Server.Services.MovieClient;
 using FilmDive.Server.Services.Movies;
 using FilmDive.Server.ViewModels.Movie;
+using FilmDive.Server.ViewModels.Movie.VideoDtos;
 using Newtonsoft.Json;
 
 namespace FilmDive.Server.Services.Movie
@@ -52,7 +53,15 @@ namespace FilmDive.Server.Services.Movie
             var movie = JsonConvert.DeserializeObject<MovieDetails>(movieDetailsReq);
             var creditsReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/credits?language=en-US", GetApiKey());
             var credits = JsonConvert.DeserializeObject<Credit>(creditsReq);
-           //next
+            movie.Credits = new Credit()
+            {
+                Id = credits.Id,
+                Cast = credits.Cast.Where(cast => cast.Department == "Acting").ToList(),
+                Crew = credits.Crew.Where(crew => crew.Department == "Production" || crew.Department == "Directing").ToList()
+            };
+            var videosReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/videos?language=en-US", GetApiKey());
+            var videos = JsonConvert.DeserializeObject<VideoRoot>(videosReq);
+            movie.Videos = videos.Videos.Where(video=>video.Site== "YouTube").ToList();
             return movie;
         }
 
