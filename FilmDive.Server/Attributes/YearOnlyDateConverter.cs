@@ -12,7 +12,6 @@ namespace FilmDive.Server.Attributes
         public override int ReadJson(JsonReader reader, Type objectType, int existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var dateString = (string)reader.Value;
-            Console.WriteLine(dateString);
             if (DateTime.TryParse(dateString, out DateTime date))
             {
                 return date.Year;
