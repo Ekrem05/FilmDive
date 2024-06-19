@@ -37,3 +37,11 @@
 .trending-list::-webkit-scrollbar {
   display: none;
 }
+.stats > div::after {
+  content: "|";
+  margin: 0 5px;
+}
+.stats > div:last-child::after {
+  content: "";
+  margin: 0;
+}
