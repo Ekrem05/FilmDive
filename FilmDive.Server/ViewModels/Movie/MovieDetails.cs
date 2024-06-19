@@ -41,6 +41,10 @@ namespace FilmDive.Server.ViewModels.Movie
         [JsonProperty("release_date")]
         public string ReleaseDate { get; set; } = string.Empty;
 
+        [JsonProperty("vote_average")]
+        [JsonConverter(typeof(OneDecimalPlaceConverter))]
+        public decimal VoteAverage { get; set; }
+
         public long Revenue { get; set; }
 
         public int Runtime { get; set; }
