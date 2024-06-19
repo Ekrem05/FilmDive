@@ -8,6 +8,7 @@ import { getTrendingMovies } from "../../http/movies";
 import { useQuery } from "@tanstack/react-query";
 import { movieActions } from "../../store/movie";
 import placeholder from "../../assets/placeholder.jpg";
+import HomeSkeleton from "../Skeleton/HomeSkeleton";
 
 export default function AboveTheFold() {
   const { isPending, isError, data, error } = useQuery({
@@ -36,17 +37,11 @@ export default function AboveTheFold() {
       dispatch(movieActions.initialFetch(data));
     }
   }, [data, isPending, dispatch]);
-  if (isPending) {
+  const temp = false;
+  if (!data) {
     return (
-      <section className="relative bg-bgdrk h-auto pb-8">
-        <motion.img
-          key={"asd"}
-          {...aboveTheFoldAnimation}
-          id="hero-img"
-          src={placeholder}
-          alt=""
-          decoding="async"
-        />
+      <section className="relative bg-bgdrk h-svh pb-8">
+        <HomeSkeleton />
       </section>
     );
   }

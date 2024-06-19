@@ -41,7 +41,7 @@ export default function MovieInfo({ movie }) {
           Watch now
         </motion.button>
         <Link
-          className="text-accentdrk bg-transparentdrk border border-solid border-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-2xl flex justify-center items-center gap-1"
+          className="text-highlightdrk bg-transparentdrk border border-solid border-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-2xl flex justify-center items-center gap-1"
           to={`movie/${movie.id}`}
         >
           <span>

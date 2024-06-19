@@ -1,46 +1,66 @@
-import { useParams } from "react-router-dom";
+import { Await, Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getMovieDetails } from "../http/movies";
-import Imdb from "../components/Imdb/Imdb";
+import MovieStats from "../components/MovieDetails/MovieStats";
+import MovieCredits from "../components/MovieDetails/MovieCredits";
+import MovieClips from "../components/MovieDetails/MovieClips";
+import LazyImage from "@/components/Image/LazyImage";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import DetailsSkeleton from "@/components/Skeleton/DetailsSkeleton";
 export default function MovieDetails() {
   const params = useParams();
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ["details"],
+    queryKey: ["details", params.id],
     queryFn: () => getMovieDetails(params.id),
   });
-  console.log(data);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    console.log("here");
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  const temp = false;
   return (
     <>
-      <section className="relative bg-bgdrk h-auto pb-8">
-        <img
-          id="details-img"
-          src={`https://image.tmdb.org/t/p/original/${data.backdropPath}`}
-          alt=""
-        />
-        <section className="absolute w-[100%] top-[10%] left-[6%] flex flex-row gap-5">
-          <img
-            width={"350px"}
-            src={`https://image.tmdb.org/t/p/original/${data.posterPath}`}
-            alt=""
-          />
-          <article className="flex flex-col">
-            <h2 className="text-[46pt] text-headersdrk max-w-xl">
-              {data.title}
-            </h2>
-            <section className="flex flex-row gap-2">
-              <Imdb widthStar={30} rating={5.5} />
-              <div>{data.runtime}m</div>
-              <div>{data.releaseDate.slice(0, 4)}</div>
-            </section>
-            <ul>
-              {data.genres.map((genre) => (
-                <li key={genre.id}>{genre.name}</li>
-              ))}
-            </ul>
-            <p>{data.overview}</p>
-          </article>
+      {isPending && (
+        <section className="bg-bgdrk w-[100%] h-[100%]">
+          <DetailsSkeleton />
         </section>
-      </section>
+      )}
+      {!isPending && (
+        <main className=" bg-bgdrk flex flex-col gap-72">
+          <section className="relative bg-bgdrk h-auto pb-8 ">
+            <LazyImage path={data.backdropPath} id="details-img" />
+
+            <section className="absolute  top-[15%] left-[10%] flex flex-row gap-5">
+              <section>
+                <img
+                  className="self-start relative rounded-2xl"
+                  width={"350px"}
+                  src={`https://image.tmdb.org/t/p/original/${data.posterPath}`}
+                  alt=""
+                />
+                <p>asd</p>
+              </section>
+
+              <article className="flex flex-col gap-4">
+                <h2 className="text-4xl text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl scroll-m-20">
+                  {data.title}
+                </h2>
+                <MovieStats movie={data} />
+                <MovieCredits movie={data} />
+                <MovieClips movie={data} />
+              </article>
+            </section>
+          </section>
+          <section className=" bg-bgdrk">
+            <p> hello</p>
+            <p> hello</p> <p> hello</p> <p> hello</p> <p> hello</p>{" "}
+            <p> hello</p> <p> hello</p> <p> hello</p>
+          </section>
+        </main>
+      )}
     </>
   );
 }
