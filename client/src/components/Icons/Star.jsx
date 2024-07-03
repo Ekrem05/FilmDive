@@ -2,6 +2,7 @@ const Star = ({ width }) => {
   return (
     <svg
       width={width}
+      className={`lg:w-${width} xl:w-6`}
       viewBox="0 0 24 24"
       fill="#f5c518"
       xmlns="http://www.w3.org/2000/svg"

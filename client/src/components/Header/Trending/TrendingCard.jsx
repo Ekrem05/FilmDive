@@ -18,15 +18,18 @@ export default function TrendingCard({ movie }) {
     >
       <img
         className="rounded-xl"
-        width={"150px"}
         src={`https://image.tmdb.org/t/p/original/${movie.posterPath}`}
         alt=""
       />
-      <p className=" text-highlightdrk text-lg w-32 text-center overflow-ellipsis overflow-hidden whitespace-nowrap pl-3 pr-3">
+      <p className=" text-highlightdrk 2xl:text-lg xl:text-base w-32 text-center overflow-ellipsis overflow-hidden whitespace-nowrap pl-3 pr-3">
         {movie.title}
       </p>
       <div className="w-[100%] flex justify-between items-center pr-3">
-        <Imdb rating={movie.voteAverage.toFixed(1)} widthStar={20} />
+        <Imdb
+          rating={movie.voteAverage.toFixed(1)}
+          widthStar={8}
+          xl="text-base"
+        />
         <p className="text-accentdrk bg-transparentdrk text-sm p-[0.1rem]">
           {movie.releaseYear}
         </p>

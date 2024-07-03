@@ -62,7 +62,7 @@ export default function AboveTheFold() {
             />
           </AnimatePresence>
           <AnimatePresence>
-            <section className="absolute w-[100%] pl-20 bottom-0 mt-44 mb-10 flex flex-col gap-5">
+            <section className="absolute w-[100%] 2xl:pl-20 pl-8 bottom-0 2xl:mt-44 md:mt-12 md:pl-10 xl:pl-20 flex flex-col gap-5">
               <MovieInfo movie={selectedMovie} />
               <Trending movies={trendingMovies} />
             </section>

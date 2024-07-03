@@ -1,7 +1,7 @@
 const Play = () => {
   return (
     <svg
-      width="20px"
+      className="w-4 lg:w-5"
       viewBox="-0.5 0 7 7"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
