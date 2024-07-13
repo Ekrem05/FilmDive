@@ -11,7 +11,7 @@ export async function getTrendingMovies() {
   return data;
 }
 export async function getPopularMovies() {
-  const response = await fetch("Movies/popular", {
+  const response = await fetch("/Movies/popular", {
     headers: {
       "Content-Type": "application/json",
     },
