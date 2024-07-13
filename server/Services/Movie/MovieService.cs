@@ -53,6 +53,7 @@ namespace FilmDive.Server.Services.Movie
             var movie = JsonConvert.DeserializeObject<MovieDetails>(movieDetailsReq);
             var creditsReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/credits?language=en-US", GetApiKey());
             var credits = JsonConvert.DeserializeObject<Credit>(creditsReq);
+            movie.ProductionCompanies=movie.ProductionCompanies.Take(7).ToList();
             movie.Credits = new Credit()
             {
                 Id = credits.Id,
@@ -65,10 +66,20 @@ namespace FilmDive.Server.Services.Movie
             return movie;
         }
 
+        public async Task<IEnumerable<TrendingMovie>> GetRecomendationsAsync(string id)
+        {
+             string body = await movieClientService
+               .SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/recommendations", GetApiKey());
+            var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
+
+            return movies.Result;
+        }
+
         private string GetApiKey()
         {
             return configuration.GetValue<string>("FilmDive");
         }
 
+        
     }
 }

@@ -46,3 +46,15 @@ export async function getMovieDetails(id) {
   const data = await response.json();
   return data;
 }
+export async function getRecommendations(id) {
+  const response = await fetch(`/Movies/recommend?id=${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error();
+  }
+  const data = await response.json();
+  return data;
+}

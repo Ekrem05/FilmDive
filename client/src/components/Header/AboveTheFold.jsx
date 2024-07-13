@@ -1,13 +1,17 @@
 import Trending from "./Trending/Trending";
 import { aboveTheFoldAnimation } from "../../utils/animations";
-import { motion, AnimatePresence } from "framer-motion";
 import MovieInfo from "./MovieInfo";
+import {
+  useScroll,
+  motion,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrendingMovies } from "../../http/movies";
 import { useQuery } from "@tanstack/react-query";
 import { movieActions } from "../../store/movie";
-import placeholder from "../../assets/placeholder.jpg";
 import HomeSkeleton from "../Skeleton/HomeSkeleton";
 
 export default function AboveTheFold() {
@@ -15,6 +19,9 @@ export default function AboveTheFold() {
     queryKey: ["movies"],
     queryFn: getTrendingMovies,
   });
+  const { scrollY } = useScroll();
+  const titleScale = useTransform(scrollY, [0, 200, 500], [0, 10, 20]);
+  const movieDetails = useTransform(scrollY, [0, 200, 500], [0, 10, 20]);
 
   const selectedMovie = useSelector((state) => state.movie.selectedMovie);
   const trendingMovies = useSelector((state) => state.movie.trendingMovies);
@@ -51,6 +58,7 @@ export default function AboveTheFold() {
         <section className="relative bg-bgdrk h-auto pb-8">
           <AnimatePresence>
             <motion.img
+              style={{ y: titleScale }}
               key={selectedMovie.title}
               {...aboveTheFoldAnimation}
               while

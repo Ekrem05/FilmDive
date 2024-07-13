@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 export default function NavButton({ label, link }) {
   return (
-    <a className="text-white text-lg font-default" href={link}>
+    <Link className="text-white text-lg font-default" to={link}>
       {label}
-    </a>
+    </Link>
   );
 }

@@ -1,12 +1,24 @@
-import { motion } from "framer-motion";
 import { aboveTheFoldAnimation } from "../../utils/animations";
 import { Link } from "react-router-dom";
 import Play from "../Icons/Play";
 import Info from "../Icons/Info";
 import Imdb from "../Imdb/Imdb";
+import Button from "../Buttons/Button";
+import { useScroll, motion, useTransform } from "framer-motion";
 export default function MovieInfo({ movie }) {
+  const { scrollY } = useScroll();
+  const movieDetails = useTransform(scrollY, [0, 800], [0, -300]);
+  const movieDetailsOpacity = useTransform(
+    scrollY,
+    [0, 100, 200, 400, 600, 800],
+    [1, 1, 0.8, 0.6, 0.4, 0]
+  );
+
   return (
-    <>
+    <motion.section
+      className="flex flex-col gap-4"
+      style={{ opacity: movieDetailsOpacity, y: movieDetails }}
+    >
       <motion.h2
         className=" font-extrabold tracking-tight 2xl:text-5xl text-headersdrk max-w-xl xl:text-3xl "
         key={movie.imageUrl}
@@ -32,26 +44,20 @@ export default function MovieInfo({ movie }) {
         key={movie.overview}
         {...aboveTheFoldAnimation}
       >
-        <motion.button
-          className="bg-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-xs xl:text-2xl xl:w-44 w-28  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1"
-          whileHover={{ scale: 1.1 }}
-          transition={{ type: "spring", stiffness: 500 }}
+        <Button styling={"bg-highlightdrk"} text={"Watch now"}>
+          <Play />
+        </Button>
+        <Button
+          styling={
+            "text-highlightdrk bg-transparentdrk  border border-solid border-highlightdrk"
+          }
+          isLink={true}
+          path={`movie/${movie.id}`}
+          text={"More Info"}
         >
-          <span>
-            <Play />
-          </span>
-          Watch now
-        </motion.button>
-        <Link
-          className="text-highlightdrk bg-transparentdrk border border-solid text-xs xl:text-2xl border-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md flex justify-center items-center gap-1"
-          to={`movie/${movie.id}`}
-        >
-          <span>
-            <Info fill={"#EEEEEE"} />
-          </span>
-          More Info
-        </Link>
+          <Info fill={"#EEEEEE"} />
+        </Button>
       </motion.section>
-    </>
+    </motion.section>
   );
 }

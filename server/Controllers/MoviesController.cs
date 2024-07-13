@@ -35,5 +35,10 @@ namespace FilmDive.Server.Controllers
         {
             return Ok(await movieService.GetDetailsAsync(id));
         }
+        [HttpGet("recommend")]
+        public async Task<IActionResult> GetRecomendations(string id)
+        {
+            return Ok(await movieService.GetRecomendationsAsync(id));
+        }
     }
 }

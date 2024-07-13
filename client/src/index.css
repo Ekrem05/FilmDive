@@ -4,13 +4,13 @@
 * {
   font-family: "Inter", "open-sans";
 }
-.myHeader {
+/* .myHeader {
   background-image: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.7) 10%,
     transparent
   );
-}
+} */
 #hero-img {
   width: 100%;
   mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.534) 100%);
@@ -44,4 +44,14 @@
 .stats > div:last-child::after {
   content: "";
   margin: 0;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #91d4c9; /* Track color */
+}
+::-webkit-scrollbar-thumb {
+  scrollbar-thumb-color: #888; /* Thumb color */
 }
