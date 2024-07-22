@@ -1,62 +1,92 @@
-import { useQuery } from "@tanstack/react-query";
-import { getPopularMovies } from "../../http/movies";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { browseMovies, getPopularMovies } from "../../http/movies";
 import { useEffect, useRef } from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import { useInView } from "react-intersection-observer";
 import MovieListSkeleton from "../Skeleton/MovieListSkeleton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Badge from "../Browse/Genres/Badge";
 import { useParams } from "react-router";
+import { browseActions } from "@/store/browse";
+import Button from "../Buttons/Button";
 
 export default function BrowseMovies() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
-  const params = useParams();
-  console.log(params);
-  const genres = useSelector((state) => state.browse.genres);
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ["popular", params],
-    queryFn: getPopularMovies,
-    enabled: inView,
+  const dispatch = useDispatch();
+  const { mutate, isPending: gettingMovies } = useMutation({
+    mutationFn: browseMovies,
+    onMutate: () => {},
+    onSuccess: (data) => {
+      console.log(data);
+      dispatch(browseActions.loadMore(data));
+    },
   });
-  const list = useRef();
+  const { mutate: getFirstPage, isPending } = useMutation({
+    mutationFn: browseMovies,
+    onMutate: () => {},
+    onSuccess: (data) => {
+      console.log(data);
+      dispatch(browseActions.getFirstPage(data));
+    },
+  });
+  const genres = useSelector((state) => state.browse.genres);
+  const movies = useSelector((state) => state.browse.filteredMovies);
+  const { genres: genreIds, year, rating } = useParams();
   useEffect(() => {
-    console.log(inView);
-  }, [inView]);
-
+    if (genres.length > 0 && genreIds) {
+      console.log("asdasd");
+      getFirstPage({ genres: genreIds.split(" ") });
+    } else {
+      console.log("hlll");
+      getFirstPage({ genres: [] });
+    }
+  }, [genres, genreIds]);
+  function loadMore() {
+    mutate({
+      genres: genreIds ? genreIds.split(" ") : [],
+      page: movies.page + 1,
+    });
+  }
+  const list = useRef();
   return (
     <>
-      <section className="pt-32 pl-10 pr-10 flex flex-col gap-14">
+      <section className="pt-32 pl-10 pr-10 flex flex-col gap-14 overflow-x-hidden">
         <header className="flex justify-between">
           <h3 className="2xl:text-5xl xl:text-3xl font-bold text-headersdrk ">
             Most Popular
           </h3>
-          <ul>
-            {genres &&
+          <ul className="flex gap-3">
+            {genres.length > 0 &&
               genres.map((genre) => (
-                <li>
-                  <Badge label={genre} />
+                <li key={genre.id}>
+                  <Badge genre={genre} />
                 </li>
               ))}
           </ul>
         </header>
 
-        {!data && (
+        {movies.data.length === 0 && (
           <div className="flex w-full gap-11" ref={ref}>
             <MovieListSkeleton />
           </div>
         )}
-        {data && (
-          <ul
-            className="grid grid-flow-row grid-cols-6 gap-3 w-[100%]"
-            ref={list}
-          >
-            {data.map((movie) => {
-              return <MovieCard key={movie.id} movie={movie} />;
-            })}
-          </ul>
+        {movies.data.length > 0 && (
+          <section className="flex flex-col items-center overflow-y-hidden">
+            <ul
+              className="grid grid-flow-row grid-cols-6 gap-3 w-[100%]"
+              ref={list}
+            >
+              {movies.data.map((movie) => {
+                return <MovieCard key={movie.id} movie={movie} />;
+              })}
+            </ul>
+            <Button styling={"mt-16"} onClick={loadMore}>
+              Load More
+            </Button>
+          </section>
         )}
       </section>
     </>

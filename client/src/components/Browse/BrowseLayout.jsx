@@ -3,7 +3,7 @@ import SideBar from "./SideBar";
 
 export default function BrowseLayout() {
   return (
-    <main className="bg-bgdrk flex flex-row ju">
+    <main className="bg-bgdrk flex flex-row ">
       <SideBar />
       <BrowseMovies />
     </main>

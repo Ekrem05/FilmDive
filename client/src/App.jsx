@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         element: <Browse />,
         children: [
           {
-            path: ":filters",
+            path: ":genres?/:year?/:rating?",
             element: <Browse />,
           },
         ],

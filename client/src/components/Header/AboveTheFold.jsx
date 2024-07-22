@@ -35,7 +35,6 @@ export default function AboveTheFold() {
         urls.forEach((url) => {
           const img = new Image();
           img.src = `https://image.tmdb.org/t/p/original/${url}`;
-          img.onload = () => console.log(`Image preloaded: ${img.src}`);
           img.onerror = () =>
             console.error(`Image failed to preload: ${img.src}`);
         });
