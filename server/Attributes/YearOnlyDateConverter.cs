@@ -16,7 +16,7 @@ namespace FilmDive.Server.Attributes
             {
                 return date.Year;
             }
-            throw new JsonException($"Unable to parse '{dateString}' as a date.");
+           return 0;
         }
 
     }

@@ -78,7 +78,6 @@ namespace FilmDive.Server.Services.Movie
             var baseUrl = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US";
             var queryParams = new List<string>();
 
-            // Add parameters conditionally based on model values
             if (model.Page > 0)
             {
                 queryParams.Add($"page={model.Page}");
@@ -114,11 +113,9 @@ namespace FilmDive.Server.Services.Movie
                 queryParams.Add($"with_genres={genres}");
             }
 
-            // Combine base URL with query parameters
             var queryString = string.Join("&", queryParams);
             var requestUrl = $"{baseUrl}&{queryString}";
 
-            // Send the request
             var searchRequest = await movieClientService.SendRequestAsync(requestUrl, GetApiKey());
             var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(searchRequest);
             return movies;
