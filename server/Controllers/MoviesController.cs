@@ -1,6 +1,6 @@
 ﻿using FilmDive.Server.Services.Movies;
 using Microsoft.AspNetCore.Mvc;
-
+using FilmDive.Server.ViewModels.Movie;
 namespace FilmDive.Server.Controllers
 {
     [Route("[controller]")]
@@ -39,6 +39,16 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetRecomendations(string id)
         {
             return Ok(await movieService.GetRecomendationsAsync(id));
+        }
+        [HttpGet("genres")]
+        public async Task<IActionResult> GetGenres()
+        {
+            return Ok(await movieService.GetGenresAsync());
+        }
+        [HttpPost("browse")]
+        public async Task<IActionResult> BrowseMovies([FromBody] MovieBrowse request)
+        {
+            return Ok(await movieService.BrowseAsync(request));
         }
     }
 }
