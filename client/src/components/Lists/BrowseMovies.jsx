@@ -63,7 +63,7 @@ export default function BrowseMovies() {
       [fromYear, toYear] = year.split(";");
     }
     mutate({
-      genres: genreIds === "all" ? [] : genreIds.split(" "),
+      genres: genreIds ? (genreIds === "all" ? [] : genreIds.split(" ")) : [],
       page: movies.page + 1,
       fromYear: fromYear,
       toYear: toYear,
