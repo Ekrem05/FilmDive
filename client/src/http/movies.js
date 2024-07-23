@@ -34,7 +34,13 @@ export async function getGenres() {
   const data = await response.json();
   return data;
 }
-export async function browseMovies({ page, genres }) {
+export async function browseMovies({
+  page,
+  genres,
+  fromYear,
+  toYear,
+  orderBy,
+}) {
   console.log("asdasd");
   const response = await fetch("/Movies/browse", {
     method: "POST",
@@ -44,6 +50,9 @@ export async function browseMovies({ page, genres }) {
     body: JSON.stringify({
       withGenres: genres,
       page: page,
+      fromYear: fromYear,
+      toYear: toYear,
+      sortBy: orderBy,
     }),
   });
   if (!response.ok) {

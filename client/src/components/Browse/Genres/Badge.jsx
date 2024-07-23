@@ -3,13 +3,18 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 export default function Badge({ genre }) {
   const navigate = useNavigate();
-  const { genres, year, rating } = useParams();
+  const { genres, year, rating, orderBy } = useParams();
   function removeGenre() {
+    console.log(genres);
     navigate(
-      `/browse/${genres
-        .split(" ")
-        .filter((genres) => genres !== `${genre.id}`)
-        .join(" ")}`
+      `/browse/${
+        genres.includes(" ")
+          ? genres
+              .split(" ")
+              .filter((genres) => genres !== `${genre.id}`)
+              .join(" ")
+          : "all"
+      }/${year}/${rating ? rating : ""}/${orderBy ? orderBy : ""}`
     );
   }
   return (

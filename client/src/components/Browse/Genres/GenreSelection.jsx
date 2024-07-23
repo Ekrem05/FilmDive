@@ -9,8 +9,7 @@ export default function GenreSelection({ genres: data }) {
   const formRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { genres, year, rating } = useParams();
-
+  const { genres, year, rating, orderBy } = useParams();
   function handleChange() {
     const formData = new FormData(formRef.current);
     const inputs = Array.from(formData.keys());
@@ -25,8 +24,18 @@ export default function GenreSelection({ genres: data }) {
       }
     });
 
+    console.log(arrayOfGenreIds);
     dispatch(browseActions.setGenres(arrayOfGenres));
-    navigate(`/browse/${arrayOfGenreIds.map(encodeURIComponent).join("%20")}`);
+    const currentYear = new Date().getFullYear();
+    navigate(
+      `/browse/${
+        arrayOfGenreIds.length > 0
+          ? arrayOfGenreIds.map(encodeURIComponent).join("%20")
+          : "all"
+      }/${year ? year : `1878;${currentYear}`}/${rating ? rating : ""}/${
+        orderBy ? orderBy : ""
+      }`
+    );
   }
 
   if (!data) {
