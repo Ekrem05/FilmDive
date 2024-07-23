@@ -33,10 +33,10 @@ export default function Navigation() {
             </Link>
           </li>
           <li>
-            <NavButton label={"Browse"} link="/browse" />
+            <NavButton label={"Movies"} link="/browse" />
           </li>
           <li>
-            <NavButton label={"Browse"} link="/browse" />
+            <NavButton label={"TV Series"} link="/browse" />
           </li>
           <li>
             <NavButton label={"Browse"} link="/browse" />

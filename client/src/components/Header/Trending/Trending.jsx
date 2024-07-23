@@ -19,7 +19,9 @@ export default function Trending({ movies }) {
       className="pt-10 2xl:flex flex-col gap-4 pl-20 xl:flex lg:flex hidden"
       style={{ opacity: movieDetailsOpaciry, y: movieDetails }}
     >
-      <h3 className="2xl:text-5xl xl:text-3xl text-headersdrk ">Trending</h3>
+      <h3 className="2xl:text-5xl xl:text-3xl font-bold text-headersdrk  ">
+        Trending
+      </h3>
       <ul
         className="trending-list flex items-start overflow-x-scroll gap-5 pl-5"
         ref={list}

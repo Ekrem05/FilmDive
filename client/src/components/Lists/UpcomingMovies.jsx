@@ -39,7 +39,9 @@ export default function UpcomingMovies() {
   return (
     <>
       <section className="pt-10">
-        <h3 className="2xl:text-5xl xl:text-3xl text-headersdrk">Upcoming</h3>
+        <h3 className="2xl:text-5xl xl:text-3xl font-bold text-headersdrk mb-4">
+          Upcoming
+        </h3>
         {!data && (
           <div className="flex w-full gap-11" ref={ref}>
             <MovieListSkeleton />

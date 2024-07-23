@@ -31,7 +31,7 @@ export default function PopularMovies() {
   return (
     <>
       <section className="pt-10">
-        <h3 className="2xl:text-5xl xl:text-3xl text-headersdrk ">
+        <h3 className="2xl:text-5xl xl:text-3xl font-bold text-headersdrk  mb-4 ">
           Most Popular
         </h3>
         {!data && (
