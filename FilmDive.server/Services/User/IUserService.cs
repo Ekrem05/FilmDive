@@ -5,6 +5,6 @@ namespace FilmDive.Server.Services.User
 {
     public interface IUserService
     {
-        Task<AuthenticatedResponse> LogInAsync(LoginViewModel model);
+        Task<AuthenticatedResponse> LogInAsync(UserViewModel model);
     }
 }

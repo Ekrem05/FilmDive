@@ -1,5 +1,6 @@
 using FilmDive.Server.Data;
 using FilmDive.Server.Infrastructure.Middleware;
+using FilmDive.Server.Repositories.UserRepo;
 using FilmDive.Server.Services.Movie;
 using FilmDive.Server.Services.MovieClient;
 using FilmDive.Server.Services.Movies;
@@ -34,14 +35,15 @@ builder.Services.AddAuthentication(opt =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Key"])),
             ClockSkew = TimeSpan.Zero
         };
-    });
-builder.Services.AddDbContext<UserContext>(opts =>
-    opts.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+    }); 
+builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMovieClientService, MovieClientService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IUserRepository,UserRepository>();   
 var app = builder.Build();
 
 app.UseDefaultFiles();

@@ -1,4 +1,5 @@
 ﻿using FilmDive.Server.Data;
+using FilmDive.Server.Repositories.UserRepo;
 using FilmDive.Server.ViewModels.Api;
 using FilmDive.Server.ViewModels.Token;
 using Microsoft.IdentityModel.Tokens;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace FilmDive.Server.Services.Token
 {
-    public class TokenService(UserContext userContext,
+    public class TokenService(IUserRepository userRepository,
         IConfiguration config) : ITokenService
     {
 
@@ -20,7 +21,7 @@ namespace FilmDive.Server.Services.Token
 
             var principal = GetPrincipalFromExpiredToken(model.AccessToken);
 
-            var user = userContext.Logins.SingleOrDefault(u => u.UserName == principal.Identity.Name);
+            var user = await userRepository.FindUserAsync(principal.Identity.Name);
 
             if (user is null || user.RefreshToken != model.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
                 throw new InvalidOperationException();
@@ -29,7 +30,7 @@ namespace FilmDive.Server.Services.Token
             var newRefreshToken = GenerateRefreshToken();
 
             user.RefreshToken = newRefreshToken;
-            await userContext.SaveChangesAsync();
+            await userRepository.UpdateUserAsync(user.Id, user);
 
             return new AuthenticatedResponse()
             {
@@ -40,12 +41,12 @@ namespace FilmDive.Server.Services.Token
 
         public async Task RevokeAsync(string username)
         {
-            var user = userContext.Logins.SingleOrDefault(u => u.UserName == username);
+            var user = await userRepository.FindUserAsync(username);
             if (user == null) throw new InvalidOperationException();
 
             user.RefreshToken = null;
 
-            await userContext.SaveChangesAsync();
+            await userRepository.UpdateUserAsync(user.Id, user);
         }
 
         public string GenerateAccessToken(IEnumerable<Claim> claims)

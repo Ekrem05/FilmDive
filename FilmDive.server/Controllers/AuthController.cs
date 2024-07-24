@@ -11,7 +11,7 @@ namespace FilmDive.Server.Controllers
     {
 
         [HttpPost, Route("login")]
-        public async Task<ApiResponse<AuthenticatedResponse>> Login([FromBody] LoginViewModel loginModel)
+        public async Task<ApiResponse<AuthenticatedResponse>> Login([FromBody] UserViewModel loginModel)
         {
             var data = await userService.LogInAsync(loginModel);
             return new ApiResponse<AuthenticatedResponse>()
