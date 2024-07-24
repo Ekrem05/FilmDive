@@ -1,6 +1,7 @@
 ﻿using FilmDive.Server.Services.Movies;
 using Microsoft.AspNetCore.Mvc;
 using FilmDive.Server.ViewModels.Movie;
+using Microsoft.AspNetCore.Authorization;
 namespace FilmDive.Server.Controllers
 {
     [Route("[controller]")]
@@ -13,7 +14,7 @@ namespace FilmDive.Server.Controllers
         {
             movieService = _movieService;
         }
-        [HttpGet("popular")]
+        [HttpGet("popular"), Authorize]
         public async Task<IActionResult> GetPopularMovies()
         {
             return Ok(await movieService.GetMostPopularAsync());
