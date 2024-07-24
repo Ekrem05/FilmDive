@@ -1,8 +1,10 @@
 using FilmDive.Server.Data;
+using FilmDive.Server.Infrastructure.Middleware;
 using FilmDive.Server.Services.Movie;
 using FilmDive.Server.Services.MovieClient;
 using FilmDive.Server.Services.Movies;
 using FilmDive.Server.Services.Token;
+using FilmDive.Server.Services.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -37,7 +39,8 @@ builder.Services.AddDbContext<UserContext>(opts =>
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IMovieClientService, MovieClientService>(); 
-builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -58,5 +61,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.Run();
