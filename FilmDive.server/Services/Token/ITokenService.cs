@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using FilmDive.Server.ViewModels.Api;
+using FilmDive.Server.ViewModels.Token;
+using System.Security.Claims;
 
 namespace FilmDive.Server.Services.Token
 {
@@ -6,6 +8,7 @@ namespace FilmDive.Server.Services.Token
     {
         string GenerateAccessToken(IEnumerable<Claim> claims);
         string GenerateRefreshToken();
-        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
+        Task<AuthenticatedResponse> RefreshAsync(TokenApiModel model);
+        Task RevokeAsync(string username);
     }
 }

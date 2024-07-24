@@ -1,4 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using FilmDive.Server.Data;
+using FilmDive.Server.ViewModels.Api;
+using FilmDive.Server.ViewModels.Token;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -6,8 +9,45 @@ using System.Text;
 
 namespace FilmDive.Server.Services.Token
 {
-    public class TokenService(IConfiguration config) : ITokenService
+    public class TokenService(UserContext userContext,
+        IConfiguration config) : ITokenService
     {
+       
+        public async Task<AuthenticatedResponse> RefreshAsync(TokenApiModel model)
+        {
+            if (model is null)
+                throw new ArgumentException(nameof(model));
+
+            var principal = GetPrincipalFromExpiredToken(model.AccessToken);
+
+            var user = userContext.Logins.SingleOrDefault(u => u.UserName == principal.Identity.Name);
+
+            if (user is null || user.RefreshToken != model.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+                throw new InvalidOperationException();
+
+            var newAccessToken = GenerateAccessToken(principal.Claims);
+            var newRefreshToken = GenerateRefreshToken();
+
+            user.RefreshToken = newRefreshToken;
+            await userContext.SaveChangesAsync();
+
+            return new AuthenticatedResponse()
+            {
+                Token = newAccessToken,
+                RefreshToken = newRefreshToken
+            };
+        }
+
+        public async Task RevokeAsync(string username)
+        {
+            var user = userContext.Logins.SingleOrDefault(u => u.UserName == username);
+            if (user == null) throw new InvalidOperationException();
+
+            user.RefreshToken = null;
+
+            await userContext.SaveChangesAsync();
+        }
+
         public string GenerateAccessToken(IEnumerable<Claim> claims)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Key"]));
@@ -35,15 +75,15 @@ namespace FilmDive.Server.Services.Token
             }
         }
 
-        public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
+        private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {
             var tokenValidationParameters = new TokenValidationParameters
             {
-                ValidateAudience = false, 
+                ValidateAudience = false,
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtSettings:Key"])),
-                ValidateLifetime = false 
+                ValidateLifetime = false
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
