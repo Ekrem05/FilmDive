@@ -16,7 +16,8 @@ var config = builder.Configuration;
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthentication(opt => {
+builder.Services.AddAuthentication(opt =>
+{
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
@@ -38,7 +39,7 @@ builder.Services.AddDbContext<UserContext>(opts =>
     opts.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped<IMovieService, MovieService>();
-builder.Services.AddScoped<IMovieClientService, MovieClientService>(); 
+builder.Services.AddScoped<IMovieClientService, MovieClientService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();

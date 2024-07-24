@@ -1,7 +1,4 @@
-﻿
-using Microsoft.Extensions.Configuration;
-
-namespace FilmDive.Server.Services.MovieClient
+﻿namespace FilmDive.Server.Services.MovieClient
 {
     public class MovieClientService : IMovieClientService
     {

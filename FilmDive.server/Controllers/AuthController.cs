@@ -2,7 +2,6 @@
 using FilmDive.Server.ViewModels.Api;
 using FilmDive.Server.ViewModels.User;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace FilmDive.Server.Controllers
 {
@@ -12,7 +11,7 @@ namespace FilmDive.Server.Controllers
     {
 
         [HttpPost, Route("login")]
-        public async Task<ApiResponse<AuthenticatedResponse>> Login ([FromBody] LoginViewModel loginModel)
+        public async Task<ApiResponse<AuthenticatedResponse>> Login([FromBody] LoginViewModel loginModel)
         {
             var data = await userService.LogInAsync(loginModel);
             return new ApiResponse<AuthenticatedResponse>()

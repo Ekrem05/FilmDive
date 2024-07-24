@@ -1,4 +1,4 @@
-﻿using FilmDive.Server.Attributes;
+﻿using FilmDive.Server.Infrastructure.Attributes;
 using FilmDive.Server.ViewModels.Movie.VideoDtos;
 using Newtonsoft.Json;
 
@@ -22,7 +22,7 @@ namespace FilmDive.Server.ViewModels.Movie
         public string Homepage { get; set; } = string.Empty;
 
         [JsonProperty("imdb_id")]
-        public string ImdbId { get; set; } = string.Empty; 
+        public string ImdbId { get; set; } = string.Empty;
 
         [JsonProperty("origin_country")]
         public List<string> OriginCountry { get; set; } = new List<string>();
@@ -49,7 +49,7 @@ namespace FilmDive.Server.ViewModels.Movie
 
         public int Runtime { get; set; }
 
-        public string Status { get; set; } = string.Empty;  
+        public string Status { get; set; } = string.Empty;
 
         public Credit Credits { get; set; } = new Credit();
 

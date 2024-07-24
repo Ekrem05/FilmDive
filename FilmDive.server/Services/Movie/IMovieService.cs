@@ -1,5 +1,4 @@
 ﻿using FilmDive.Server.ViewModels.Movie;
-using System.Collections;
 
 namespace FilmDive.Server.Services.Movies
 {

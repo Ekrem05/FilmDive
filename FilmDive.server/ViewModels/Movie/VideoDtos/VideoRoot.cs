@@ -8,6 +8,6 @@ namespace FilmDive.Server.ViewModels.Movie.VideoDtos
         public int Id { get; set; }
 
         [JsonProperty("results")]
-        public List<Video> Videos { get; set; }=new List<Video>();
+        public List<Video> Videos { get; set; } = new List<Video>();
     }
 }

@@ -12,7 +12,7 @@ namespace FilmDive.Server.Services.Token
     public class TokenService(UserContext userContext,
         IConfiguration config) : ITokenService
     {
-       
+
         public async Task<AuthenticatedResponse> RefreshAsync(TokenApiModel model)
         {
             if (model is null)

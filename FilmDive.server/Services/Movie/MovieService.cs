@@ -14,17 +14,17 @@ namespace FilmDive.Server.Services.Movie
         public MovieService(IMovieClientService _movieClientService, IConfiguration _configuration)
         {
             movieClientService = _movieClientService;
-            configuration= _configuration;
+            configuration = _configuration;
         }
 
         public async Task<IEnumerable<TrendingMovie>> GetTrendingAsync()
         {
             string body = await movieClientService
                 .SendRequestAsync("https://api.themoviedb.org/3/trending/movie/day?language=en-US", GetApiKey());
-            var movies=JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
 
             return movies.Result;
-            
+
         }
 
 
@@ -47,8 +47,8 @@ namespace FilmDive.Server.Services.Movie
         }
         public async Task<IEnumerable<Genre>> GetGenresAsync()
         {
-           string body = await movieClientService
-               .SendRequestAsync("https://api.themoviedb.org/3/genre/movie/list", GetApiKey());
+            string body = await movieClientService
+                .SendRequestAsync("https://api.themoviedb.org/3/genre/movie/list", GetApiKey());
             var genresResponse = JsonConvert.DeserializeObject<GenresResponse>(body);
 
             return genresResponse.Genres;
@@ -60,7 +60,7 @@ namespace FilmDive.Server.Services.Movie
             var movie = JsonConvert.DeserializeObject<MovieDetails>(movieDetailsReq);
             var creditsReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/credits?language=en-US", GetApiKey());
             var credits = JsonConvert.DeserializeObject<Credit>(creditsReq);
-            movie.ProductionCompanies=movie.ProductionCompanies.Take(7).ToList();
+            movie.ProductionCompanies = movie.ProductionCompanies.Take(7).ToList();
             movie.Credits = new Credit()
             {
                 Id = credits.Id,
@@ -69,12 +69,13 @@ namespace FilmDive.Server.Services.Movie
             };
             var videosReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/videos?language=en-US", GetApiKey());
             var videos = JsonConvert.DeserializeObject<VideoRoot>(videosReq);
-            movie.Videos = videos.Videos.Where(video=>video.Site== "YouTube").ToList();
+            movie.Videos = videos.Videos.Where(video => video.Site == "YouTube").ToList();
             return movie;
         }
 
-        public async Task<ApiMoviesRepsone<TrendingMovie>> BrowseAsync(MovieBrowse model){
-          
+        public async Task<ApiMoviesRepsone<TrendingMovie>> BrowseAsync(MovieBrowse model)
+        {
+
             var baseUrl = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US";
             var queryParams = new List<string>();
 
@@ -107,7 +108,7 @@ namespace FilmDive.Server.Services.Movie
             {
                 queryParams.Add($"vote_average.lte={model.ToRating}");
             }
-             string genres= string.Join("%2C",model.WithGenres);
+            string genres = string.Join("%2C", model.WithGenres);
             if (!string.IsNullOrEmpty(genres))
             {
                 queryParams.Add($"with_genres={genres}");
@@ -123,8 +124,8 @@ namespace FilmDive.Server.Services.Movie
 
         public async Task<IEnumerable<TrendingMovie>> GetRecomendationsAsync(string id)
         {
-             string body = await movieClientService
-               .SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/recommendations", GetApiKey());
+            string body = await movieClientService
+              .SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/recommendations", GetApiKey());
             var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
 
             return movies.Result;
@@ -135,6 +136,6 @@ namespace FilmDive.Server.Services.Movie
             return configuration.GetValue<string>("FilmDive");
         }
 
-        
+
     }
 }

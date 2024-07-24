@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace FilmDive.Server.ViewModels.Movie
+﻿namespace FilmDive.Server.ViewModels.Movie
 {
     public class Crew
     {

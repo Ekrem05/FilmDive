@@ -1,4 +1,4 @@
-﻿using FilmDive.Server.Attributes;
+﻿using FilmDive.Server.Infrastructure.Attributes;
 using Newtonsoft.Json;
 
 namespace FilmDive.Server.ViewModels.Movie
@@ -15,7 +15,7 @@ namespace FilmDive.Server.ViewModels.Movie
         public string Title { get; set; } = string.Empty;
 
         [JsonProperty("overview")]
-        public string Overview { get;set; } = string.Empty;
+        public string Overview { get; set; } = string.Empty;
 
         [JsonProperty("poster_path")]
         public string PosterPath { get; set; } = string.Empty;
