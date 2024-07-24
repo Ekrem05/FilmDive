@@ -14,7 +14,7 @@ namespace FilmDive.Server.Controllers
         {
             movieService = _movieService;
         }
-        [HttpGet("popular"), Authorize]
+        [HttpGet("popular"),Authorize]
         public async Task<IActionResult> GetPopularMovies()
         {
             return Ok(await movieService.GetMostPopularAsync());
