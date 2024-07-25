@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmDive.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthController(IUserService userService) : ControllerBase
     {
-        [HttpPost, Route("signin")]
-        public async Task<ApiResponse<AuthenticatedResponse>> Signin([FromBody] UserViewModel loginModel)
+        [HttpPost, Route("signup")]
+        public async Task<ApiResponse<AuthenticatedResponse>> Signup([FromBody] UserViewModel loginModel)
         {
             var data = await userService.SignInAsync(loginModel);
             return new ApiResponse<AuthenticatedResponse>()
