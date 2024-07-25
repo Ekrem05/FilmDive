@@ -3,6 +3,7 @@ import NavButton from "./NavButton";
 import { Link } from "react-router-dom";
 import { useScroll, motion, useTransform } from "framer-motion";
 import { useEffect } from "react";
+import UserSection from "./UserSection";
 export default function Navigation() {
   const { scrollY } = useScroll();
   const navOpacity = useTransform(
@@ -39,17 +40,21 @@ export default function Navigation() {
             <NavButton label={"TV Series"} link="/browse" />
           </li>
           <li>
-            <NavButton label={"Browse"} link="/browse" />
+            <NavButton label={"Watch list"} link="/watch" />
           </li>
         </ul>
-        <ul className="flex gap-4">
-          <li>
-            <NavButton label={"Sign Up"} link="/auth/signup" />
-          </li>
-          <li>
-            <NavButton label={"Log In"} link="/auth/login" />
-          </li>
-        </ul>
+        {!localStorage.getItem("token") ? (
+          <ul className="flex gap-4">
+            <li>
+              <NavButton label={"Sign Up"} link="/auth/signup" />
+            </li>
+            <li>
+              <NavButton label={"Log In"} link="/auth/login" />
+            </li>
+          </ul>
+        ) : (
+          <UserSection />
+        )}
       </ul>
     </motion.header>
   );

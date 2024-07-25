@@ -9,6 +9,7 @@ namespace FilmDive.Server.Services.Token
         string GenerateAccessToken(IEnumerable<Claim> claims);
         string GenerateRefreshToken();
         Task<AuthenticatedResponse> RefreshAsync(TokenApiModel model);
+        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
         Task RevokeAsync(string username);
     }
 }

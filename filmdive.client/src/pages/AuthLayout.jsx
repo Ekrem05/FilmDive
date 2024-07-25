@@ -4,9 +4,6 @@ import { useEffect } from "react";
 const client = new QueryClient();
 
 export default function AuthLayout() {
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-  }, []);
   return (
     <>
       <QueryClientProvider client={client}>

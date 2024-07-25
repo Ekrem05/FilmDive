@@ -12,6 +12,18 @@ namespace FilmDive.Server.Services.UserServiceFolder
     public class UserService(IUserRepository userRepository,
         ITokenService tokenService) : IUserService
     {
+        public async Task<UserDetails> GetAsync(string accessToken)
+        {
+            var principal = tokenService.GetPrincipalFromExpiredToken(accessToken);
+
+            var user = await userRepository.FindUserAsync(principal.Identity.Name);
+
+            return new UserDetails()
+            {
+                Email = user.Email,
+            };
+        }
+
         public async Task<AuthenticatedResponse> LogInAsync(UserViewModel model)
         {
             if (model is null)

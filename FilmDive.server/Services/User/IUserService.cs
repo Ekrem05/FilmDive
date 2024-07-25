@@ -7,5 +7,7 @@ namespace FilmDive.Server.Services.UserServiceFolder
     {   
         Task<AuthenticatedResponse> SignInAsync(UserViewModel model);
         Task<AuthenticatedResponse> LogInAsync(UserViewModel model);
+        Task<UserDetails> GetAsync(string accessToken);
+
     }
 }

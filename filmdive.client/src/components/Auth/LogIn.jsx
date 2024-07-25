@@ -1,21 +1,33 @@
 import svg from "../../assets/logo-transparent-white.svg";
 import { useInput } from "../hooks/useInput";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { getTrendingMovies } from "../../http/movies";
 import { AnimatePresence, motion } from "framer-motion";
-import { aboveTheFoldAnimation } from "../../utils/animations";
+import { authFoldAnimation } from "../../utils/animations";
 import { isEmail, hasMinLength, isNotEmpty } from "@/utils/validatioin";
 import Input from "./Input";
 import { useEffect, useState } from "react";
 import Button from "../Buttons/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Checkbox from "./Checkbox";
 import { useLocation } from "react-router-dom";
+import { login } from "@/http/auth";
 export default function LogIn() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["trending", "signing"],
     queryFn: getTrendingMovies,
   });
+  const { mutate, isPending: submitting } = useMutation({
+    mutationFn: login,
+    onSuccess: (response) => {
+      if (response.data) {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("refresh token", response.data.refreshToken);
+        navigate("/");
+      }
+    },
+  });
+  const navigate = useNavigate();
   const [currentBg, setCurrentBg] = useState(0);
   useEffect(() => {
     setCurrentBg(Math.floor(Math.random() * 20));
@@ -37,17 +49,19 @@ export default function LogIn() {
   function handleSubmission(event) {
     event.preventDefault();
     if (isEmailValid && isPasswordValid) {
-      /// HTTP Request...
+      const fd = new FormData(event.target);
+      const inputs = Object.fromEntries(fd.entries());
+      mutate({ email: inputs.email, password: inputs.password });
     }
   }
   return (
-    <section className="overflow-hidden relative flex  justify-center bg-bgdrk h-auto pb-8">
+    <section className=" relative flex  justify-center bg-bgdrk h-auto pb-8">
       {data && (
         <>
           <AnimatePresence>
             <motion.img
               key={data[currentBg].title}
-              {...aboveTheFoldAnimation}
+              {...authFoldAnimation}
               while
               id="hero-img"
               src={`https://image.tmdb.org/t/p/original/${data[currentBg].backdropPath}`}
@@ -90,14 +104,23 @@ export default function LogIn() {
                 errMsg="Please enter a valid password"
               />
               <p className="form-actions">
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 500 }}
-                  type="submit"
-                  className="button bg-headersdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-xs xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full"
-                >
-                  Log In
-                </motion.button>
+                {submitting ? (
+                  <button
+                    disabled
+                    className="button bg-headersdrk opacity-50 pt-1 pb-1 pl-3 pr-3 rounded-md text-xs xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full"
+                  >
+                    Logging in ...
+                  </button>
+                ) : (
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 500 }}
+                    type="submit"
+                    className="button bg-headersdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-xs xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full"
+                  >
+                    Log In
+                  </motion.button>
+                )}
               </p>
               <footer className="text-headersdrk flex flex-col gap-5">
                 <div className="flex gap-4">

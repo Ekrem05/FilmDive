@@ -3,7 +3,7 @@ import { useInput } from "../hooks/useInput";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getTrendingMovies } from "../../http/movies";
 import { AnimatePresence, motion } from "framer-motion";
-import { aboveTheFoldAnimation } from "../../utils/animations";
+import { authFoldAnimation } from "../../utils/animations";
 import {
   isEmail,
   hasMinLength,
@@ -70,7 +70,7 @@ export default function SignUp() {
           <AnimatePresence>
             <motion.img
               key={data[currentBg].title}
-              {...aboveTheFoldAnimation}
+              {...authFoldAnimation}
               while
               id="hero-img"
               src={`https://image.tmdb.org/t/p/original/${data[currentBg].backdropPath}`}
