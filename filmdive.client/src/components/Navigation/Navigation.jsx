@@ -44,10 +44,10 @@ export default function Navigation() {
         </ul>
         <ul className="flex gap-4">
           <li>
-            <a className="text-textdrk text-lg font-default">Sign In</a>
+            <NavButton label={"Sign Up"} link="/auth/signup" />
           </li>
           <li>
-            <a className="text-textdrk text-lg font-default">Log In</a>
+            <NavButton label={"Log In"} link="/auth/login" />
           </li>
         </ul>
       </ul>
