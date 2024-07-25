@@ -1,5 +1,5 @@
 export async function getTrendingMovies() {
-  const response = await fetch("Movies/trending", {
+  const response = await fetch("/Movies/trending", {
     headers: {
       "Content-Type": "application/json",
     },
