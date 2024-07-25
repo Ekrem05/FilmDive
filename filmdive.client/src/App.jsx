@@ -3,6 +3,9 @@ import MovieDetails from "./pages/MovieDetails";
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
+import AuthLayout from "./pages/AuthLayout";
+import SignUp from "./components/Auth/SignUp";
+import LogIn from "./components/Auth/LogIn";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +28,20 @@ const router = createBrowserRouter([
       {
         path: "/movie/:id",
         element: <MovieDetails />,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <LogIn />,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
       },
     ],
   },
