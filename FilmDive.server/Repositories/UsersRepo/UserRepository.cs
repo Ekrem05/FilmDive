@@ -10,9 +10,9 @@ namespace FilmDive.Server.Repositories.UserRepo
     {
         public async Task CreateUserAsync(User model)
         {
-            var query = "INSERT INTO public.\"Users\" (\"Username\", \"Password\", \"RefreshToken\", \"RefreshTokenExpiryTime\") VALUES (@Username, @Password, @RefreshToken, @RefreshTokenExpiryTime)";
+            var query = "INSERT INTO public.\"Users\" (\"Email\", \"Password\", \"RefreshToken\", \"RefreshTokenExpiryTime\") VALUES (@Email, @Password, @RefreshToken, @RefreshTokenExpiryTime)";
             var parameters = new DynamicParameters();
-            parameters.Add("Username", model.Username, DbType.String);
+            parameters.Add("Email", model.Email, DbType.String);
             parameters.Add("Password", model.Password, DbType.String);
             parameters.Add("RefreshToken", model.RefreshToken, DbType.String);
             parameters.Add("RefreshTokenExpiryTime", model.RefreshTokenExpiryTime, DbType.DateTime);
@@ -27,27 +27,27 @@ namespace FilmDive.Server.Repositories.UserRepo
         {
             using (var connection = context.CreateConnection())
             {
-                var user = await connection.QuerySingleAsync<User>("SELECT * FROM public.\"Users\" WHERE \"Username\" = @username AND \"Password\" = @password",
-                   new { username = model.Username, password = model.Password });
+                var user = await connection.QuerySingleAsync<User>("SELECT * FROM public.\"Users\" WHERE \"Email\" = @email AND \"Password\" = @password",
+                   new { email = model.Email, password = model.Password });
                 return user;
             }
         }
 
-        public async Task<User> FindUserAsync(string username)
+        public async Task<User> FindUserAsync(string email)
         {
             using (var connection = context.CreateConnection())
             {
-                var user = await connection.QueryFirstOrDefaultAsync<User>("SELECT * FROM public.\"Users\" WHERE \"Username\"=@username",
-                   new { username });
+                var user = await connection.QueryFirstOrDefaultAsync<User>("SELECT * FROM public.\"Users\" WHERE \"Email\"=@email",
+                   new { email });
                 return user;
             }
         }
 
         public async Task UpdateUserAsync(long id, User model)
         {
-            var query = "UPDATE public.\"Users\" SET \"Username\" = @Username, \"Password\" = @Password, \"RefreshToken\" = @RefreshToken, \"RefreshTokenExpiryTime\" = @RefreshTokenExpiryTime WHERE \"Id\" = @id";
+            var query = "UPDATE public.\"Users\" SET \"Email\" = @Email, \"Password\" = @Password, \"RefreshToken\" = @RefreshToken, \"RefreshTokenExpiryTime\" = @RefreshTokenExpiryTime WHERE \"Id\" = @id";
             var parameters = new DynamicParameters();
-            parameters.Add("UserName", model.Username, DbType.String);
+            parameters.Add("Email", model.Email, DbType.String);
             parameters.Add("Password", model.Password, DbType.String);
             parameters.Add("RefreshToken", model.RefreshToken, DbType.String);
             parameters.Add("RefreshTokenExpiryTime", model.RefreshTokenExpiryTime, DbType.DateTime);
