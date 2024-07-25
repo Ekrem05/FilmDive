@@ -18,14 +18,14 @@ namespace FilmDive.Server.Services.UserServiceFolder
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            var user = await userRepository.FindUserAsync(model.Username);
+            var user = await userRepository.FindUserAsync(model.Email);
 
             if (user is null || !BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
                 throw new InvalidOperationException("Wrong username or password");
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.Username)
+                new Claim(ClaimTypes.Name, model.Email)
             };
             var accessToken = tokenService.GenerateAccessToken(claims);
             var refreshToken = tokenService.GenerateRefreshToken();
@@ -49,14 +49,14 @@ namespace FilmDive.Server.Services.UserServiceFolder
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var user = await userRepository.FindUserAsync(model.Username);
+            var user = await userRepository.FindUserAsync(model.Email);
 
             if (user is not null)
                 throw new InvalidOperationException("A user with this username already exists.");
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.Username)
+                new Claim(ClaimTypes.Name, model.Email)
             };
             var accessToken = tokenService.GenerateAccessToken(claims);
             var refreshToken = tokenService.GenerateRefreshToken();
@@ -65,7 +65,7 @@ namespace FilmDive.Server.Services.UserServiceFolder
 
             User newUser = new User()
             {
-                Username = model.Username,
+                Email = model.Email,
                 Password = hashedPassword,
                 RefreshToken = refreshToken,
                 RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7)
