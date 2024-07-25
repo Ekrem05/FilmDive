@@ -5,7 +5,7 @@ using FilmDive.Server.Services.Movie;
 using FilmDive.Server.Services.MovieClient;
 using FilmDive.Server.Services.Movies;
 using FilmDive.Server.Services.Token;
-using FilmDive.Server.Services.User;
+using FilmDive.Server.Services.UserServiceFolder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
