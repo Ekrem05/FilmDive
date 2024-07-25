@@ -1,3 +1,4 @@
+const colors = require("tailwindcss/colors");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -32,6 +33,9 @@ module.exports = {
       },
     },
     extend: {
+      colors: {
+        ...colors,
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
