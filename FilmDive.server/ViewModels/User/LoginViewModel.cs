@@ -4,11 +4,11 @@ using FilmDive.Server.Infrastructure.Attributes;
 
 namespace FilmDive.Server.ViewModels.User
 {
-    public class UserViewModel
+    public class LoginViewModel
     {
-        [Required,EmailAddress]
-        [MinLength(2, ErrorMessage = Cretentials.InvalidEmailLength)]
-        public string Email { get; set; } = string.Empty;
+        [Required]
+        [StringLength(10, MinimumLength = 3, ErrorMessage = Cretentials.InvalidUsernameLength)]
+        public string Username { get; set; } = string.Empty;
 
         [Required]
         [StringLength(20, MinimumLength = 5, ErrorMessage = Cretentials.InvalidPasswordLength)]
