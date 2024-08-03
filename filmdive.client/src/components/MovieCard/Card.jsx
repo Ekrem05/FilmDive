@@ -3,9 +3,9 @@ import Imdb from "../Imdb/Imdb";
 import { Link } from "react-router-dom";
 import placeholder from "../../assets/MoviePlaceholder.jpg";
 import LazyImage from "../Image/LazyImage";
-export default function MovieCard({ movie }) {
+export default function Card({ subject, movie }) {
   return (
-    <Link to={`/movie/${movie.id}`} className="w-32 2xl:w-full xl:w-60">
+    <Link to={`/${subject}/${movie.id}`} className="w-32 2xl:w-full xl:w-60">
       <motion.li
         className="flex flex-col  bg-black rounded-xl pb-2 hover:cursor-pointer "
         whileHover={{ scale: 1.1 }}

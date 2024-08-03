@@ -9,8 +9,6 @@ export default function MovieStats({ movie }) {
           rating={movie.voteAverage.toFixed(1)}
           ratingColor="text-accentdrk"
         />
-        <div className="text-accentdrk ">{movie.runtime}m</div>
-        <div className="text-accentdrk ">{movie.releaseDate.slice(0, 4)}</div>
       </section>
       <p className="text-accentdrk tracking-tight ">{genres}</p>
       <p className="text-highlightdrk w-[58rem] opacity-80">{movie.overview}</p>

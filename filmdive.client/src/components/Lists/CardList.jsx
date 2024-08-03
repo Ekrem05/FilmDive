@@ -1,24 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPopularMovies } from "../../http/movies";
 import { useEffect, useRef } from "react";
-import MovieCard from "../MovieCard/MovieCard";
+import MovieCard from "../MovieCard/Card";
 import { useInView } from "react-intersection-observer";
 import MovieListSkeleton from "../Skeleton/MovieListSkeleton";
+import { getAiringTodayTvShows } from "@/http/shows";
 
-export default function PopularMovies() {
+export default function CardList({ fn, fnKey, title, subject }) {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ["popular"],
-    queryFn: getPopularMovies,
+    queryKey: fnKey,
+    queryFn: fn,
     enabled: inView,
   });
   const list = useRef();
-  useEffect(() => {
-    console.log(inView);
-  }, [inView]);
+
   function handleWheel(event) {
     event.preventDefault();
     list.current.scrollLeft += event.deltaY;
@@ -32,7 +30,7 @@ export default function PopularMovies() {
     <>
       <section className="pt-10">
         <h3 className="2xl:text-5xl xl:text-3xl font-bold text-headersdrk  mb-4 ">
-          Most Popular
+          {title}
         </h3>
         {!data && (
           <div className="flex w-full gap-11" ref={ref}>
@@ -45,7 +43,9 @@ export default function PopularMovies() {
             ref={list}
           >
             {data.map((movie) => {
-              return <MovieCard key={movie.id} movie={movie} />;
+              return (
+                <MovieCard key={movie.id} movie={movie} subject={subject} />
+              );
             })}
           </ul>
         )}
