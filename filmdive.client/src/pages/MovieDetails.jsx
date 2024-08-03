@@ -1,6 +1,6 @@
 import { Await, Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getMovieDetails } from "../http/movies";
+import { getMovieDetails, getRecommendations } from "../http/movies";
 import MovieStats from "../components/MovieDetails/MovieStats";
 import MovieCredits from "../components/MovieDetails/MovieCredits";
 import MovieClips from "../components/MovieDetails/MovieClips";
@@ -62,7 +62,11 @@ export default function MovieDetails() {
             </section>
             <Companies data={data.productionCompanies} />
           </section>
-          <YouMayAlsoLike id={data.id} />
+          <YouMayAlsoLike
+            id={data.id}
+            fn={getRecommendations}
+            subject={"movie"}
+          />
         </main>
       )}
     </>
