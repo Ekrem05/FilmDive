@@ -4,7 +4,9 @@ using FilmDive.Server.Repositories.UserRepo;
 using FilmDive.Server.Services.Movie;
 using FilmDive.Server.Services.MovieClient;
 using FilmDive.Server.Services.Movies;
+using FilmDive.Server.Services.People;
 using FilmDive.Server.Services.Token;
+using FilmDive.Server.Services.TVshows;
 using FilmDive.Server.Services.UserServiceFolder;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -39,10 +41,11 @@ builder.Services.AddAuthentication(opt =>
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddScoped<HttpClient>();
 builder.Services.AddScoped<IMovieService, MovieService>();
-builder.Services.AddScoped<IMovieClientService, MovieClientService>();
+builder.Services.AddScoped<IMovieClientService, MovieClient>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<IPeopleService, PeopleService>();
+builder.Services.AddScoped<IShowsService, ShowsService>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();   
 var app = builder.Build();
 
