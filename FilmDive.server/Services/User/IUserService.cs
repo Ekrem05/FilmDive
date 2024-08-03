@@ -5,8 +5,8 @@ namespace FilmDive.Server.Services.UserServiceFolder
 {
     public interface IUserService
     {   
-        Task<AuthenticatedResponse> SignInAsync(UserViewModel model);
-        Task<AuthenticatedResponse> LogInAsync(UserViewModel model);
+        Task<AuthenticatedResponse> SignInAsync(SignupViewModel model);
+        Task<AuthenticatedResponse> LogInAsync(LoginViewModel model);
         Task<UserDetails> GetAsync(string accessToken);
 
     }

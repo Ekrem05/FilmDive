@@ -1,5 +1,4 @@
-export async function signup({ email, password }) {
-  console.log("hello", { email, password });
+export async function signup({ email, username, password }) {
   const response = await fetch("/Auth/signup", {
     method: "POST",
     headers: {
@@ -7,30 +6,26 @@ export async function signup({ email, password }) {
     },
     body: JSON.stringify({
       email,
+      username,
       password,
     }),
   });
-  if (!response.ok) {
-    throw new Error();
-  }
   const data = await response.json();
+  console.log(data);
+
   return data;
 }
-export async function login({ email, password }) {
-  console.log("hello", { email, password });
+export async function login({ username, password }) {
   const response = await fetch("/Auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email,
+      username,
       password,
     }),
   });
-  if (!response.ok) {
-    throw new Error();
-  }
   const data = await response.json();
   return data;
 }

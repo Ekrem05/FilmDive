@@ -6,22 +6,14 @@ using Newtonsoft.Json;
 
 namespace FilmDive.Server.Services.Movie
 {
-    public class MovieService : IMovieService
+    public class MovieService(IMovieClientService movieClientService, IConfiguration configuration) : IMovieService
     {
-        private readonly IMovieClientService movieClientService;
-        private readonly IConfiguration configuration;
-
-        public MovieService(IMovieClientService _movieClientService, IConfiguration _configuration)
-        {
-            movieClientService = _movieClientService;
-            configuration = _configuration;
-        }
 
         public async Task<IEnumerable<TrendingMovie>> GetTrendingAsync()
         {
             string body = await movieClientService
                 .SendRequestAsync("https://api.themoviedb.org/3/trending/movie/day?language=en-US", GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
 
             return movies.Result;
 
@@ -32,7 +24,7 @@ namespace FilmDive.Server.Services.Movie
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1", GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
 
             return movies.Result;
         }
@@ -41,7 +33,15 @@ namespace FilmDive.Server.Services.Movie
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/movie/upcoming", GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
+
+            return movies.Result;
+        }
+        public async Task<IEnumerable<TrendingMovie>> GetNowPlayingAsync()
+        {
+            string body = await movieClientService
+              .SendRequestAsync("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", GetApiKey());
+            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
 
             return movies.Result;
         }
@@ -72,8 +72,8 @@ namespace FilmDive.Server.Services.Movie
             movie.Videos = videos.Videos.Where(video => video.Site == "YouTube").ToList();
             return movie;
         }
-
-        public async Task<ApiMoviesRepsone<TrendingMovie>> BrowseAsync(MovieBrowse model)
+      
+        public async Task<ApiRepsone<TrendingMovie>> BrowseAsync(MovieBrowse model)
         {
 
             var baseUrl = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US";
@@ -118,15 +118,15 @@ namespace FilmDive.Server.Services.Movie
             var requestUrl = $"{baseUrl}&{queryString}";
 
             var searchRequest = await movieClientService.SendRequestAsync(requestUrl, GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(searchRequest);
+            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(searchRequest);
             return movies;
         }
 
-        public async Task<IEnumerable<TrendingMovie>> GetRecomendationsAsync(string id)
+        public async Task<IEnumerable<TrendingMovie>> GetRecommendationsAsync(string id)
         {
             string body = await movieClientService
               .SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/recommendations", GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiMoviesRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
 
             return movies.Result;
         }
@@ -136,6 +136,6 @@ namespace FilmDive.Server.Services.Movie
             return configuration.GetValue<string>("FilmDive");
         }
 
-
+       
     }
 }

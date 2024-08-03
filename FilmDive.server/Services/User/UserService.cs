@@ -20,24 +20,25 @@ namespace FilmDive.Server.Services.UserServiceFolder
 
             return new UserDetails()
             {
-                Email = user.Email,
+                Username = principal.Identity.Name,
+                Email = principal.FindFirstValue("Email"),
             };
         }
 
-        public async Task<AuthenticatedResponse> LogInAsync(UserViewModel model)
+        public async Task<AuthenticatedResponse> LogInAsync(LoginViewModel model)
         {
             if (model is null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            var user = await userRepository.FindUserAsync(model.Email);
+            var user = await userRepository.FindUserAsync(model.Username);
 
             if (user is null || !BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
                 throw new InvalidOperationException("Wrong username or password");
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.Email)
+                new Claim(ClaimTypes.Name, model.Username)
             };
             var accessToken = tokenService.GenerateAccessToken(claims);
             var refreshToken = tokenService.GenerateRefreshToken();
@@ -54,21 +55,22 @@ namespace FilmDive.Server.Services.UserServiceFolder
             };
         }
 
-        public async Task<AuthenticatedResponse> SignInAsync(UserViewModel model)
+        public async Task<AuthenticatedResponse> SignInAsync(SignupViewModel model)
         {
             if (model is null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var user = await userRepository.FindUserAsync(model.Email);
+            var user = await userRepository.DoesUserExistAsync(model.Username,model.Email);
 
             if (user is not null)
                 throw new InvalidOperationException("A user with this username already exists.");
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.Email)
+                new Claim(ClaimTypes.Name, model.Username),
+                new Claim(ClaimTypes.Email, model.Email)
             };
             var accessToken = tokenService.GenerateAccessToken(claims);
             var refreshToken = tokenService.GenerateRefreshToken();
@@ -77,6 +79,7 @@ namespace FilmDive.Server.Services.UserServiceFolder
 
             User newUser = new User()
             {
+                Username = model.Username,
                 Email = model.Email,
                 Password = hashedPassword,
                 RefreshToken = refreshToken,

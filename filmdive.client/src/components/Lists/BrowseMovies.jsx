@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { browseMovies, getPopularMovies } from "../../http/movies";
 import { useEffect, useRef } from "react";
-import MovieCard from "../MovieCard/MovieCard";
+import MovieCard from "../MovieCard/Card";
 import { useInView } from "react-intersection-observer";
 import MovieListSkeleton from "../Skeleton/MovieListSkeleton";
 import { useDispatch, useSelector } from "react-redux";

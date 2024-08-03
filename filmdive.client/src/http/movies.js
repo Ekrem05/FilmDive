@@ -41,7 +41,6 @@ export async function browseMovies({
   toYear,
   orderBy,
 }) {
-  console.log("asdasd");
   const response = await fetch("/Movies/browse", {
     method: "POST",
     headers: {
@@ -63,6 +62,18 @@ export async function browseMovies({
 }
 export async function getUpcomingMovies() {
   const response = await fetch("Movies/upcoming", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error();
+  }
+  const data = await response.json();
+  return data;
+}
+export async function getNowPlayingMovies() {
+  const response = await fetch("Movies/now-playing", {
     headers: {
       "Content-Type": "application/json",
     },

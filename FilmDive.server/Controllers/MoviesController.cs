@@ -6,15 +6,10 @@ namespace FilmDive.Server.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class MoviesController : ControllerBase
+    public class MoviesController(IMovieService movieService) : ControllerBase
     {
-        private readonly IMovieService movieService;
 
-        public MoviesController(IMovieService _movieService)
-        {
-            movieService = _movieService;
-        }
-        [HttpGet("popular"), Authorize]
+        [HttpGet("popular")]
         public async Task<IActionResult> GetPopularMovies()
         {
             return Ok(await movieService.GetMostPopularAsync());
@@ -24,6 +19,12 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetTrendingMovies()
         {
             return Ok(await movieService.GetTrendingAsync());
+        }
+
+        [HttpGet("now-playing")]
+        public async Task<IActionResult> GetNowPlayingAsync()
+        {
+            return Ok(await movieService.GetNowPlayingAsync());
         }
 
         [HttpGet("upcoming")]
@@ -37,9 +38,9 @@ namespace FilmDive.Server.Controllers
             return Ok(await movieService.GetDetailsAsync(id));
         }
         [HttpGet("recommend")]
-        public async Task<IActionResult> GetRecomendations(string id)
+        public async Task<IActionResult> GetRecommendationsAsync(string id)
         {
-            return Ok(await movieService.GetRecomendationsAsync(id));
+            return Ok(await movieService.GetRecommendationsAsync(id));
         }
         [HttpGet("genres")]
         public async Task<IActionResult> GetGenres()

@@ -1,10 +1,10 @@
 ﻿namespace FilmDive.Server.Services.MovieClient
 {
-    public class MovieClientService : IMovieClientService
+    public class MovieClient : IMovieClientService
     {
         private readonly HttpClient client;
 
-        public MovieClientService(HttpClient _httpClient)
+        public MovieClient(HttpClient _httpClient)
         {
             client = _httpClient;
         }

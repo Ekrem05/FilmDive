@@ -21,7 +21,7 @@ namespace FilmDive.Server.Services.Token
 
             var principal = GetPrincipalFromExpiredToken(model.AccessToken);
 
-            var user = await userRepository.FindUserAsync(principal.Identity.Name);
+            var user = await userRepository.DoesUserExistAsync(principal.Identity.Name,principal.FindFirstValue("Email"));
 
             if (user is null || user.RefreshToken != model.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
                 throw new InvalidOperationException();
