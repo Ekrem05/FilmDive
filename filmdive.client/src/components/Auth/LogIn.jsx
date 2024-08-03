@@ -4,7 +4,14 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { getTrendingMovies } from "../../http/movies";
 import { AnimatePresence, motion } from "framer-motion";
 import { authFoldAnimation } from "../../utils/animations";
-import { isEmail, hasMinLength, isNotEmpty } from "@/utils/validatioin";
+import {
+  hasMinLength,
+  isNotEmpty,
+  hasMaxLength,
+  containsNumber,
+  passwordValidations,
+  usernameValidations,
+} from "@/utils/validatioin";
 import Input from "./Input";
 import { useEffect, useState } from "react";
 import Button from "../Buttons/Button";
@@ -13,6 +20,11 @@ import Checkbox from "./Checkbox";
 import { useLocation } from "react-router-dom";
 import { login } from "@/http/auth";
 export default function LogIn() {
+  const [serverValidation, setServerValidation] = useState({
+    username: true,
+    password: true,
+    unauthorized: false,
+  });
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["trending", "signing"],
     queryFn: getTrendingMovies,
@@ -25,34 +37,71 @@ export default function LogIn() {
         localStorage.setItem("refresh token", response.data.refreshToken);
         navigate("/");
       }
+      if (response.status === 400) {
+        const newValidationState = {
+          username: true,
+          password: true,
+          unauthorized: false,
+        };
+
+        if (response.errors) {
+          const errors = response.errors;
+          if (errors.Username) {
+            newValidationState.username = false;
+          }
+          if (errors.Password) {
+            newValidationState.password = false;
+          }
+          if (errors[0]) {
+            newValidationState.unauthorized = true;
+          }
+        }
+        setServerValidation(newValidationState);
+      }
     },
   });
   const navigate = useNavigate();
   const [currentBg, setCurrentBg] = useState(0);
   useEffect(() => {
-    setCurrentBg(Math.floor(Math.random() * 20));
+    setCurrentBg(Math.floor(Math.random() * 15));
   }, [data]);
 
   const {
-    inputValue: email,
-    isValid: isEmailValid,
-    handleChange: handleEmailChange,
-    handleBlur: handleEmailBlur,
-  } = useInput("", (value) => isEmail(value) && isNotEmpty(value));
+    inputValue: username,
+    isValid: isUsernameValid,
+    handleChange: handleUsernameChange,
+    handleBlur: handleUsernameBlur,
+  } = useInput(
+    "",
+    (value) =>
+      isNotEmpty(value) && hasMinLength(value, 3) && hasMaxLength(value, 10)
+  );
   const {
     inputValue: password,
     isValid: isPasswordValid,
     handleChange: handlePasswordChange,
     handleBlur: handlePasswordBlur,
-  } = useInput("", (value) => hasMinLength(value, 5));
-
+  } = useInput(
+    "",
+    (value) =>
+      hasMinLength(value, 5) && hasMaxLength(value, 20) && containsNumber(value)
+  );
+  useEffect(() => {
+    setServerValidation({
+      username: true,
+      password: true,
+    });
+  }, [username, password]);
   function handleSubmission(event) {
     event.preventDefault();
-    if (isEmailValid && isPasswordValid) {
+    if (isUsernameValid && isPasswordValid) {
       const fd = new FormData(event.target);
       const inputs = Object.fromEntries(fd.entries());
-      mutate({ email: inputs.email, password: inputs.password });
+      mutate({ username: inputs.username, password: inputs.password });
     }
+  }
+  {
+    console.log(currentBg);
   }
   return (
     <section className=" relative flex  justify-center bg-bgdrk h-auto pb-8">
@@ -80,16 +129,21 @@ export default function LogIn() {
                 Login
               </h2>
               <Input
-                label="Email"
-                id="email"
-                type="email"
-                name="email"
-                placeholder="Email"
-                onBlur={() => handleEmailBlur()}
-                onChange={(event) => handleEmailChange(event.target.value)}
-                value={email}
-                isValid={isEmailValid}
-                errMsg="Please enter a valid email"
+                label="Username"
+                id="username"
+                type="text"
+                name="username"
+                placeholder="Username"
+                onBlur={() => handleUsernameBlur()}
+                onChange={(event) => handleUsernameChange(event.target.value)}
+                value={username}
+                isValid={
+                  serverValidation.username
+                    ? isUsernameValid
+                    : serverValidation.username
+                }
+                errMsg="Please enter a valid username"
+                inputValidations={usernameValidations}
               />
               <Input
                 label="Password"
@@ -100,9 +154,19 @@ export default function LogIn() {
                 onBlur={() => handlePasswordBlur()}
                 onChange={(event) => handlePasswordChange(event.target.value)}
                 value={password}
-                isValid={isPasswordValid}
+                isValid={
+                  serverValidation.password
+                    ? isPasswordValid
+                    : serverValidation.password
+                }
                 errMsg="Please enter a valid password"
+                inputValidations={passwordValidations}
               />
+              {serverValidation.unauthorized && (
+                <div className="text-rose-600">
+                  <p>Wrong username or password</p>
+                </div>
+              )}
               <p className="form-actions">
                 {submitting ? (
                   <button

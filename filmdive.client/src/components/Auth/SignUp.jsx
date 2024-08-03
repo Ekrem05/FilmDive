@@ -10,6 +10,8 @@ import {
   isNotEmpty,
   containsNumber,
   passwordValidations,
+  usernameValidations,
+  hasMaxLength,
 } from "@/utils/validatioin";
 import Input from "./Input";
 import { useEffect, useState } from "react";
@@ -18,6 +20,12 @@ import Checkbox from "./Checkbox";
 import { signup } from "@/http/auth";
 import { useNavigate } from "react-router-dom";
 export default function SignUp() {
+  const [serverValidation, setServerValidation] = useState({
+    email: true,
+    username: true,
+    password: true,
+    userAlreadyExists: false,
+  });
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["trending", "signing"],
     queryFn: getTrendingMovies,
@@ -28,19 +36,58 @@ export default function SignUp() {
       console.log("mutating");
     },
     onSuccess: (response) => {
+      console.log(response);
       if (response.data) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("refresh token", response.data.refreshToken);
         navigate("/");
+      }
+      if (response.status === 400) {
+        const newValidationState = {
+          email: true,
+          username: true,
+          password: true,
+          userAlreadyExists: false,
+        };
+
+        if (response.errors) {
+          const errors = response.errors;
+          if (errors.Email) {
+            newValidationState.email = false;
+          }
+          if (errors.Username) {
+            console.log("usernameerror");
+
+            newValidationState.username = false;
+          }
+          if (errors.Password) {
+            newValidationState.password = false;
+          }
+          if (errors[0]) {
+            console.log("Set");
+            newValidationState.userAlreadyExists = true;
+          }
+        }
+        setServerValidation(newValidationState);
       }
     },
   });
   const navigate = useNavigate();
   const [currentBg, setCurrentBg] = useState(0);
   useEffect(() => {
-    setCurrentBg(Math.floor(Math.random() * 20));
+    setCurrentBg(Math.floor(Math.random() * 15));
   }, [data]);
 
+  const {
+    inputValue: username,
+    isValid: isUsernameValid,
+    handleChange: handleUsernameChange,
+    handleBlur: handleUsernameBlur,
+  } = useInput(
+    "",
+    (value) =>
+      isNotEmpty(value) && hasMinLength(value, 3) && hasMaxLength(value, 10)
+  );
   const {
     inputValue: email,
     isValid: isEmailValid,
@@ -52,16 +99,34 @@ export default function SignUp() {
     isValid: isPasswordValid,
     handleChange: handlePasswordChange,
     handleBlur: handlePasswordBlur,
-  } = useInput("", (value) => hasMinLength(value, 5) && containsNumber(value));
-
+  } = useInput(
+    "",
+    (value) =>
+      hasMinLength(value, 5) && hasMaxLength(value, 20) && containsNumber(value)
+  );
+  useEffect(() => {
+    setServerValidation({
+      email: true,
+      username: true,
+      password: true,
+      userAlreadyExists: false,
+    });
+  }, [username, email, password]);
   function handleSubmission(event) {
     event.preventDefault();
     if (isEmailValid && isPasswordValid) {
       const fd = new FormData(event.target);
       const inputs = Object.fromEntries(fd.entries());
       console.log(inputs);
-      mutate({ email: inputs.email, password: inputs.password });
+      mutate({
+        email: inputs.email,
+        username: inputs.username,
+        password: inputs.password,
+      });
     }
+  }
+  {
+    data;
   }
   return (
     <section className="overflow-hidden relative flex  justify-center bg-bgdrk h-auto pb-8">
@@ -89,6 +154,23 @@ export default function SignUp() {
                 Signup
               </h2>
               <Input
+                label="Username"
+                id="username"
+                type="text"
+                name="username"
+                placeholder="Username"
+                onBlur={() => handleUsernameBlur()}
+                onChange={(event) => handleUsernameChange(event.target.value)}
+                value={username}
+                isValid={
+                  serverValidation.username
+                    ? isUsernameValid
+                    : serverValidation.username
+                }
+                errMsg="Please enter a valid username"
+                inputValidations={usernameValidations}
+              />
+              <Input
                 label="Email"
                 id="email"
                 type="email"
@@ -97,7 +179,9 @@ export default function SignUp() {
                 onBlur={() => handleEmailBlur()}
                 onChange={(event) => handleEmailChange(event.target.value)}
                 value={email}
-                isValid={isEmailValid}
+                isValid={
+                  serverValidation.email ? isEmailValid : serverValidation.email
+                }
                 errMsg="Please enter a valid email"
               />
               <Input
@@ -109,10 +193,19 @@ export default function SignUp() {
                 onBlur={() => handlePasswordBlur()}
                 onChange={(event) => handlePasswordChange(event.target.value)}
                 value={password}
-                isValid={isPasswordValid}
+                isValid={
+                  serverValidation.password
+                    ? isPasswordValid
+                    : serverValidation.password
+                }
                 errMsg="Please enter a valid password"
                 inputValidations={passwordValidations}
               />
+              {serverValidation.userAlreadyExists && (
+                <div className="text-rose-600 ">
+                  <p>User with this email or username already exists</p>
+                </div>
+              )}
               <p className="form-actions">
                 <motion.button
                   whileHover={{ scale: 1.1 }}

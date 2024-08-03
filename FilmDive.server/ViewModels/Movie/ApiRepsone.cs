@@ -2,7 +2,7 @@
 
 namespace FilmDive.Server.ViewModels.Movie
 {
-    public class ApiMoviesRepsone<T>
+    public class ApiRepsone<T>
     {
         [JsonProperty("page")]
         public int Page { get; set; }
