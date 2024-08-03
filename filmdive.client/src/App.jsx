@@ -6,6 +6,7 @@ import Browse from "./pages/Browse";
 import AuthLayout from "./pages/AuthLayout";
 import SignUp from "./components/Auth/SignUp";
 import LogIn from "./components/Auth/LogIn";
+import SeriesDetails from "./pages/SeriesDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/movie/:id",
         element: <MovieDetails />,
+      },
+      {
+        path: "/series/:id",
+        element: <SeriesDetails />,
       },
     ],
   },
