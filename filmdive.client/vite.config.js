@@ -61,6 +61,10 @@ export default defineConfig({
         target,
         secure: false,
       },
+      "/Shows": {
+        target,
+        secure: false,
+      },
     },
 
     port: 5173,
