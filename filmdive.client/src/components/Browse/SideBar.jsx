@@ -1,4 +1,3 @@
-
 import {
   Accordion,
   AccordionContent,
@@ -14,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { browseActions } from "@/store/browse";
 import { browseMovies } from "@/http/movies";
 import YearSelection from "./Year/YearSelection";
+import Cast from "./Cast/Cast";
 export default function SideBar() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["genres"],
@@ -37,7 +37,7 @@ export default function SideBar() {
 
   return (
     <>
-      <ul className="mt-32 flex flex-col px-8 bg-#1F1D36 text-accentdrk h-[800px]">
+      <ul className="mt-32 flex flex-col ml-10 bg-#1F1D36 text-accentdrk h-[800px]">
         <Accordion type="single" className="w-52" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger className="text-2xl text-highlightdrk">
@@ -61,10 +61,10 @@ export default function SideBar() {
         <Accordion type="single" className="w-full" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger className="text-2xl text-highlightdrk">
-              Genres
+              Cast
             </AccordionTrigger>
             <AccordionContent className="w-full">
-              <GenreSelection genres={data} />
+              <Cast />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
