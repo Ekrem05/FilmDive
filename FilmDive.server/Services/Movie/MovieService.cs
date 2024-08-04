@@ -113,7 +113,11 @@ namespace FilmDive.Server.Services.Movie
             {
                 queryParams.Add($"with_genres={genres}");
             }
-
+            string cast = string.Join("%2C", model.WithCast);
+            if (!string.IsNullOrEmpty(cast))
+            {
+                queryParams.Add($"with_people={cast}");
+            }
             var queryString = string.Join("&", queryParams);
             var requestUrl = $"{baseUrl}&{queryString}";
 
