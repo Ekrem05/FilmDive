@@ -9,6 +9,8 @@ namespace FilmDive.Server.ViewModels.Movie
         public int FromRating { get; set; }
         public int ToRating { get; set; }
         public int[]? WithGenres { get; set; }
+        public int[]? WithCast { get; set; }
+
         public int Page { get; set; }
 
     }
