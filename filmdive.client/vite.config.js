@@ -65,6 +65,10 @@ export default defineConfig({
         target,
         secure: false,
       },
+      "/People": {
+        target,
+        secure: false,
+      },
     },
 
     port: 5173,

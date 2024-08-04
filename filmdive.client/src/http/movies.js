@@ -40,6 +40,7 @@ export async function browseMovies({
   fromYear,
   toYear,
   orderBy,
+  cast,
 }) {
   const response = await fetch("/Movies/browse", {
     method: "POST",
@@ -52,6 +53,7 @@ export async function browseMovies({
       fromYear: fromYear,
       toYear: toYear,
       sortBy: orderBy,
+      withCast: cast,
     }),
   });
   if (!response.ok) {

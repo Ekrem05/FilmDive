@@ -10,66 +10,48 @@ import { useParams } from "react-router";
 import { browseActions } from "@/store/browse";
 import Button from "../Buttons/Button";
 import OrderBy from "../Browse/Order/OrderBy";
+import useBrowseMovies from "@/hooks/useBrowseMovies";
 
 export default function BrowseMovies() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
-  const dispatch = useDispatch();
-  const { mutate, isPending: gettingMovies } = useMutation({
-    mutationFn: browseMovies,
-    onMutate: () => {},
-    onSuccess: (data) => {
-      console.log(data);
-      dispatch(browseActions.loadMore(data));
-    },
-  });
-  const { mutate: getFirstPage, isPending } = useMutation({
-    mutationFn: browseMovies,
-    onMutate: () => {},
-    onSuccess: (data) => {
-      console.log(data);
-      dispatch(browseActions.getFirstPage(data));
-    },
-  });
+  const { getFirstPage, loadMore, gettingMovies, isPending } =
+    useBrowseMovies();
   const genres = useSelector((state) => state.browse.genres);
   const movies = useSelector((state) => state.browse.filteredMovies);
-  const { genres: genreIds, year, rating, orderBy } = useParams();
-  console.log({ genres, year, rating, orderBy });
+  const { genres: genreIds, year, rating, orderBy, cast } = useParams();
+  console.log({ genreIds, year, rating, orderBy, cast });
   useEffect(() => {
-    console.log(year);
-    if (genreIds) {
-      const currentYear = new Date().getFullYear();
-      let [fromYear, toYear] = [1878, currentYear];
-      if (year) {
-        [fromYear, toYear] = year.split(";");
-      }
-      getFirstPage({
-        genres: genreIds === "all" ? [] : genreIds.split(" "),
-        fromYear: fromYear,
-        toYear: toYear,
-        orderBy: orderBy ? orderBy : "",
-      });
-    } else {
-      console.log("hlll");
-      getFirstPage({ genres: [] });
-    }
-  }, [genres, genreIds, year, orderBy]);
-  function loadMore() {
-    const currentYear = new Date().getFullYear();
-    let [fromYear, toYear] = [1878, currentYear];
-    if (year) {
+    let [fromYear, toYear] = [0, 0];
+    if (year && year !== "all") {
       [fromYear, toYear] = year.split(";");
     }
-    mutate({
-      genres: genreIds ? (genreIds === "all" ? [] : genreIds.split(" ")) : [],
-      page: movies.page + 1,
+    getFirstPage({
+      genres: genreIds !== "all" && genreIds ? genreIds.split(" ") : [],
       fromYear: fromYear,
       toYear: toYear,
-      orderBy: orderBy ? orderBy : "",
+      orderBy: orderBy && orderBy !== "default" ? orderBy : "",
+      cast: cast && cast !== "all" ? cast.split(" ") : [],
+    });
+  }, [genres, genreIds, year, orderBy, cast]);
+
+  function handleLoadMore() {
+    let [fromYear, toYear] = [0, 0];
+    if (year && year !== "all") {
+      [fromYear, toYear] = year.split(";");
+    }
+    loadMore({
+      page: movies.page + 1,
+      genres: genreIds !== "all" && genreIds ? genreIds.split(" ") : [],
+      fromYear: fromYear,
+      toYear: toYear,
+      orderBy: orderBy && orderBy !== "default" ? orderBy : "",
+      cast: cast && cast !== "all" ? cast.split(" ") : [],
     });
   }
+
   const list = useRef();
   return (
     <>
@@ -104,10 +86,12 @@ export default function BrowseMovies() {
               ref={list}
             >
               {movies.data.map((movie) => {
-                return <MovieCard key={movie.id} movie={movie} />;
+                return (
+                  <MovieCard key={movie.id} movie={movie} subject={"movie"} />
+                );
               })}
             </ul>
-            <Button styling={"mt-16"} onClick={loadMore}>
+            <Button styling={"mt-16"} onClick={handleLoadMore}>
               Load More
             </Button>
           </section>
