@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <Browse />,
         children: [
           {
-            path: ":genres?/:year?/:rating?/:orderBy?",
+            path: ":genres?/:year?/:rating?/:orderBy?/:cast?",
             element: <Browse />,
           },
         ],
