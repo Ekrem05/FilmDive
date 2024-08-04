@@ -16,5 +16,11 @@ namespace FilmDive.Server.Controllers
         {
             return Ok(await peopleService.GetPopularAsync());
         }
+
+        [HttpGet("search/{name}")]
+        public async Task<IActionResult> SearchAsync(string name)
+        {
+            return Ok(await peopleService.SearchAsync(name));
+        }
     }
 }
