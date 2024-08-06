@@ -13,55 +13,41 @@ import { useDispatch } from "react-redux";
 import { browseActions } from "@/store/browse";
 import { browseMovies } from "@/http/movies";
 import YearSelection from "./Year/YearSelection";
-import Cast from "./Cast/Cast";
 import Rating from "./Rating/Rating";
-export default function SideBar() {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ["genres"],
-    queryFn: getGenres,
-  });
-  const { genres, year, rating } = useParams();
-  const dispatch = useDispatch();
+import Cast from "./Cast/Cast";
+import useGenres from "@/hooks/useGenres";
 
-  useEffect(() => {
-    if (data) {
-      if (genres) {
-        const selectedGenres = data.filter((genre) =>
-          genres.split(" ").includes(`${genre.id}`)
-        );
-        dispatch(browseActions.setGenres(selectedGenres));
-      } else {
-        dispatch(browseActions.setGenres(""));
-      }
-    }
-  }, [data, genres]);
+export default function SideBar() {
+  const { genres, year, rating } = useParams();
+  const { isPending, isError, data, error } = useGenres();
+  const dispatch = useDispatch();
 
   return (
     <>
-      <ul className="mt-32 flex flex-col ml-10 bg-#1F1D36 text-accentdrk h-screen">
+      <ul className="hidden  mt-32 sm:flex flex-col ml-10 bg-#1F1D36 text-accentdrk sm:h-screen ">
         <Accordion type="single" className="w-52" collapsible>
-          <AccordionItem value="item-1">
-            <AccordionTrigger className="text-2xl text-highlightdrk">
+          <AccordionItem value="item-1 " className="border-b-accentdrk">
+            <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
               Genres
             </AccordionTrigger>
-            <AccordionContent className="w-full">
-              <GenreSelection genres={data} />
+            <AccordionContent className="w-full ">
+              <GenreSelection data={data} />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <Accordion type="single" className="w-full" collapsible>
-          <AccordionItem value="item-1">
-            <AccordionTrigger className="text-2xl text-highlightdrk">
+        <Accordion type="single" className="w-52" collapsible>
+          <AccordionItem value="item-1" className="border-b-accentdrk">
+            <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
               Year
             </AccordionTrigger>
-            <AccordionContent className="w-full">
+            <AccordionContent className="w-52">
               <YearSelection />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <Accordion type="single" className="w-full" collapsible>
-          <AccordionItem value="item-1">
-            <AccordionTrigger className="text-2xl text-highlightdrk">
+        <Accordion type="single" className="w-52" collapsible>
+          <AccordionItem value="item-1" className="border-b-accentdrk">
+            <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
               Rating
             </AccordionTrigger>
             <AccordionContent className="w-full">
@@ -69,9 +55,9 @@ export default function SideBar() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-        <Accordion type="single" className="w-full" collapsible>
-          <AccordionItem value="item-1">
-            <AccordionTrigger className="text-2xl text-highlightdrk">
+        <Accordion type="single" className="w-52" collapsible>
+          <AccordionItem value="item-1" className="border-b-accentdrk">
+            <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
               Cast
             </AccordionTrigger>
             <AccordionContent className="w-full">
@@ -80,6 +66,7 @@ export default function SideBar() {
           </AccordionItem>
         </Accordion>
       </ul>
+      <section className="flex sm:hidden mt-32"></section>
     </>
   );
 }

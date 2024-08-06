@@ -11,7 +11,27 @@ import { browseActions } from "@/store/browse";
 import Button from "../Buttons/Button";
 import OrderBy from "../Browse/Order/OrderBy";
 import useBrowseMovies from "@/hooks/useBrowseMovies";
-
+import { BsFilterLeft } from "react-icons/bs";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import YearSelection from "../Browse/Year/YearSelection";
+import GenreSelection from "../Browse/Genres/GenreSelection";
+import Cast from "../Browse/Cast/Cast";
+import Rating from "../Browse/Rating/Rating";
+import useGenres from "@/hooks/useGenres";
+import BrowseCard from "../MovieCard/BrowseCard";
 export default function BrowseMovies() {
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -19,10 +39,12 @@ export default function BrowseMovies() {
   });
   const { getFirstPage, loadMore, gettingMovies, isPending } =
     useBrowseMovies();
+  const { data } = useGenres();
+  const dispatch = useDispatch();
   const genres = useSelector((state) => state.browse.genres);
   const movies = useSelector((state) => state.browse.filteredMovies);
   const { genres: genreIds, year, rating, orderBy, cast } = useParams();
-  console.log({ genreIds, year, rating, orderBy, cast });
+
   useEffect(() => {
     let [fromYear, toYear] = [0, 0];
     if (year && year !== "all") {
@@ -43,7 +65,18 @@ export default function BrowseMovies() {
       cast: cast && cast !== "all" ? cast.split(" ") : [],
     });
   }, [genres, genreIds, year, orderBy, cast, rating]);
-
+  useEffect(() => {
+    if (data) {
+      if (genreIds) {
+        const selectedGenres = data.filter((genre) =>
+          genreIds.split(" ").includes(`${genre.id}`)
+        );
+        dispatch(browseActions.setGenres(selectedGenres));
+      } else {
+        dispatch(browseActions.setGenres(""));
+      }
+    }
+  }, [data, genreIds]);
   function handleLoadMore() {
     let [fromYear, toYear] = [0, 0];
     if (year && year !== "all") {
@@ -67,17 +100,18 @@ export default function BrowseMovies() {
   const list = useRef();
   return (
     <>
-      <section className="pt-32 pl-10 pr-10 flex flex-col gap-14 overflow-x-hidden w-full min-h-[2000px]">
+      <section className="sm:pt-32 px-10 flex flex-col 2xl:gap-14 overflow-x-hidden w-full min-h-[2000px]">
         <header className="flex justify-between">
-          <section className="flex gap-3">
-            <h3 className="2xl:text-5xl xl:text-3xl font-bold text-headersdrk ">
+          <section className="w-full justify-between sm:justify-start flex gap-3">
+            <h3 className="text-2xl 2xl:text-5xl xl:text-3xl font-bold text-headersdrk ">
               Discover
             </h3>
             <OrderBy />
           </section>
 
-          <ul className="flex gap-3">
-            {genres.length > 0 &&
+          <ul className="hidden 2xl:flex gap-3">
+            {genres &&
+              genres.length > 0 &&
               genres.map((genre) => (
                 <li key={genre.id}>
                   <Badge genre={genre} />
@@ -85,8 +119,88 @@ export default function BrowseMovies() {
               ))}
           </ul>
         </header>
-
-        {movies.data.length === 0 && (
+        <section className="flex 2xl:hidden flex-col gap-4  mt-10 mb-3">
+          <ul className="gap-3 flex flex-wrap">
+            {genres &&
+              genres.length > 0 &&
+              genres.map((genre) => (
+                <li key={genre.id} className="">
+                  <Badge genre={genre} />
+                </li>
+              ))}
+          </ul>
+          <section className="block sm:hidden">
+            <Sheet>
+              <SheetTrigger className="text-headersdrk">
+                <BsFilterLeft className="size-6" />
+              </SheetTrigger>
+              <SheetContent
+                side="left"
+                className="text-white bg-bgdrk overflow-y-auto border-r-accentdrk"
+              >
+                <ul className="sm:flex flex-col bg-#1F1D36 text-accentdrk sm:h-screen ">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem
+                      value="item-1"
+                      className="border-b-accentdrk"
+                    >
+                      <AccordionTrigger className="text-lg  border-none xl:text-2xl text-highlightdrk">
+                        Genres
+                      </AccordionTrigger>
+                      <AccordionContent className="w-full border-none">
+                        <GenreSelection data={data} />
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem
+                      value="item-1"
+                      className="border-b-accentdrk"
+                    >
+                      <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
+                        Year
+                      </AccordionTrigger>
+                      <AccordionContent className="">
+                        <YearSelection />
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem
+                      value="item-1"
+                      className="border-b-accentdrk"
+                    >
+                      <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
+                        Rating
+                      </AccordionTrigger>
+                      <AccordionContent className="w-full">
+                        <Rating />
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                  <Accordion
+                    type="single"
+                    className="border-b-accentdrk"
+                    collapsible
+                  >
+                    <AccordionItem
+                      value="item-1"
+                      className="border-b-accentdrk"
+                    >
+                      <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
+                        Cast
+                      </AccordionTrigger>
+                      <AccordionContent className="w-full">
+                        <Cast />
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </ul>
+              </SheetContent>
+            </Sheet>
+          </section>
+        </section>
+        {movies.data.length === 0 && !gettingMovies && !isPending && (
           <p className="text-center text-headersdrk text-xl">
             There are no movies based on your filters
           </p>
@@ -94,12 +208,12 @@ export default function BrowseMovies() {
         {movies.data.length > 0 && (
           <section className="flex flex-col items-center overflow-y-hidden overflow-x-hidden">
             <ul
-              className="grid grid-flow-row grid-cols-6 gap-3 w-[100%]"
+              className="grid grid-flow-row w-[100%]  2xl:grid-cols-6 xl:grid-cols-4 gap-3 lg:grid-cols-3 md:grid-cols-3  sm:grid-cols-2 grid-cols-2"
               ref={list}
             >
               {movies.data.map((movie) => {
                 return (
-                  <MovieCard key={movie.id} movie={movie} subject={"movie"} />
+                  <BrowseCard key={movie.id} movie={movie} subject={"movie"} />
                 );
               })}
               {gettingMovies && <MovieListSkeleton />}

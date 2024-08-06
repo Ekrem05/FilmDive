@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-export default function GenreSelection({ genres: data }) {
+export default function GenreSelection({ data }) {
   const formRef = useRef();
   const dispatch = useDispatch();
+  console.log("inside");
   const navigate = useNavigate();
   const { genres, year, rating, orderBy, cast } = useParams();
+
   function handleChange() {
     const formData = new FormData(formRef.current);
     const inputs = Array.from(formData.keys());

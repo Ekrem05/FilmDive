@@ -22,11 +22,11 @@ export default function OrderBy() {
     <Select onValueChange={handleChange}>
       <SelectTrigger
         className="w-36 bg-bgdrk font-bold
- text-highlightdrk focus:border-r-secondarydrk outline-none  transition duration-300 ease-in-out"
+ text-highlightdrk focus:border-r-secondarydrk outline-none border-none  transition duration-300 ease-in-out"
       >
         <SelectValue placeholder="Order by" />
       </SelectTrigger>
-      <SelectContent className="rounded-xl bg-bgdrk h-48 overflow-y-hidden">
+      <SelectContent className="rounded-xl bg-bgdrk h-48 overflow-y-hidden border-none text-headersdrk">
         <SelectGroup className="bg-bgdrk rounded-xl border-secondarydrk">
           <SelectItem
             className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"

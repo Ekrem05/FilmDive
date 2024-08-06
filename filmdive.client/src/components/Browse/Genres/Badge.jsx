@@ -1,11 +1,9 @@
 import IconArrows_remove from "@/components/Icons/IconArrows_remove";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 export default function Badge({ genre }) {
   const navigate = useNavigate();
   const { genres, year, rating, orderBy, cast } = useParams();
   function removeGenre() {
-    console.log(genres);
     navigate(
       `/browse/${
         genres.includes(" ")

@@ -24,7 +24,7 @@ export default function LazyImage({ path, ...props }) {
       <motion.img
         {...props}
         className={
-          isLoaded ? "rounded-xl grow 2xl:w-full overflow-hidden" : "hidden"
+          isLoaded ? "rounded-xl grow 2xl:w-full  overflow-hidden" : "hidden"
         }
         src={`https://image.tmdb.org/t/p/original/${path}`}
         alt=""

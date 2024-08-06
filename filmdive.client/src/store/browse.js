@@ -7,7 +7,7 @@ const initialState = {
     totalResults: 0,
     totalPages: 0,
   },
-  genres: "",
+  genres: null,
 };
 
 const browseSlice = createSlice({
@@ -17,6 +17,7 @@ const browseSlice = createSlice({
     setGenres(state, action) {
       state.genres = action.payload;
     },
+    removeGenre(state, action) {},
     initialFetch(state, action) {
       state.selectedMovie = action.payload[0];
       state.trendingMovies = action.payload;
