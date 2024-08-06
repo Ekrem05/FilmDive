@@ -1,6 +1,7 @@
 ﻿using FilmDive.Server.Services.Movie;
 using FilmDive.Server.Services.Movies;
 using FilmDive.Server.Services.TVshows;
+using FilmDive.Server.ViewModels.Series;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +37,12 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetShowDetails(string id)
         {
             return Ok(await showsService.GetDetailsAsync(id));
+        }
+
+        [HttpGet("browse")]
+        public async Task<IActionResult> BrowseTvShows([FromBody] BrowseShows model)
+        {
+            return Ok(await showsService.BrowseAsync(model));
         }
     }
 }
