@@ -104,10 +104,11 @@ export default function BrowseMovies() {
               })}
               {gettingMovies && <MovieListSkeleton />}
             </ul>
-
-            <Button styling={"mt-16"} onClick={handleLoadMore}>
-              Load More
-            </Button>
+            {movies.page < movies.totalPages && (
+              <Button styling={"mt-16"} onClick={handleLoadMore}>
+                Load More
+              </Button>
+            )}
           </section>
         )}
       </section>

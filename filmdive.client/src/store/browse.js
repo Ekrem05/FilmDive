@@ -5,6 +5,7 @@ const initialState = {
     page: 0,
     data: [],
     totalResults: 0,
+    totalPages: 0,
   },
   genres: "",
 };
@@ -33,6 +34,7 @@ const browseSlice = createSlice({
         page: action.payload.page, // Increment page if not provided
         data: action.payload.result, // Append new results
         totalResults: action.payload.totalResults, // Update total results
+        totalPages: action.payload.totalPages,
       };
     },
   },
