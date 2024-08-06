@@ -28,26 +28,38 @@ export default function BrowseMovies() {
     if (year && year !== "all") {
       [fromYear, toYear] = year.split(";");
     }
+    let [fromRating, toRating] = [0, 10];
+    if (rating && rating != "all") {
+      [fromRating, toRating] = rating.split(";");
+    }
     getFirstPage({
       genres: genreIds !== "all" && genreIds ? genreIds.split(" ") : [],
       fromYear: fromYear,
       toYear: toYear,
-      orderBy: orderBy && orderBy !== "default" ? orderBy : "",
+      fromRating: fromRating,
+      toRating: toRating,
+      fromYear: fromYear,
+      orderBy: orderBy ? orderBy : "popularity.desc",
       cast: cast && cast !== "all" ? cast.split(" ") : [],
     });
-  }, [genres, genreIds, year, orderBy, cast]);
+  }, [genres, genreIds, year, orderBy, cast, rating]);
 
   function handleLoadMore() {
     let [fromYear, toYear] = [0, 0];
     if (year && year !== "all") {
       [fromYear, toYear] = year.split(";");
     }
+    let [fromRating, toRating] = [0, 10];
+    if (rating && rating != "all") {
+      [fromRating, toRating] = rating.split(";");
+    }
     loadMore({
       page: movies.page + 1,
       genres: genreIds !== "all" && genreIds ? genreIds.split(" ") : [],
-      fromYear: fromYear,
+      fromRating: fromRating,
+
       toYear: toYear,
-      orderBy: orderBy && orderBy !== "default" ? orderBy : "",
+      orderBy: orderBy ? orderBy : "popularity.desc",
       cast: cast && cast !== "all" ? cast.split(" ") : [],
     });
   }

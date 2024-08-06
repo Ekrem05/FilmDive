@@ -32,9 +32,9 @@ export default function GenreSelection({ genres: data }) {
         arrayOfGenreIds.length > 0
           ? arrayOfGenreIds.map(encodeURIComponent).join("%20")
           : "all"
-      }/${year ? year : `1878;${currentYear}`}/${rating ? rating : ""}/${
-        orderBy ? orderBy : ""
-      }/${cast ? cast : ""}`
+      }/${year ? year : `all`}/${rating ? rating : "all"}/${
+        orderBy ? orderBy : "popularity.desc"
+      }/${cast ? cast : "all"}`
     );
   }
 

@@ -14,6 +14,7 @@ import { browseActions } from "@/store/browse";
 import { browseMovies } from "@/http/movies";
 import YearSelection from "./Year/YearSelection";
 import Cast from "./Cast/Cast";
+import Rating from "./Rating/Rating";
 export default function SideBar() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["genres"],
@@ -55,6 +56,16 @@ export default function SideBar() {
             </AccordionTrigger>
             <AccordionContent className="w-full">
               <YearSelection />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+        <Accordion type="single" className="w-full" collapsible>
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="text-2xl text-highlightdrk">
+              Rating
+            </AccordionTrigger>
+            <AccordionContent className="w-full">
+              <Rating />
             </AccordionContent>
           </AccordionItem>
         </Accordion>

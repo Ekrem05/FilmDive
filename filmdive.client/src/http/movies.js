@@ -37,6 +37,8 @@ export async function getGenres() {
 export async function browseMovies({
   page,
   genres,
+  fromRating,
+  toRating,
   fromYear,
   toYear,
   orderBy,
@@ -50,6 +52,8 @@ export async function browseMovies({
     body: JSON.stringify({
       withGenres: genres,
       page: page,
+      fromRating: fromRating,
+      toRating: toRating,
       fromYear: fromYear,
       toYear: toYear,
       sortBy: orderBy,

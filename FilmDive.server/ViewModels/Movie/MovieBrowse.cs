@@ -6,8 +6,8 @@ namespace FilmDive.Server.ViewModels.Movie
         public int Year { get; set; }
         public int FromYear { get; set; }
         public int ToYear { get; set; }
-        public int FromRating { get; set; }
-        public int ToRating { get; set; }
+        public double FromRating { get; set; }
+        public double ToRating { get; set; }
         public int[]? WithGenres { get; set; }
         public int[]? WithCast { get; set; }
 

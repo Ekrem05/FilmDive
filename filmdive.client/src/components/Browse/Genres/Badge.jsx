@@ -14,9 +14,9 @@ export default function Badge({ genre }) {
               .filter((genres) => genres !== `${genre.id}`)
               .join(" ")
           : "all"
-      }/${year}/${rating ? rating : ""}/${orderBy ? orderBy : ""}/${
-        cast ? cast : ""
-      }`
+      }/${year ? year : "all"}/${rating ? rating : "all"}/${
+        orderBy ? orderBy : "popularity.desc"
+      }/${cast ? cast : "all"}`
     );
   }
   return (

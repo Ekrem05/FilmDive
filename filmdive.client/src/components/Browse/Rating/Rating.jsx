@@ -3,8 +3,8 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { useParams, useNavigate } from "react-router";
 
-export default function YearSelection() {
-  const [value, setValue] = useState([1878, 2024]);
+export default function Rating() {
+  const [value, setValue] = useState([0, 10]);
   const { genres, year, rating, orderBy, cast } = useParams();
   const navigate = useNavigate();
   const timeoutRef = useRef(null);
@@ -17,9 +17,11 @@ export default function YearSelection() {
     }
     timeoutRef.current = setTimeout(() => {
       navigate(
-        `/browse/${genres ? genres : "all"}/${newValue.join(";")}/${
-          rating ? rating : "all"
-        }/${orderBy ? orderBy : "default"}/${cast ? cast : "all"}`
+        `/browse/${genres ? genres : "all"}/${
+          year ? year : "all"
+        }/${newValue.join(";")}/${orderBy ? orderBy : "popularity.desc"}/${
+          cast ? cast : "all"
+        }`
       );
     }, 1000);
   };
@@ -40,8 +42,9 @@ export default function YearSelection() {
         getAriaLabel={() => "Temperature range"}
         defaultValue={2024}
         disableSwap={true}
-        min={1878}
-        max={2024}
+        min={0}
+        max={10.0}
+        step={0.1}
         value={value}
         onChange={handleChange}
         valueLabelDisplay="auto"
