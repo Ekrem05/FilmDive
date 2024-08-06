@@ -32,17 +32,26 @@ export default function SeriesDetails() {
       )}
       {!isPending && (
         <main className=" bg-bgdrk flex flex-col gap-10">
-          <section className="relative bg-bgdrk h-auto pb-8 ">
-            <LazyImage path={data.backdropPath} id="details-img" />
+          <section className=" relative flex flex-col md:block gap-64 md:gap-5 bg-bgdrk pb-8 ">
+            <div className="hidden md:block">
+              <LazyImage
+                path={data.backdropPath}
+                id="details-img"
+                className=""
+              />
+            </div>
 
-            <section className="absolute  top-[15%] left-[10%] flex flex-row gap-5">
-              <section className="flex flex-col gap-4 items-center">
-                <img
-                  className="self-start relative rounded-2xl"
-                  width={"350px"}
-                  src={`https://image.tmdb.org/t/p/original/${data.posterPath}`}
-                  alt=""
-                />
+            <section className="relative md:absolute top-40  md:top-[15%] md:left-52  flex flex-col md:flex-row gap-5">
+              <section className="flex flex-col gap-4 md:justify-normal justify-center items-center">
+                <div>
+                  <img
+                    className="self-start relative rounded-2xl"
+                    width={"350px"}
+                    src={`https://image.tmdb.org/t/p/original/${data.posterPath}`}
+                    alt=""
+                  />
+                </div>
+
                 <Button
                   text={"Watch now"}
                   styling={"2xl:w-9/12 text-bgdrk"}
@@ -51,8 +60,8 @@ export default function SeriesDetails() {
                 ></Button>
               </section>
 
-              <article className="flex flex-col gap-4">
-                <h2 className="text-4xl  text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl scroll-m-20">
+              <article className="flex flex-col gap-4 w-full px-4 ">
+                <h2 className="text-4xl md:text-start text-center text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl scroll-m-20">
                   {data.title}
                 </h2>
                 <MovieStats movie={data} />

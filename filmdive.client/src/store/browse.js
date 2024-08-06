@@ -28,6 +28,7 @@ const browseSlice = createSlice({
         data: [...state.filteredMovies.data, ...action.payload.result], // Append new results
         totalResults:
           action.payload.totalResults || state.filteredMovies.totalResults, // Update total results
+        totalPages: state.filteredMovies.totalPages,
       };
     },
     getFirstPage(state, action) {

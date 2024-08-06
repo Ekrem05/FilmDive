@@ -32,6 +32,7 @@ import Cast from "../Browse/Cast/Cast";
 import Rating from "../Browse/Rating/Rating";
 import useGenres from "@/hooks/useGenres";
 import BrowseCard from "../MovieCard/BrowseCard";
+import BrowseSkeleton from "../Skeleton/BrowseSkeleton";
 export default function BrowseMovies() {
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -216,8 +217,9 @@ export default function BrowseMovies() {
                   <BrowseCard key={movie.id} movie={movie} subject={"movie"} />
                 );
               })}
-              {gettingMovies && <MovieListSkeleton />}
+              {isPending && <BrowseSkeleton />}
             </ul>
+            {console.log(movies.totalPages)}
             {movies.page < movies.totalPages && (
               <Button styling={"mt-16"} onClick={handleLoadMore}>
                 Load More
