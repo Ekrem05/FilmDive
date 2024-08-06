@@ -10,14 +10,14 @@ import {
 import { useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router";
 export default function OrderBy() {
-  const { genres, year, rating } = useParams();
+  const { genres, year, rating, cast } = useParams();
   const navigate = useNavigate();
   function handleChange(value) {
     const currentYear = new Date().getFullYear();
     navigate(
       `/browse/${genres ? genres : "all"}/${
         year ? year : `${1878};${currentYear}`
-      }/${rating}/${value}`
+      }/${rating}/${value}/${cast ? cast : ""}`
     );
   }
 

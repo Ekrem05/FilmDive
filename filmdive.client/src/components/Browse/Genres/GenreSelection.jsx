@@ -9,7 +9,7 @@ export default function GenreSelection({ genres: data }) {
   const formRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { genres, year, rating, orderBy } = useParams();
+  const { genres, year, rating, orderBy, cast } = useParams();
   function handleChange() {
     const formData = new FormData(formRef.current);
     const inputs = Array.from(formData.keys());
@@ -34,7 +34,7 @@ export default function GenreSelection({ genres: data }) {
           : "all"
       }/${year ? year : `1878;${currentYear}`}/${rating ? rating : ""}/${
         orderBy ? orderBy : ""
-      }`
+      }/${cast ? cast : ""}`
     );
   }
 

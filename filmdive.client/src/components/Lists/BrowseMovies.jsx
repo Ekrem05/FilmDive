@@ -55,7 +55,7 @@ export default function BrowseMovies() {
   const list = useRef();
   return (
     <>
-      <section className="pt-32 pl-10 pr-10 flex flex-col gap-14 overflow-x-hidden">
+      <section className="pt-32 pl-10 pr-10 flex flex-col gap-14 overflow-x-hidden w-full min-h-[2000px]">
         <header className="flex justify-between">
           <section className="flex gap-3">
             <h3 className="2xl:text-5xl xl:text-3xl font-bold text-headersdrk ">
@@ -75,9 +75,9 @@ export default function BrowseMovies() {
         </header>
 
         {movies.data.length === 0 && (
-          <div className="flex w-full gap-11" ref={ref}>
-            <MovieListSkeleton />
-          </div>
+          <p className="text-center text-headersdrk text-xl">
+            There are no movies based on your filters
+          </p>
         )}
         {movies.data.length > 0 && (
           <section className="flex flex-col items-center overflow-y-hidden overflow-x-hidden">
@@ -90,7 +90,9 @@ export default function BrowseMovies() {
                   <MovieCard key={movie.id} movie={movie} subject={"movie"} />
                 );
               })}
+              {gettingMovies && <MovieListSkeleton />}
             </ul>
+
             <Button styling={"mt-16"} onClick={handleLoadMore}>
               Load More
             </Button>

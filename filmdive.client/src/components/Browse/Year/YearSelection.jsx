@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router";
 
 export default function YearSelection() {
   const [value, setValue] = useState([1878, 2024]);
-  const { genres, year, rating, orderBy } = useParams();
+  const { genres, year, rating, orderBy, cast } = useParams();
   const navigate = useNavigate();
   const timeoutRef = useRef(null);
 
@@ -19,7 +19,7 @@ export default function YearSelection() {
       navigate(
         `/browse/${genres ? genres : "all"}/${newValue.join(";")}/${rating}/${
           orderBy ? orderBy : ""
-        }`
+        }/${cast ? cast : ""}`
       );
     }, 1000);
   };

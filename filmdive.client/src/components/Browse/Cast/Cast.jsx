@@ -39,7 +39,7 @@ export default function Cast({}) {
     };
   }, []);
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-3 h-screen">
       <input
         type="text"
         className="rounded-xl px-2 py-1 outline-none text-highlightdrk bg-secondarydrk"

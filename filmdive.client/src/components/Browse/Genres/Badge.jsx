@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 export default function Badge({ genre }) {
   const navigate = useNavigate();
-  const { genres, year, rating, orderBy } = useParams();
+  const { genres, year, rating, orderBy, cast } = useParams();
   function removeGenre() {
     console.log(genres);
     navigate(
@@ -14,7 +14,9 @@ export default function Badge({ genre }) {
               .filter((genres) => genres !== `${genre.id}`)
               .join(" ")
           : "all"
-      }/${year}/${rating ? rating : ""}/${orderBy ? orderBy : ""}`
+      }/${year}/${rating ? rating : ""}/${orderBy ? orderBy : ""}/${
+        cast ? cast : ""
+      }`
     );
   }
   return (

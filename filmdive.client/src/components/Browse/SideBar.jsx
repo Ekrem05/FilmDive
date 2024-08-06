@@ -37,7 +37,7 @@ export default function SideBar() {
 
   return (
     <>
-      <ul className="mt-32 flex flex-col ml-10 bg-#1F1D36 text-accentdrk h-[800px]">
+      <ul className="mt-32 flex flex-col ml-10 bg-#1F1D36 text-accentdrk h-screen">
         <Accordion type="single" className="w-52" collapsible>
           <AccordionItem value="item-1">
             <AccordionTrigger className="text-2xl text-highlightdrk">
