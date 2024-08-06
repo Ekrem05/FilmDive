@@ -31,7 +31,11 @@ export default function YearSelection() {
       }
     };
   }, []);
-
+  useEffect(() => {
+    if (year && year !== "all") {
+      setValue(year.split(";"));
+    }
+  }, [year]);
   return (
     <Box className="pt-9 px-5">
       <Slider

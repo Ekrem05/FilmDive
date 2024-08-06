@@ -33,7 +33,11 @@ export default function Rating() {
       }
     };
   }, []);
-
+  useEffect(() => {
+    if (rating && rating !== "all") {
+      setValue(rating.split(";"));
+    }
+  }, [rating]);
   return (
     <Box className="pt-9 px-5">
       <Slider
