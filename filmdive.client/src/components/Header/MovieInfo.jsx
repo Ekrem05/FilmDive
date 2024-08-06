@@ -26,7 +26,7 @@ export default function MovieInfo({ movie }) {
       >
         {movie.title}
       </motion.h2>
-      <div className="flex flex-col gap-1 w-1/2 ">
+      <div className="flex flex-col gap-1 w-4/5 sm:w-1/2 ">
         <div className="flex flex-row gap-2">
           <p className="text-highlightdrk 2xl:text-2xl xl:text-lg">
             {movie.releaseYear}
