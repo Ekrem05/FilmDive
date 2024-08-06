@@ -1,7 +1,7 @@
 export default function Companies({ data }) {
   return (
-    <section className="w-full ">
-      <ul className="flex justify-evenly flex-wrap">
+    <section className="w-full min-h-64 ">
+      <ul className="flex md:justify-evenly md:flex-wrap items-center   gap-5 flex-col md:flex-row">
         {data.map((company) => {
           if (company.logoPath) {
             return (
