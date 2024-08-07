@@ -6,13 +6,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useParams, useNavigate } from "react-router";
+import { useParams, useNavigate, useLocation } from "react-router";
 export default function OrderBy() {
   const { genres, year, rating, cast } = useParams();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   function handleChange(value) {
+    const root = pathname.split("/")[1];
     navigate(
-      `/browse/${genres ? genres : "all"}/${year ? year : `all`}/${
+      `/${root}/${genres ? genres : "all"}/${year ? year : `all`}/${
         rating ? rating : "all"
       }/${value}/${cast ? cast : ""}`
     );

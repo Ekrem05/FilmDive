@@ -47,8 +47,8 @@ namespace FilmDive.Server.Controllers
         {
             return Ok(await movieService.GetGenresAsync());
         }
-        [HttpPost("browse")]
-        public async Task<IActionResult> BrowseMovies([FromBody] MovieBrowse request)
+        [HttpGet("browse")]
+        public async Task<IActionResult> BrowseMovies([FromQuery] MovieBrowse request)
         {
             return Ok(await movieService.BrowseAsync(request));
         }

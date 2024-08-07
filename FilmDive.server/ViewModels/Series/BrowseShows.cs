@@ -1,6 +1,6 @@
 ﻿namespace FilmDive.Server.ViewModels.Series
 {
-    public class BrowseShows
+    public class BrowseSeries
     {
         public string SortBy { get; set; } = string.Empty;
         public int Year { get; set; }

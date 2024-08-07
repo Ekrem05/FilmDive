@@ -57,10 +57,10 @@ export default function Navigation() {
             </Link>
           </li>
           <li>
-            <NavButton label={"Movies"} link="/browse" />
+            <NavButton label={"Movies"} link="/movies" />
           </li>
           <li>
-            <NavButton label={"TV Series"} link="/browse" />
+            <NavButton label={"TV Series"} link="/series" />
           </li>
           <li>
             <NavButton label={"Watch list"} link="/watch" />
@@ -129,7 +129,7 @@ export default function Navigation() {
                 >
                   <NavButton
                     label={"Movies"}
-                    link="/browse"
+                    link="/movies"
                     onClick={toggleMenu}
                   />
                 </motion.li>
@@ -140,7 +140,7 @@ export default function Navigation() {
                 >
                   <NavButton
                     label={"TV Series"}
-                    link="/browse"
+                    link="/series"
                     onClick={toggleMenu}
                   />
                 </motion.li>

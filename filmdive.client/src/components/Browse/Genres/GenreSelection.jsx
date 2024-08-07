@@ -2,20 +2,21 @@ import { getGenres } from "@/http/movies";
 import { browseActions } from "@/store/browse";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 export default function GenreSelection({ data }) {
   const formRef = useRef();
   const dispatch = useDispatch();
-  console.log("inside");
+  const { pathname } = useLocation();
+  console.log("inserie", data);
   const navigate = useNavigate();
   const { genres, year, rating, orderBy, cast } = useParams();
 
   function handleChange() {
     const formData = new FormData(formRef.current);
     const inputs = Array.from(formData.keys());
-    // Log the IDs of the input elements
+
     let arrayOfGenreIds = [];
     let arrayOfGenres = [];
     inputs.forEach((inputName) => {
@@ -29,8 +30,9 @@ export default function GenreSelection({ data }) {
     console.log(arrayOfGenreIds);
     dispatch(browseActions.setGenres(arrayOfGenres));
     const currentYear = new Date().getFullYear();
+    const root = pathname.split("/")[1];
     navigate(
-      `/browse/${
+      `/${root}/${
         arrayOfGenreIds.length > 0
           ? arrayOfGenreIds.map(encodeURIComponent).join("%20")
           : "all"

@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import MovieCard from "../MovieCard/Card";
 import { useInView } from "react-intersection-observer";
 import MovieListSkeleton from "../Skeleton/MovieListSkeleton";
-import { getAiringTodayTvShows } from "@/http/shows";
+import { getAiringTodayTvSeries } from "@/http/series";
 
 export default function CardList({ fn, fnKey, title, subject }) {
   const { ref, inView } = useInView({

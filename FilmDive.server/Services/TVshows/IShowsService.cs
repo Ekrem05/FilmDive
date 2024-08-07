@@ -3,15 +3,17 @@ using FilmDive.Server.ViewModels.Series;
 
 namespace FilmDive.Server.Services.TVshows
 {
-    public interface IShowsService
+    public interface ISeriesService
     {
-        Task<IEnumerable<PopularShows>> GetPopularSeriesAsync();
+        Task<IEnumerable<PopularSeries>> GetPopularSeriesAsync();
 
-        Task<IEnumerable<PopularShows>> GetAiringTodayAsync();
-        Task<IEnumerable<PopularShows>> GetRecommendationsAsync(string id);
-        Task<ApiRepsone<PopularShows>> BrowseAsync(BrowseShows model);
-        Task<IEnumerable<PopularShows>> GetOnTheAirAsync();
+        Task<IEnumerable<PopularSeries>> GetAiringTodayAsync();
+        Task<IEnumerable<PopularSeries>> GetRecommendationsAsync(string id);
+        Task<ApiRepsone<PopularSeries>> BrowseAsync(BrowseSeries model);
+        Task<IEnumerable<PopularSeries>> GetOnTheAirAsync();
+        Task<IEnumerable<Genre>> GetGenresAsync();
 
+        
         Task<MovieDetails> GetDetailsAsync(string id);
     }
 }

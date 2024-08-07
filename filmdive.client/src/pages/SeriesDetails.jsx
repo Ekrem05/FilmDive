@@ -11,7 +11,7 @@ import DetailsSkeleton from "@/components/Skeleton/DetailsSkeleton";
 import Button from "@/components/Buttons/Button";
 import Companies from "@/components/MovieDetails/Companies";
 import YouMayAlsoLike from "@/components/Lists/YouMayAlsoLike";
-import { getRecommendations, getShowDetails } from "@/http/shows";
+import { getRecommendations, getShowDetails } from "@/http/series";
 export default function SeriesDetails() {
   const params = useParams();
   const { isPending, isError, data, error } = useQuery({
@@ -31,7 +31,7 @@ export default function SeriesDetails() {
         </section>
       )}
       {!isPending && (
-        <main className=" bg-bgdrk flex flex-col gap-10">
+        <main className=" bg-bgdrk flex flex-col gap-10 pb-32">
           <section className=" relative flex flex-col md:block gap-64 md:gap-5 bg-bgdrk pb-8 ">
             <div className="hidden md:block">
               <LazyImage
@@ -74,7 +74,7 @@ export default function SeriesDetails() {
           <YouMayAlsoLike
             id={data.id}
             fn={getRecommendations}
-            subject={"series"}
+            subject={"details"}
           />
         </main>
       )}

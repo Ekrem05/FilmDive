@@ -6,11 +6,10 @@ import { useInView } from "react-intersection-observer";
 import MovieListSkeleton from "../Skeleton/MovieListSkeleton";
 import { useDispatch, useSelector } from "react-redux";
 import Badge from "../Browse/Genres/Badge";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { browseActions } from "@/store/browse";
 import Button from "../Buttons/Button";
 import OrderBy from "../Browse/Order/OrderBy";
-import useBrowseMovies from "@/hooks/useBrowseMovies";
 import { BsFilterLeft } from "react-icons/bs";
 import {
   Sheet,
@@ -33,19 +32,22 @@ import Rating from "../Browse/Rating/Rating";
 import useGenres from "@/hooks/useGenres";
 import BrowseCard from "../MovieCard/BrowseCard";
 import BrowseSkeleton from "../Skeleton/BrowseSkeleton";
-export default function BrowseMovies() {
+import useBrowseSeries from "@/hooks/useBrowseSeries";
+import useSeriesGenres from "@/hooks/useSeriesGenres";
+export default function BrowseSeries() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
   const { getFirstPage, loadMore, gettingMovies, isPending } =
-    useBrowseMovies();
-  const { data } = useGenres();
+    useBrowseSeries();
+  const { data } = useSeriesGenres();
+  console.log("genre ", data);
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.browse.genres);
-  const movies = useSelector((state) => state.browse.filteredMovies);
+  const series = useSelector((state) => state.browse.filteredSeries);
   const { genres: genreIds, year, rating, orderBy, cast } = useParams();
-
   useEffect(() => {
     let [fromYear, toYear] = [0, 0];
     if (year && year !== "all") {
@@ -55,6 +57,7 @@ export default function BrowseMovies() {
     if (rating && rating != "all") {
       [fromRating, toRating] = rating.split(";");
     }
+
     getFirstPage({
       page: 1,
       genres: genreIds !== "all" && genreIds ? genreIds.split(" ") : [],
@@ -66,7 +69,7 @@ export default function BrowseMovies() {
       orderBy: orderBy ? orderBy : "popularity.desc",
       cast: cast && cast !== "all" ? cast.split(" ") : [],
     });
-  }, [genres, genreIds, year, orderBy, cast, rating]);
+  }, [pathname, genres, genreIds, year, orderBy, cast, rating]);
   useEffect(() => {
     if (data) {
       if (genreIds) {
@@ -89,7 +92,7 @@ export default function BrowseMovies() {
       [fromRating, toRating] = rating.split(";");
     }
     loadMore({
-      page: movies.page + 1,
+      page: series.page + 1,
       genres: genreIds !== "all" && genreIds ? genreIds.split(" ") : [],
       fromRating: fromRating,
 
@@ -98,7 +101,6 @@ export default function BrowseMovies() {
       cast: cast && cast !== "all" ? cast.split(" ") : [],
     });
   }
-
   const list = useRef();
   return (
     <>
@@ -180,48 +182,34 @@ export default function BrowseMovies() {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
-                  <Accordion
-                    type="single"
-                    className="border-b-accentdrk"
-                    collapsible
-                  >
-                    <AccordionItem
-                      value="item-1"
-                      className="border-b-accentdrk"
-                    >
-                      <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
-                        Cast
-                      </AccordionTrigger>
-                      <AccordionContent className="w-full">
-                        <Cast />
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
                 </ul>
               </SheetContent>
             </Sheet>
           </section>
         </section>
-        {movies.data.length === 0 && !gettingMovies && !isPending && (
+        {series.data.length === 0 && !gettingMovies && !isPending && (
           <p className="text-center text-headersdrk text-xl">
             There are no movies based on your filters
           </p>
         )}
-        {movies.data.length > 0 && (
+        {series.data.length > 0 && (
           <section className="flex flex-col items-center overflow-y-hidden overflow-x-hidden">
             <ul
               className="grid grid-flow-row w-[100%]  2xl:grid-cols-6 xl:grid-cols-4 gap-3 lg:grid-cols-3 md:grid-cols-3  sm:grid-cols-2 grid-cols-2"
               ref={list}
             >
-              {movies.data.map((movie) => {
+              {series.data.map((movie) => {
                 return (
-                  <BrowseCard key={movie.id} movie={movie} subject={"movie"} />
+                  <BrowseCard
+                    key={movie.id}
+                    movie={movie}
+                    subject={"details"}
+                  />
                 );
               })}
               {isPending && <BrowseSkeleton />}
             </ul>
-            {console.log(movies.totalPages)}
-            {movies.page < movies.totalPages && (
+            {series.page < series.totalPages && (
               <Button styling={"mt-16"} onClick={handleLoadMore}>
                 Load More
               </Button>

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace FilmDive.Server.ViewModels.Series
 {
-    public class PopularShows
+    public class PopularSeries
     {
         [JsonProperty("id")]
         public string Id { get; set; } = string.Empty;

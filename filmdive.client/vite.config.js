@@ -61,7 +61,7 @@ export default defineConfig({
         target,
         secure: false,
       },
-      "/Shows": {
+      "/Series": {
         target,
         secure: false,
       },

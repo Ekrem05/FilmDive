@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { useParams, useNavigate } from "react-router";
-
+import { useParams, useNavigate, useLocation } from "react-router";
 export default function YearSelection() {
   const [value, setValue] = useState([1878, 2024]);
   const { genres, year, rating, orderBy, cast } = useParams();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const timeoutRef = useRef(null);
 
@@ -15,9 +15,10 @@ export default function YearSelection() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
+    const root = pathname.split("/")[1];
     timeoutRef.current = setTimeout(() => {
       navigate(
-        `/browse/${genres ? genres : "all"}/${newValue.join(";")}/${
+        `/${root}/${genres ? genres : "all"}/${newValue.join(";")}/${
           rating ? rating : "all"
         }/${orderBy ? orderBy : "default"}/${cast ? cast : "all"}`
       );

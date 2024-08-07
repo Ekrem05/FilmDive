@@ -45,7 +45,7 @@ builder.Services.AddScoped<IMovieClientService, MovieClient>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPeopleService, PeopleService>();
-builder.Services.AddScoped<IShowsService, ShowsService>();
+builder.Services.AddScoped<ISeriesService, SeriesService>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();   
 var app = builder.Build();
 

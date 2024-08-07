@@ -9,7 +9,7 @@ import useGetCast from "@/hooks/useGetCast";
 import useSearchCast from "@/hooks/useSearchCast";
 import CastSkeleton from "@/components/Skeleton/CastSkeleton";
 import CastItem from "./CastItem";
-export default function Cast({}) {
+export default function Cast() {
   const formRef = useRef();
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState("");

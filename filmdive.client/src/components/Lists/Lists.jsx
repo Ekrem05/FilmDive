@@ -5,10 +5,10 @@ import {
   getUpcomingMovies,
 } from "../../http/movies";
 import {
-  getAiringTodayTvShows,
-  getAiringTvShows,
-  getPopularTvShows,
-} from "@/http/shows";
+  getAiringTodayTvSeries,
+  getAiringTvSeries,
+  getPopularTvSeries,
+} from "@/http/series";
 
 export default function Lists() {
   return (
@@ -35,24 +35,24 @@ export default function Lists() {
         key={"upcomming-movies"}
       />
       <CardList
-        fn={getPopularTvShows}
+        fn={getPopularTvSeries}
         fnKey={["popular-tv-series"]}
-        subject={"series"}
+        subject={"details"}
         title={"Popular TV Series"}
         key={"popular-tv-series"}
       />
 
       <CardList
-        fn={getAiringTodayTvShows}
+        fn={getAiringTodayTvSeries}
         fnKey={["airing-today-series"]}
-        subject={"series"}
+        subject={"details"}
         title={"Airing Today"}
         key={"airing-today"}
       />
       <CardList
-        fn={getAiringTvShows}
+        fn={getAiringTvSeries}
         fnKey={["on-the-air"]}
-        subject={"series"}
+        subject={"details"}
         title={"On The Air"}
         key={"on-the-air"}
       />

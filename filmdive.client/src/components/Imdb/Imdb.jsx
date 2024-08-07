@@ -8,7 +8,7 @@ export default function Imdb({
 }) {
   return (
     <div className={`flex items-center ${ratingColor}`}>
-      <Star width={widthStar} />
+      <Star className={"w-5 md:w-7"} />
       <span className={`text-xs lg:text-lg  2xl:text-${text} xl:${xl} `}>
         {rating}
       </span>

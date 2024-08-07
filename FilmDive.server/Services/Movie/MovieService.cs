@@ -108,16 +108,23 @@ namespace FilmDive.Server.Services.Movie
             {
                 queryParams.Add($"vote_average.lte={model.ToRating}");
             }
-            string genres = string.Join("%2C", model.WithGenres);
-            if (!string.IsNullOrEmpty(genres))
+            if(model.WithGenres is not null)
             {
-                queryParams.Add($"with_genres={genres}");
+                string genres = string.Join("%2C", model.WithGenres);
+                if (!string.IsNullOrEmpty(genres))
+                {
+                    queryParams.Add($"with_genres={genres}");
+                }
             }
-            string cast = string.Join("%2C", model.WithCast);
-            if (!string.IsNullOrEmpty(cast))
+            if(model.WithCast is not null)
             {
-                queryParams.Add($"with_people={cast}");
+                string cast = string.Join("%2C", model.WithCast);
+                if (!string.IsNullOrEmpty(cast))
+                {
+                    queryParams.Add($"with_people={cast}");
+                }
             }
+           
             var queryString = string.Join("&", queryParams);
             var requestUrl = $"{baseUrl}&{queryString}";
 

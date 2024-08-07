@@ -1,40 +1,61 @@
-export async function getTrendingMovies() {
-  const response = await fetch("/Movies/trending", {
+export async function getPopularTvSeries() {
+  console.log("hii");
+  const response = await fetch("/Series/popular", {
     headers: {
       "Content-Type": "application/json",
     },
   });
+
   if (!response.ok) {
     throw new Error();
   }
   const data = await response.json();
+
   return data;
 }
-export async function getPopularMovies() {
-  const response = await fetch("/Movies/popular", {
+export async function getAiringTvSeries() {
+  const response = await fetch("/Series/airing", {
     headers: {
       "Content-Type": "application/json",
     },
   });
+
   if (!response.ok) {
     throw new Error();
   }
   const data = await response.json();
+
   return data;
 }
-export async function getGenres() {
-  const response = await fetch("/Movies/genres", {
+export async function getAiringTodayTvSeries() {
+  const response = await fetch("/Series/airing-today", {
     headers: {
       "Content-Type": "application/json",
     },
   });
+
   if (!response.ok) {
     throw new Error();
   }
   const data = await response.json();
+
   return data;
 }
-export async function browseMovies({
+export async function getShowDetails(id) {
+  const response = await fetch(`/Series/details?id=${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error();
+  }
+  const data = await response.json();
+
+  return data;
+}
+export async function browseSeries({
   page,
   genres,
   fromRating,
@@ -45,8 +66,19 @@ export async function browseMovies({
   cast,
 }) {
   const params = new URLSearchParams();
+  console.log({
+    page,
+    genres,
+    fromRating,
+    toRating,
+    fromYear,
+    toYear,
+    orderBy,
+    cast,
+  });
   if (page && page !== "") params.append("Page", page);
-  if (genres && genres.length > 0) params.append("WithGenres", genres);
+  if (genres && genres.length > 0)
+    genres.map((genre) => params.append("WithGenres", genre));
   if (fromRating && fromRating !== "") params.append("FromRating", fromRating);
   if (toRating && toRating !== "") params.append("ToRating", toRating);
   if (fromYear && fromYear !== "") params.append("FromYear", fromYear);
@@ -55,7 +87,7 @@ export async function browseMovies({
   if (cast && cast.length > 0) params.append("WithCast", cast);
 
   const queryString = params.toString();
-  const url = `/Movies/browse?${queryString}`;
+  const url = `/Series/browse?${queryString}`;
 
   const response = await fetch(url, {
     headers: {
@@ -70,53 +102,31 @@ export async function browseMovies({
   const data = await response.json();
   return data;
 }
+export async function seriesGenres() {
+  console.log("genres");
+  const response = await fetch("/Series/genres", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw new Error();
+  }
+  const data = await response.json();
+  return data;
+}
 
-export async function getUpcomingMovies() {
-  const response = await fetch("Movies/upcoming", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  if (!response.ok) {
-    throw new Error();
-  }
-  const data = await response.json();
-  return data;
-}
-export async function getNowPlayingMovies() {
-  const response = await fetch("Movies/now-playing", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  if (!response.ok) {
-    throw new Error();
-  }
-  const data = await response.json();
-  return data;
-}
-export async function getMovieDetails(id) {
-  const response = await fetch(`/Movies/details?id=${id}`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  if (!response.ok) {
-    throw new Error();
-  }
-  const data = await response.json();
-  return data;
-}
 export async function getRecommendations(id) {
-  console.log("recc");
-  const response = await fetch(`/Movies/recommend?id=${id}`, {
+  const response = await fetch(`/Series/recommend?id=${id}`, {
     headers: {
       "Content-Type": "application/json",
     },
   });
+
   if (!response.ok) {
     throw new Error();
   }
   const data = await response.json();
+
   return data;
 }

@@ -9,40 +9,44 @@ namespace FilmDive.Server.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ShowsController(IShowsService showsService) : ControllerBase
+    public class SeriesController(ISeriesService seriesService) : ControllerBase
     {
         [HttpGet("popular")]
-        public async Task<IActionResult> GetPopularTvShows()
+        public async Task<IActionResult> GetPopularTvSeries()
         {
-            return Ok(await showsService.GetPopularSeriesAsync());
+            return Ok(await seriesService.GetPopularSeriesAsync());
         }
 
         [HttpGet("airing")]
-        public async Task<IActionResult> GetAiringTvShows()
+        public async Task<IActionResult> GetAiringTvSeries()
         {
-            return Ok(await showsService.GetOnTheAirAsync());
+            return Ok(await seriesService.GetOnTheAirAsync());
         }
         [HttpGet("recommend")]
         public async Task<IActionResult> GetRecomendations(string id)
         {
-            return Ok(await showsService.GetRecommendationsAsync(id));
+            return Ok(await seriesService.GetRecommendationsAsync(id));
         }
         [HttpGet("airing-today")]
-        public async Task<IActionResult> GetAiringTodayTvShows()
+        public async Task<IActionResult> GetAiringTodayTvSeries()
         {
-            return Ok(await showsService.GetAiringTodayAsync());
+            return Ok(await seriesService.GetAiringTodayAsync());
         }
-
+        [HttpGet("genres")]
+        public async Task<IActionResult> GetGenres()
+        {
+            return Ok(await seriesService.GetGenresAsync());
+        }
         [HttpGet("details")]
         public async Task<IActionResult> GetShowDetails(string id)
         {
-            return Ok(await showsService.GetDetailsAsync(id));
+            return Ok(await seriesService.GetDetailsAsync(id));
         }
 
         [HttpGet("browse")]
-        public async Task<IActionResult> BrowseTvShows([FromBody] BrowseShows model)
+        public async Task<IActionResult> BrowseTvSeries([FromQuery] BrowseSeries model)
         {
-            return Ok(await showsService.BrowseAsync(model));
+            return Ok(await seriesService.BrowseAsync(model));
         }
     }
 }

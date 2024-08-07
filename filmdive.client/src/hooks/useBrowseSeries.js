@@ -4,23 +4,26 @@ import { useMutation } from "@tanstack/react-query";
 import { browseMovies } from "@/http/movies";
 import { browseActions } from "@/store/browse";
 import { useDispatch } from "react-redux";
+import { browseSeries } from "@/http/series";
 
-export default function useBrowseMovies() {
+export default function useBrowseSeries() {
   const dispatch = useDispatch();
   const { mutate: loadMore, isPending: gettingMovies } = useMutation({
-    mutationFn: browseMovies,
-    onMutate: () => {},
+    mutationFn: browseSeries,
+    onMutate: () => {
+      console.log("get");
+    },
     onSuccess: (data) => {
       console.log(data);
-      dispatch(browseActions.loadMoreMovies(data));
+      dispatch(browseActions.loadMoreSeries(data));
     },
   });
   const { mutate: getFirstPage, isPending } = useMutation({
-    mutationFn: browseMovies,
+    mutationFn: browseSeries,
     onMutate: () => {},
     onSuccess: (data) => {
       console.log(data);
-      dispatch(browseActions.getFirstPageMovies(data));
+      dispatch(browseActions.getFirstPageSeries(data));
     },
   });
 

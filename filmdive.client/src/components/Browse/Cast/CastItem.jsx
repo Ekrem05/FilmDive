@@ -1,12 +1,15 @@
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useLocation } from "react-router";
 
 export default function CastItem({ item }) {
   const { genres, year, rating, orderBy, cast } = useParams();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   function handleClick(event) {
     const currentYear = new Date().getFullYear();
+    const root = pathname.split("/")[1];
+
     navigate(
-      `/browse/${genres ? genres : "all"}/${year ? year : `all`}/${
+      `/${root}/${genres ? genres : "all"}/${year ? year : `all`}/${
         rating ? rating : "all"
       }/${orderBy ? orderBy : "default"}/${item.id}`
     );

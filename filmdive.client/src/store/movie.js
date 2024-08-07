@@ -8,7 +8,7 @@ const movieSlice = createSlice({
     select(state, action) {
       state.selectedMovie = action.payload;
     },
-    initialFetch(state, action) {
+    initialFetchMovies(state, action) {
       state.selectedMovie = action.payload[0];
       state.trendingMovies = action.payload;
     },

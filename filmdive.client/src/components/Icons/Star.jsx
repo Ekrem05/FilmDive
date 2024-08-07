@@ -1,8 +1,7 @@
-const Star = ({ width }) => {
+const Star = ({ ...props }) => {
   return (
     <svg
-      width={width}
-      className={`lg:w-${width} lg:w-6 xl:w-6 w-4`}
+      {...props}
       viewBox="0 0 24 24"
       fill="#f5c518"
       xmlns="http://www.w3.org/2000/svg"

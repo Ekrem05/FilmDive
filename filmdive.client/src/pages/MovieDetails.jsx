@@ -31,7 +31,7 @@ export default function MovieDetails() {
         </section>
       )}
       {!isPending && (
-        <main className=" bg-bgdrk flex flex-col gap-10">
+        <main className=" bg-bgdrk flex flex-col gap-10 pb-32">
           <section className=" relative flex flex-col md:block gap-64 md:gap-5 bg-bgdrk pb-8 ">
             <div className="hidden md:block">
               <LazyImage

@@ -7,6 +7,12 @@ const initialState = {
     totalResults: 0,
     totalPages: 0,
   },
+  filteredSeries: {
+    page: 0,
+    data: [],
+    totalResults: 0,
+    totalPages: 0,
+  },
   genres: null,
 };
 
@@ -18,11 +24,10 @@ const browseSlice = createSlice({
       state.genres = action.payload;
     },
     removeGenre(state, action) {},
-    initialFetch(state, action) {
-      state.selectedMovie = action.payload[0];
+    initialFetchMovies(state, action) {
       state.trendingMovies = action.payload;
     },
-    loadMore(state, action) {
+    loadMoreMovies(state, action) {
       state.filteredMovies = {
         page: action.payload.page || state.filteredMovies.page + 1, // Increment page if not provided
         data: [...state.filteredMovies.data, ...action.payload.result], // Append new results
@@ -31,8 +36,25 @@ const browseSlice = createSlice({
         totalPages: state.filteredMovies.totalPages,
       };
     },
-    getFirstPage(state, action) {
+    getFirstPageMovies(state, action) {
       state.filteredMovies = {
+        page: action.payload.page, // Increment page if not provided
+        data: action.payload.result, // Append new results
+        totalResults: action.payload.totalResults, // Update total results
+        totalPages: action.payload.totalPages,
+      };
+    },
+    loadMoreSeries(state, action) {
+      state.filteredSeries = {
+        page: action.payload.page || state.filteredSeries.page + 1, // Increment page if not provided
+        data: [...state.filteredSeries.data, ...action.payload.result], // Append new results
+        totalResults:
+          action.payload.totalResults || state.filteredSeries.totalResults, // Update total results
+        totalPages: state.filteredSeries.totalPages,
+      };
+    },
+    getFirstPageSeries(state, action) {
+      state.filteredSeries = {
         page: action.payload.page, // Increment page if not provided
         data: action.payload.result, // Append new results
         totalResults: action.payload.totalResults, // Update total results

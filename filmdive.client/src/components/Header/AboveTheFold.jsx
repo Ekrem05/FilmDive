@@ -40,7 +40,7 @@ export default function AboveTheFold() {
         });
       };
       preloadImages(imageUrls);
-      dispatch(movieActions.initialFetch(data));
+      dispatch(movieActions.initialFetchMovies(data));
     }
   }, [data, isPending, dispatch]);
   const temp = false;

@@ -16,14 +16,14 @@ export default function Footer() {
   return (
     <footer className="bg-black text-headersdrk flex flex-col pt-20 pb-6 gap-10">
       <main className="flex px-10">
-        <ul className="grid grid-cols-3">
-          <li className="flex flex-col gap-4">
+        <ul className="grid grid-cols-1 gap-y-20 sm:gap-y-0 sm:grid-cols-3">
+          <li className="flex flex-col items-center sm:items-start text-center gap-10 sm:text-start sm:gap-4">
             <h2 className="text-4xl  text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl ">
-              About the developer
+              About
             </h2>
-            <section>
-              <p className="w-4/5">
-                <h3 className="text-4xl  text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-2xl ">
+            <section className="flex justify-center sm:block">
+              <div className="w-4/5">
+                <h3 className="text-4xl   text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-2xl ">
                   Ekrem Beytula{" "}
                   <span className="text-highlightdrk">
                     Software Development
@@ -31,20 +31,26 @@ export default function Footer() {
                 </h3>
                 Specializing in software development, with expertise in building
                 top-level web applications from the ground up.
-              </p>
+              </div>
             </section>
             <section>
-              <p className="font-extralight">Phone: 0886534085</p>
               <p className="font-extralight">
                 Email: ekrem.beytula.dev@gmail.com
               </p>
             </section>
           </li>
-          <li>
+          <li className="flex flex-col items-center sm:block">
             <h2 className="text-4xl  text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl ">
               Tech stack
             </h2>
             <div className="flex items-center gap-4">
+              <a href={"https://dotnet.microsoft.com/en-us/languages/csharp"}>
+                <img src={csharp} alt="" width={40} />
+              </a>
+
+              <a href="https://www.postgresql.org/">
+                <img src={postgre} alt="" width={40} />
+              </a>
               <a href="https://react.dev/">
                 <Lottie
                   animationData={json}
@@ -52,14 +58,6 @@ export default function Footer() {
                   autoplay={true}
                   style={{ width: 50, height: 50 }}
                 />
-              </a>
-
-              <a href={"https://dotnet.microsoft.com/en-us/languages/csharp"}>
-                <img src={csharp} alt="" width={40} />
-              </a>
-
-              <a href="https://www.postgresql.org/">
-                <img src={postgre} alt="" width={40} />
               </a>
               <a href="https://redux.js.org/">
                 <img src={redux} alt="" width={40} />
@@ -70,8 +68,8 @@ export default function Footer() {
             </div>
           </li>
           <li>
-            <section className="flex gap-8 items-center">
-              <h2 className="text-4xl  text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl ">
+            <section className="flex flex-col sm:flex-row gap-8 items-center">
+              <h2 className="hidden sm:block text-4xl  text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl ">
                 Film Dive
               </h2>
               <img src={logo} alt="" width={100} />
@@ -79,13 +77,10 @@ export default function Footer() {
 
             <ul className="flex flex-col gap-4">
               <li className="font-light">
-                <Link to={"/browse"}>Movies</Link>
+                <Link to={"/movies"}>Movies</Link>
               </li>
               <li className="font-light">
-                <Link to={"/browse"}>Tv Series</Link>
-              </li>
-              <li className="font-light">
-                <Link to={"/browse"}>Movies</Link>
+                <Link to={"/series"}>Tv Series</Link>
               </li>
               <li className="font-light">
                 <Link to={"/browse"}>Watch list</Link>
@@ -96,13 +91,13 @@ export default function Footer() {
       </main>
       <section className="w-full">
         <div className="flex  justify-center gap-10">
-          <a href="">
+          <a href="https://github.com/Ekrem05">
             <FaGithub className="size-7" />
           </a>
-          <a href="">
+          <a href="https://www.linkedin.com/in/ekrem-beytula-5b010b263/">
             <FaLinkedin className="size-7" />
           </a>
-          <a href="">
+          <a href="https://discord.gg/7BRgFWvj">
             <FaDiscord className="size-7" />
           </a>
           <a href="">
