@@ -7,7 +7,7 @@ const client = new QueryClient();
 
 export default function Layout() {
   return (
-    <>
+    <main className="light">
       <QueryClientProvider client={client}>
         <Header>
           <Navigation />
@@ -15,6 +15,6 @@ export default function Layout() {
           <Footer />
         </Header>
       </QueryClientProvider>
-    </>
+    </main>
   );
 }

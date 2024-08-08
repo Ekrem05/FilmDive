@@ -1,7 +1,6 @@
 const colors = require("tailwindcss/colors");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}",
@@ -14,13 +13,15 @@ module.exports = {
       black: "#000000",
       white: "#ffffff",
       textdrk: "#EEEEEE",
-      bgdrk: "#1F1D36",
-      secondarydrk: "#3F3351",
-      accentdrk: "#864879",
-      highlightdrk: "#E9A6A6",
-      transparentdrk: "#eeeeee2e",
-      headersdrk: "#F7DEDE",
-      imdb: "#f5c518",
+      base: "var(--base)",
+      primary: "var(--primary)",
+      callToAction: "var(--callToAction)",
+      headerColor: "var(--headerColor)",
+      secondaryText: "var(--secondaryText)",
+      primaryText: "var(--primaryText)",
+      transparentdrk: "var(--transparentdrk)",
+      headersdrk: "var(--headersdrk)",
+      imdb: "var(--imdb)",
     },
     fontFamily: {
       default: "Inter",

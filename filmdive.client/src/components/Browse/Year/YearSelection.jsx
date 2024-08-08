@@ -40,8 +40,8 @@ export default function YearSelection() {
   return (
     <Box className="pt-9 px-5">
       <Slider
-        color="highlightdrk"
-        className="w-full"
+        color=""
+        className="w-full text-primary"
         getAriaLabel={() => "Temperature range"}
         defaultValue={2024}
         disableSwap={true}

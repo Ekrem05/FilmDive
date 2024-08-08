@@ -43,8 +43,8 @@ export default function Rating() {
   return (
     <Box className="pt-9 px-5">
       <Slider
-        color="highlightdrk"
-        className=""
+        color="primaryText"
+        className="w-full text-primary"
         getAriaLabel={() => "Temperature range"}
         defaultValue={2024}
         disableSwap={true}

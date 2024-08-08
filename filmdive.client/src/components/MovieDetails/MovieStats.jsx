@@ -5,13 +5,13 @@ export default function MovieStats({ movie }) {
     <>
       <section className="stats md:flex hidden  flex-row items-center">
         <div className={`flex items-center text-white`}>
-          <Star className={"w-8"} />
-          <span className={`text-xl md:text-xs lg:text-xl`}>
+          <Star className={"w-8 fill-primaryText"} />
+          <span className={`text-xl md:text-xs text-primaryText  lg:text-xl`}>
             {movie.voteAverage.toFixed(1)}
           </span>
         </div>
       </section>
-      <p className="text-accentdrk tracking-tight hidden  md:block ">
+      <p className="text-callToAction tracking-tight hidden  md:block ">
         {genres}
       </p>
       <section className=" md:hidden flex-row justify-evenly">
@@ -21,9 +21,9 @@ export default function MovieStats({ movie }) {
             {movie.voteAverage.toFixed(1)}
           </span>
         </div>
-        <p className="text-accentdrk tracking-tight   md:block ">{genres}</p>
+        <p className="text-primary tracking-tight   md:block ">{genres}</p>
       </section>
-      <p className="text-highlightdrk md:w-[58rem] opacity-80">
+      <p className="text-primaryText md:w-[58rem] opacity-100">
         {movie.overview}
       </p>
     </>

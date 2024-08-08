@@ -104,10 +104,10 @@ export default function LogIn() {
     console.log(currentBg);
   }
   return (
-    <section className="bg-bgdrk gap-10 relative flex-wrap min-h-[100vh] z-0 flex flex-col  items-center">
+    <section className="bg-base gap-10 relative flex-wrap min-h-[100vh] z-0 flex flex-col  items-center">
       {data && (
         <>
-          <div className="hidden  sm:block absolute h-[100vh] bg-bgdrk z-[-1] ">
+          <div className="hidden  sm:block absolute h-[100vh] bg-base z-[-1] ">
             <AnimatePresence>
               <motion.img
                 key={data[currentBg].title}
@@ -198,7 +198,7 @@ export default function LogIn() {
                 </div>
                 <div className="flex gap-2">
                   <p>You don't have an account?</p>
-                  <Link to={"/auth/signup"} className="text-highlightdrk">
+                  <Link to={"/auth/signup"} className="text-primaryText">
                     Sign Up
                   </Link>
                 </div>

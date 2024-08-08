@@ -68,7 +68,7 @@ export function CheckInput({ id, label, isChecked }) {
         name={label}
         readOnly
         checked={isChecked}
-        className="w-10 h-5 opacity-0 checkbox-input accent-highlightdrk duration-500"
+        className="w-10 h-5 opacity-0 checkbox-input accent-primaryText duration-500"
       />
       <label htmlFor={id} className="checkbox-label">
         {label}

@@ -30,7 +30,7 @@ export default function UserSection() {
         <Popover>
           <PopoverTrigger>
             <img
-              className="w-5 xl:w-10 hover:cursor-pointer bg-highlightdrk rounded-full p-1 m-1"
+              className="w-5 xl:w-10 hover:cursor-pointer bg-primaryText rounded-full p-1 m-1"
               src={svg}
               alt=""
             />

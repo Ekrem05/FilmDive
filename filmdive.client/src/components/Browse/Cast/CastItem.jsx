@@ -18,7 +18,7 @@ export default function CastItem({ item }) {
   return (
     <li
       key={item.id}
-      className="rounded-xl flex flex-col gap-1 2xl:w-48 bg-accentdrk text-highlightdrk hover:bg-secondarydrk hover:cursor-pointer"
+      className="rounded-xl flex flex-col gap-1 2xl:w-48 hover:bg-primary transition-colors duration-200 text-primaryText  hover:cursor-pointer"
       onClick={handleClick}
     >
       <img
@@ -27,7 +27,7 @@ export default function CastItem({ item }) {
       />
       <footer className="flex justify-between px-2 py-1 rounded-xl">
         <p className="text-lg text-headersdrk">{item.name}</p>
-        <div className="bg-bgdrk rounded-2xl py-1 px-2 self-center">
+        <div className="bg-base text-callToAction rounded-2xl py-1 px-2 self-center">
           {item.field}
         </div>
       </footer>

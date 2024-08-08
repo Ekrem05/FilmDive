@@ -14,7 +14,7 @@ export default function MovieClips({ movie }) {
                 {" "}
                 <li
                   key={video.key}
-                  className="bg bg-gradient-to-tr from-bgdrk hidden md:block to-highlightdrk"
+                  className="bg bg-gradient-to-tr from-base hidden md:block to-primaryText"
                 >
                   <iframe
                     width="500px"
@@ -27,7 +27,7 @@ export default function MovieClips({ movie }) {
                 </li>
                 <li
                   key={video.key}
-                  className="bg bg-gradient-to-tr from-bgdrk block md:hidden to-highlightdrk"
+                  className="bg bg-gradient-to-tr from-base block md:hidden to-primaryText"
                 >
                   <iframe
                     src={`https://www.youtube.com/embed/${video.key}`}
@@ -42,7 +42,7 @@ export default function MovieClips({ movie }) {
         </ul>
         <ScrollBar
           orientation="horizontal"
-          className={"bg-highlightdrk hover:cursor-pointer "}
+          className={"bg-primary hover:cursor-pointer "}
         />
       </ScrollArea>
     </section>

@@ -140,15 +140,15 @@ export default function BrowseSeries() {
               </SheetTrigger>
               <SheetContent
                 side="left"
-                className="text-white bg-bgdrk overflow-y-auto border-r-accentdrk"
+                className="text-white bg-baseoverflow-y-auto border-r-secondaryText"
               >
-                <ul className="sm:flex flex-col bg-#1F1D36 text-accentdrk sm:h-screen ">
+                <ul className="sm:flex flex-col bg-#1F1D36 text-secondaryText sm:h-screen ">
                   <Accordion type="single" collapsible>
                     <AccordionItem
                       value="item-1"
-                      className="border-b-accentdrk"
+                      className="border-b-secondaryText"
                     >
-                      <AccordionTrigger className="text-lg  border-none xl:text-2xl text-highlightdrk">
+                      <AccordionTrigger className="text-lg  border-none xl:text-2xl text-primaryText">
                         Genres
                       </AccordionTrigger>
                       <AccordionContent className="w-full border-none">
@@ -159,9 +159,9 @@ export default function BrowseSeries() {
                   <Accordion type="single" collapsible>
                     <AccordionItem
                       value="item-1"
-                      className="border-b-accentdrk"
+                      className="border-b-secondaryText"
                     >
-                      <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
+                      <AccordionTrigger className="text-lg xl:text-2xl text-primaryText">
                         Year
                       </AccordionTrigger>
                       <AccordionContent className="">
@@ -172,9 +172,9 @@ export default function BrowseSeries() {
                   <Accordion type="single" collapsible>
                     <AccordionItem
                       value="item-1"
-                      className="border-b-accentdrk"
+                      className="border-b-secondaryText"
                     >
-                      <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
+                      <AccordionTrigger className="text-lg xl:text-2xl text-primaryText">
                         Rating
                       </AccordionTrigger>
                       <AccordionContent className="w-full">

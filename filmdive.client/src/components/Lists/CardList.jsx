@@ -29,7 +29,7 @@ export default function CardList({ fn, fnKey, title, subject }) {
   return (
     <>
       <section className="pt-10">
-        <h3 className="2xl:text-5xl xl:text-3xl font-bold text-headersdrk  mb-4 ">
+        <h3 className="2xl:text-5xl drop-shadow-2xl xl:text-3xl font-bold  text-primaryText  mb-4 ">
           {title}
         </h3>
         {!data && (
@@ -39,7 +39,7 @@ export default function CardList({ fn, fnKey, title, subject }) {
         )}
         {data && (
           <ul
-            className="trending-list flex items-start gap-4  overflow-x-scroll 2xl:gap-5 xl:gap-5 w-[100%]"
+            className="trending-list flex items-start gap-4  overflow-x-scroll 2xl:gap-1 xl:gap-5 w-[100%]"
             ref={list}
           >
             {data.map((movie) => {

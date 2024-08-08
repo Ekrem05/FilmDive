@@ -46,7 +46,7 @@ export default function AboveTheFold() {
   const temp = false;
   if (!data) {
     return (
-      <section className="relative bg-bgdrk h-svh pb-8">
+      <section className="relative bg-base h-svh pb-8">
         <HomeSkeleton />
       </section>
     );
@@ -54,7 +54,7 @@ export default function AboveTheFold() {
   return (
     <>
       {selectedMovie && (
-        <section className="relative bg-bgdrk h-auto pb-8">
+        <section className="relative bg-base h-auto pb-8">
           <AnimatePresence>
             <motion.img
               style={{ y: titleScale }}

@@ -34,10 +34,10 @@ export default function SideBar() {
   console.log("side", route);
   return (
     <>
-      <ul className="hidden  mt-32 sm:flex flex-col ml-10 bg-#1F1D36 text-accentdrk sm:h-screen ">
+      <ul className="hidden  mt-32 sm:flex flex-col ml-10 bg-#1F1D36 text-secondaryText sm:h-screen ">
         <Accordion type="single" className="w-52" collapsible>
-          <AccordionItem value="item-1 " className="border-b-accentdrk">
-            <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
+          <AccordionItem value="item-1 " className="border-b-secondaryText">
+            <AccordionTrigger className="text-lg xl:text-2xl text-primaryText">
               Genres
             </AccordionTrigger>
             <AccordionContent className="w-full ">
@@ -52,8 +52,8 @@ export default function SideBar() {
           </AccordionItem>
         </Accordion>
         <Accordion type="single" className="w-52" collapsible>
-          <AccordionItem value="item-1" className="border-b-accentdrk">
-            <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
+          <AccordionItem value="item-1" className="border-b-secondaryText">
+            <AccordionTrigger className="text-lg xl:text-2xl text-primaryText">
               Year
             </AccordionTrigger>
             <AccordionContent className="w-52">
@@ -62,8 +62,8 @@ export default function SideBar() {
           </AccordionItem>
         </Accordion>
         <Accordion type="single" className="w-52" collapsible>
-          <AccordionItem value="item-1" className="border-b-accentdrk">
-            <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
+          <AccordionItem value="item-1" className="border-b-secondaryText">
+            <AccordionTrigger className="text-lg xl:text-2xl text-primaryText">
               Rating
             </AccordionTrigger>
             <AccordionContent className="w-full">
@@ -73,8 +73,8 @@ export default function SideBar() {
         </Accordion>
         {route && route === "movies" && (
           <Accordion type="single" className="w-52" collapsible>
-            <AccordionItem value="item-1" className="border-b-accentdrk">
-              <AccordionTrigger className="text-lg xl:text-2xl text-highlightdrk">
+            <AccordionItem value="item-1" className="border-b-secondaryText">
+              <AccordionTrigger className="text-lg xl:text-2xl text-primaryText">
                 Cast
               </AccordionTrigger>
               <AccordionContent className="w-full">

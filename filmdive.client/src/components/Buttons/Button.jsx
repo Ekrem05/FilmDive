@@ -10,7 +10,7 @@ export default function Button({
   onClick,
 }) {
   const tailwind =
-    "bg-highlightdrk pt-1 pb-1 pl-3 pr-3 rounded-md text-xs xl:text-2xl xl:w-44 w-28  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 " +
+    "bg-primaryText pt-1 pb-1 pl-3 pr-3 rounded-md text-xs xl:text-2xl xl:w-44 w-28  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 " +
     styling;
   if (isLink) {
     return (

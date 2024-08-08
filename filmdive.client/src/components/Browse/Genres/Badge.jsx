@@ -18,10 +18,10 @@ export default function Badge({ genre }) {
     );
   }
   return (
-    <div className="flex items-center bg-secondarydrk rounded-xl px-3">
-      <p className="text-highlightdrk">{genre.name}</p>
+    <div className="flex items-center bg-headerColor rounded-xl px-3">
+      <p className="text-primaryText">{genre.name}</p>
       <div
-        className="text-highlightdrk text-2xl hover:cursor-pointer"
+        className="text-primaryText text-2xl hover:cursor-pointer"
         onClick={removeGenre}
       >
         <IconArrows_remove />

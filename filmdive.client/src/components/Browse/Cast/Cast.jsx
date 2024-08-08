@@ -42,7 +42,7 @@ export default function Cast() {
     <section className="flex flex-col gap-3 h-screen">
       <input
         type="text"
-        className="rounded-xl px-2 py-1 outline-none text-highlightdrk bg-secondarydrk"
+        className="rounded-xl px-2 py-1 outline-none text-primaryText bg-headerColor"
         placeholder="Include movies with..."
         value={value}
         onChange={handleChange}

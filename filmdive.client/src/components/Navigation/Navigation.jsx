@@ -40,7 +40,7 @@ export default function Navigation() {
   }
   return (
     <motion.header
-      className={"w-[100%] myHeader fixed z-[1]"}
+      className={"w-[100%] fixed z-[1]"}
       style={{
         backgroundImage: navOpacity,
       }}
@@ -125,7 +125,7 @@ export default function Navigation() {
                 <motion.li
                   key={"Movies"}
                   variants={itemVariants}
-                  className="border-b-secondarydrk flex justify-center pb-3 mx-4 border-b"
+                  className="border-b-headerColor flex justify-center pb-3 mx-4 border-b"
                 >
                   <NavButton
                     label={"Movies"}
@@ -136,7 +136,7 @@ export default function Navigation() {
                 <motion.li
                   key={"TV Series"}
                   variants={itemVariants}
-                  className="border-b-secondarydrk flex justify-center pb-3 mx-4 border-b"
+                  className="border-b-headerColor flex justify-center pb-3 mx-4 border-b"
                 >
                   <NavButton
                     label={"TV Series"}
@@ -147,7 +147,7 @@ export default function Navigation() {
                 <motion.li
                   key={"Watch list"}
                   variants={itemVariants}
-                  className="border-b-secondarydrk flex justify-center pb-3 mx-4 border-b"
+                  className="border-b-headerColor flex justify-center pb-3 mx-4 border-b"
                 >
                   <NavButton
                     label={"Watch list"}

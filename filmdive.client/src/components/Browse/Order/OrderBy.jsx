@@ -23,70 +23,70 @@ export default function OrderBy() {
   return (
     <Select onValueChange={handleChange}>
       <SelectTrigger
-        className="w-36 bg-bgdrk font-bold
- text-highlightdrk focus:border-r-secondarydrk outline-none border-none  transition duration-300 ease-in-out"
+        className="w-36 bg-base font-bold
+ text-primary focus:border-r-headerColor outline-none border-none  transition duration-300 ease-in-out"
       >
         <SelectValue placeholder="Order by" />
       </SelectTrigger>
-      <SelectContent className="rounded-xl bg-bgdrk h-48 overflow-y-hidden border-none text-headersdrk">
-        <SelectGroup className="bg-bgdrk rounded-xl border-secondarydrk">
+      <SelectContent className="rounded-xl bg-base h-48 overflow-y-hidden border-none text-headersdrk">
+        <SelectGroup className="bg-base rounded-xl border-headerColor">
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-primary hover:bg-primaryText hover:text-primary duration-75"
             value="popularity.desc"
           >
             Most popular
           </SelectItem>
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-primary hover:bg-primaryText hover:text-primary duration-75"
             value="popularity.asc"
           >
             Least popular
           </SelectItem>
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-primary hover:bg-primaryText hover:text-primary duration-75"
             value="revenue.desc"
           >
             Highest revenue
           </SelectItem>
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
             value="revenue.asc"
           >
             Lowest revenue
           </SelectItem>
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
             value="primary_release_date.desc"
           >
             Newest release date
           </SelectItem>
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
             value="primary_release_date.asc"
           >
             Oldest release date
           </SelectItem>
 
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
             value="vote_average.desc"
           >
             Highest rated
           </SelectItem>
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
             value="vote_average.asc"
           >
             Lowest rated
           </SelectItem>
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
             value="vote_count.desc"
           >
             Most votes
           </SelectItem>
           <SelectItem
-            className="text-accentdrk hover:bg-highlightdrk hover:text-white duration-75"
+            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
             value="vote_count.asc"
           >
             Least votes
