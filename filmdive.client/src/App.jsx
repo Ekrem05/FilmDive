@@ -8,6 +8,7 @@ import SignUp from "./components/Auth/SignUp";
 import LogIn from "./components/Auth/LogIn";
 import Series from "./pages/Series";
 import SeriesDetails from "./pages/SeriesDetails";
+import Watchlist from "./pages/Watchlist";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <SeriesDetails />,
+      },
+      {
+        path: "/watchlist",
+        element: <Watchlist />,
       },
     ],
   },
