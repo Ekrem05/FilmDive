@@ -3,10 +3,16 @@
 @tailwind utilities;
 * {
   font-family: "Inter", "open-sans";
+  @apply transition-colors duration-200;
 }
 *:focus {
   outline-color: transparent;
 }
+:root {
+  --primary: #f3d0d7;
+  --callToAction: #8000ff;
+}
+
 /* .myHeader {
   background-image: linear-gradient(
     180deg,
@@ -101,33 +107,30 @@
   border-radius: 5em;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#3f3351, var(--primary)); /* Thumb color */
+  background: var(--primary); /* Thumb color */
   border-radius: 5em;
 }
 
 .dark {
   --base: #12111e;
-  --primary: #000000;
-  --headerColor: #3f3351;
+  --primary: #f3d0d7;
+  --headerColor: #dabac0;
   --secondaryText: #864879;
-  --primaryText: #e9a6a6;
-  --transparentdrk: #eeeeee2e;
-  --headersdrk: #f7dede;
+  --primaryText: #e6edf3;
+  --transparentdrk: #eeeeee04;
   --imdb: #f5c518;
+  --callToAction: #8000ff;
+  --footer: #17002e;
 }
 
 .light {
   --base: #f6f5f2;
   --primary: #f3d0d7;
-  --headerColor: #f3d0d7;
+  --headerColor: #0f000f;
   --callToAction: #8000ff;
   --secondaryText: #808080;
   --primaryText: #0f000f;
   --transparentdrk: #eeeeee2e;
-  --headersdrk: linear-gradient(
-    131deg,
-    rgba(131, 58, 180, 1) 30%,
-    rgba(233, 166, 166, 1) 70%
-  );
   --imdb: #f5c518;
+  --footer: #f3d0d7;
 }
