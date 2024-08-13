@@ -27,7 +27,7 @@ export default function TrendingCard({ movie }) {
       <div className="w-[100%] flex justify-between items-center pr-3">
         <div className={`flex items-center `}>
           <Star className={"w-5 md:w-5 fill-primaryText"} />
-          <span className={`text-xs lg:text-lg  `}>
+          <span className={`text-xs lg:text-lg text-primaryText`}>
             {movie.voteAverage.toFixed(1)}
           </span>
         </div>

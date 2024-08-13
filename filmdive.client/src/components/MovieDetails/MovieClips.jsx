@@ -3,7 +3,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 export default function MovieClips({ movie }) {
   return (
     <section className="flex flex-col gap-5">
-      <h2 className="text-headersdrk mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+      <h2 className="text-primaryText mt-10 scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
         Trailers and clips
       </h2>
       <ScrollArea className="md:w-[56rem] ">

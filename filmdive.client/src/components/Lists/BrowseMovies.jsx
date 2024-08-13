@@ -105,10 +105,10 @@ export default function BrowseMovies() {
       <section className="sm:pt-32 px-10 flex flex-col 2xl:gap-14 overflow-x-hidden w-full min-h-[2000px]">
         <header className="flex justify-between">
           <section className="w-full justify-between sm:justify-start flex gap-3">
-            <h3 className="text-2xl 2xl:text-5xl xl:text-3xl font-bold text-headersdrk ">
+            <h3 className="text-2xl 2xl:text-5xl xl:text-3xl font-bold text-headerColor ">
               Discover
             </h3>
-            <OrderBy />
+            <OrdyerBy />
           </section>
 
           <ul className="hidden 2xl:flex gap-3">
@@ -133,7 +133,7 @@ export default function BrowseMovies() {
           </ul>
           <section className="block sm:hidden">
             <Sheet>
-              <SheetTrigger className="text-headersdrk">
+              <SheetTrigger className="text-headerColor">
                 <BsFilterLeft className="size-6" />
               </SheetTrigger>
               <SheetContent
@@ -203,12 +203,12 @@ export default function BrowseMovies() {
           </section>
         </section>
         {movies.data.length === 0 && !gettingMovies && !isPending && (
-          <p className="text-center text-headersdrk text-xl">
+          <p className="text-center text-headerColor text-xl">
             There are no movies based on your filters
           </p>
         )}
         {movies.data.length > 0 && (
-          <section className="flex flex-col items-center overflow-y-hidden overflow-x-hidden">
+          <section className="flex flex-col items-center overflow-y-hidden overflow-x-hidden pb-16">
             <ul
               className="grid grid-flow-row w-[100%]  2xl:grid-cols-6 xl:grid-cols-4 gap-3 lg:grid-cols-3 md:grid-cols-3  sm:grid-cols-2 grid-cols-2"
               ref={list}
@@ -222,7 +222,7 @@ export default function BrowseMovies() {
             </ul>
             {console.log(movies.totalPages)}
             {movies.page < movies.totalPages && (
-              <Button styling={"mt-16"} onClick={handleLoadMore}>
+              <Button styling={"mt-16 bg-primary"} onClick={handleLoadMore}>
                 Load More
               </Button>
             )}

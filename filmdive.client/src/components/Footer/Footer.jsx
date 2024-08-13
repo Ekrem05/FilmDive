@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import json from "../../../public/Animation.json";
 import Lottie from "lottie-react";
-import csharp from "../../../public/csharp.svg";
-import postgre from "../../../public/postgre.svg";
-import vite from "../../../public/vite.svg";
-import redux from "../../../public/redux.svg";
+import csharp from "/csharp.svg";
+import postgre from "/postgre.svg";
+import vite from "/vite.svg";
+import redux from "/redux.svg";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
@@ -14,16 +14,16 @@ import logo from "../../assets/logo-transparent-white.svg";
 import { useRef } from "react";
 export default function Footer() {
   return (
-    <footer className="bg-primary text-headersdrk flex flex-col pt-20 pb-6 gap-10">
+    <footer className="bg-footer text-primaryText flex flex-col pt-20 pb-6 gap-10">
       <main className="flex px-10">
         <ul className="grid grid-cols-1 gap-y-20 sm:gap-y-0 sm:grid-cols-3">
           <li className="flex flex-col items-center sm:items-start text-center gap-10 sm:text-start sm:gap-4">
-            <h2 className="text-4xl  text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl ">
+            <h2 className="text-4xl  text-primaryText max-w-xl font-extrabold tracking-tight lg:text-5xl ">
               About
             </h2>
             <section className="flex justify-center sm:block">
               <div className="w-4/5">
-                <h3 className="text-4xl   text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-2xl ">
+                <h3 className="text-4xl   text-primaryText max-w-xl font-extrabold tracking-tight lg:text-2xl ">
                   Ekrem Beytula{" "}
                   <span className="text-primaryText">Software Development</span>
                 </h3>
@@ -38,7 +38,7 @@ export default function Footer() {
             </section>
           </li>
           <li className="flex flex-col items-center sm:block">
-            <h2 className="text-4xl  text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl ">
+            <h2 className="text-4xl  text-primaryText max-w-xl font-extrabold tracking-tight lg:text-5xl ">
               Tech stack
             </h2>
             <div className="flex items-center gap-4">
@@ -67,7 +67,7 @@ export default function Footer() {
           </li>
           <li>
             <section className="flex flex-col sm:flex-row gap-8 items-center">
-              <h2 className="hidden sm:block text-4xl  text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl ">
+              <h2 className="hidden sm:block text-4xl  text-primaryText max-w-xl font-extrabold tracking-tight lg:text-5xl ">
                 Film Dive
               </h2>
               <img src={logo} alt="" width={100} />

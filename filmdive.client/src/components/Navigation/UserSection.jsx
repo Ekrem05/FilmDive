@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import svg from "../../assets/user-icon-svgrepo-com.svg";
+import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import logoutSVG from "../../assets/log-out-svgrepo-com.svg";
 
@@ -29,20 +29,16 @@ export default function UserSection() {
       {data && (
         <Popover>
           <PopoverTrigger>
-            <img
-              className="w-5 xl:w-10 hover:cursor-pointer bg-primaryText rounded-full p-1 m-1"
-              src={svg}
-              alt=""
-            />
+            <FaUser className="bg-primary text-primaryText size-12 rounded-full p-2" />
           </PopoverTrigger>
-          <PopoverContent className="bg-headersdrk">
+          <PopoverContent className="bg-headerColor">
             <ul>
               <li
                 className="flex gap-1 hover:cursor-pointer  items-center"
                 onClick={logout}
               >
                 <img
-                  className="w-5 xl:w-5   text-headersdrk rounded-full"
+                  className="w-5 xl:w-5   text-headerColor rounded-full"
                   src={logoutSVG}
                   alt=""
                 />

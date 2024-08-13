@@ -26,7 +26,7 @@ export default function CastItem({ item }) {
         className="rounded-xl flex-grow-0 "
       />
       <footer className="flex justify-between px-2 py-1 rounded-xl">
-        <p className="text-lg text-headersdrk">{item.name}</p>
+        <p className="text-lg text-headerColor">{item.name}</p>
         <div className="bg-base text-callToAction rounded-2xl py-1 px-2 self-center">
           {item.field}
         </div>

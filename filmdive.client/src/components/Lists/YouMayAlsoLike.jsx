@@ -16,7 +16,7 @@ export default function YouMayAlsoLike({ id, subject, fn }) {
   return (
     <>
       <section className="md:pt-10 md:pl-20 md:pr-20 px-5 ">
-        <h3 className="2xl:text-5xl xl:text-3xl font-bold text-headersdrk  mb-4 ">
+        <h3 className="2xl:text-5xl xl:text-3xl font-bold text-primaryText  mb-4 ">
           You may also like
         </h3>
         {!data && (

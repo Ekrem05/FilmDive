@@ -13,7 +13,7 @@ export default function Checkbox() {
         name="rememberme"
         type="checkbox"
         checked={isChecked}
-        className="opacity-0 checkbox-input accent-headersdrk duration-500"
+        className="opacity-0 checkbox-input accent-headerColor duration-500"
       />
       <p className="checkbox-label" onClick={handleClick}>
         Remember me

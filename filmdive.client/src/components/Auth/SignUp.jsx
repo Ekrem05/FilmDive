@@ -1,4 +1,6 @@
-import svg from "../../assets/logo-transparent-white.svg";
+import whiteLogo from "../../assets/logo-transparent-white.svg";
+import darkLogo from "../../assets/logo-transparent-bg.svg";
+
 import { useInput } from "../hooks/useInput";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getTrendingMovies } from "../../http/movies";
@@ -18,6 +20,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Checkbox from "./Checkbox";
 import { signup } from "@/http/auth";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 export default function SignUp() {
   const [serverValidation, setServerValidation] = useState({
@@ -72,6 +75,8 @@ export default function SignUp() {
       }
     },
   });
+  const theme = useSelector((state) => state.movie.theme);
+
   const navigate = useNavigate();
   const [currentBg, setCurrentBg] = useState(0);
   useEffect(() => {
@@ -149,15 +154,19 @@ export default function SignUp() {
           </div>
 
           <Link to="/">
-            <img className="w-32 mt-5 sm:mt-20 " src={svg} alt="" />
+            <img
+              className="w-32 mt-5 sm:mt-20 "
+              src={theme === "dark" ? whiteLogo : darkLogo}
+              alt=""
+            />
           </Link>
 
           <main className="w-full sm:w-5/6 md:w-4/6 2xl:w-1/3 flex justify-center">
             <form
               onSubmit={handleSubmission}
-              className="flex flex-col w-full md:w-4/6  bg-black bg-opacity-50 p-10  gap-5"
+              className="flex flex-col w-full md:w-4/6  bg-base bg-opacity-50 p-10  gap-5"
             >
-              <h2 className="text-5xl font-extrabold tracking-tight 2xl:text-5xl text-headersdrk max-w-xl xl:text-3xl mb-14">
+              <h2 className="text-5xl font-extrabold tracking-tight 2xl:text-5xl text-headerColor max-w-xl xl:text-3xl mb-14">
                 Signup
               </h2>
               <Input
@@ -219,7 +228,7 @@ export default function SignUp() {
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 500 }}
                     type="submit"
-                    className="button opacity-50 text-2xl bg-headersdrk pt-1 pb-1 pl-3 pr-3 rounded-md 2xl:text-2xl xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full"
+                    className="button opacity-50 text-2xl bg-primary pt-1 pb-1 pl-3 pr-3 rounded-md 2xl:text-2xl xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full"
                   >
                     Signing up ...
                   </motion.button>
@@ -228,26 +237,26 @@ export default function SignUp() {
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 500 }}
                     type="submit"
-                    className="button text-2xl bg-headersdrk pt-1 pb-1 pl-3 pr-3 rounded-md 2xl:text-2xl xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full"
+                    className="button text-2xl bg-primary pt-1 pb-1 pl-3 pr-3 rounded-md 2xl:text-2xl xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full"
                   >
                     Sign up
                   </motion.button>
                 )}
               </p>
-              <footer className="text-headersdrk flex flex-col gap-5">
+              <footer className="text-primaryText flex flex-col gap-5">
                 <div className="flex gap-4">
                   <Checkbox />
                 </div>
                 <div className="flex gap-2 text-sm md:text-lg">
                   <p>Already have an account?</p>
-                  <Link to={"/auth/login"} className="text-primaryText">
+                  <Link to={"/auth/login"} className="text-primary">
                     Log In
                   </Link>
                 </div>
               </footer>
             </form>
           </main>
-          <footer className="hidden xl:block h-[20em]"></footer>
+          <footer className="hidden"></footer>
         </>
       )}
     </section>

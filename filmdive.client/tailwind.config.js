@@ -16,11 +16,11 @@ module.exports = {
       base: "var(--base)",
       primary: "var(--primary)",
       callToAction: "var(--callToAction)",
-      headerColor: "var(--headerColor)",
+      footer: "var(--footer)",
       secondaryText: "var(--secondaryText)",
       primaryText: "var(--primaryText)",
       transparentdrk: "var(--transparentdrk)",
-      headersdrk: "var(--headersdrk)",
+      headerColor: "var(--headerColor)",
       imdb: "var(--imdb)",
     },
     fontFamily: {

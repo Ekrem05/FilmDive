@@ -69,6 +69,14 @@ export default defineConfig({
         target,
         secure: false,
       },
+      "/User": {
+        target,
+        secure: false,
+      },
+      "/Token": {
+        target,
+        secure: false,
+      },
     },
 
     port: 5173,

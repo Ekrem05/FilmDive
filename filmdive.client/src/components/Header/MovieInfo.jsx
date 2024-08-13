@@ -34,7 +34,7 @@ export default function MovieInfo({ movie }) {
           <Imdb rating={movie.voteAverage.toFixed(1)} width={40} text="2xl" />
         </div>
 
-        <p className="movieName text-sm  2xl:text-xl  text-primaryText overflow-hidden max-w-xl text-ellipsis whitespace-normal">
+        <p className="movieName text-sm opacity-65 2xl:text-xl  text-primaryText overflow-hidden max-w-xl text-ellipsis whitespace-normal">
           {movie.overview}
         </p>
       </div>
@@ -46,7 +46,7 @@ export default function MovieInfo({ movie }) {
       >
         <Button
           styling={
-            "bg-transparent hover:bg-primary transition-colors duration-200 text-callToAction"
+            "bg-transparent text-callToAction hover:bg-primary transition-colors duration-200 text-callToAction"
           }
           text={"Watch now"}
         >

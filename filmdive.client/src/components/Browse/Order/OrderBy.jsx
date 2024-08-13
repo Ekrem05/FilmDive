@@ -6,8 +6,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useSelector } from "react-redux";
 import { useParams, useNavigate, useLocation } from "react-router";
 export default function OrderBy() {
+  const theme = useSelector((state) => state.movie.theme);
   const { genres, year, rating, cast } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -23,72 +25,51 @@ export default function OrderBy() {
   return (
     <Select onValueChange={handleChange}>
       <SelectTrigger
-        className="w-36 bg-base font-bold
+        className="w-36 !bg-base font-bold
  text-primary focus:border-r-headerColor outline-none border-none  transition duration-300 ease-in-out"
       >
         <SelectValue placeholder="Order by" />
       </SelectTrigger>
-      <SelectContent className="rounded-xl bg-base h-48 overflow-y-hidden border-none text-headersdrk">
-        <SelectGroup className="bg-base rounded-xl border-headerColor">
-          <SelectItem
-            className="text-primary hover:bg-primaryText hover:text-primary duration-75"
-            value="popularity.desc"
-          >
+      <SelectContent
+        className={`rounded-xl ${
+          theme === "light"
+            ? "!bg-[#f3d0d7] !text-[#12111e]"
+            : "!bg-[#12111e] !text-[#f3d0d7]"
+        } opacity-100 h-48 overflow-y-hidden border-none`}
+      >
+        <SelectGroup className={`rounded-xl border-headerColor`}>
+          <SelectItem className="duration-75" value="popularity.desc">
             Most popular
           </SelectItem>
-          <SelectItem
-            className="text-primary hover:bg-primaryText hover:text-primary duration-75"
-            value="popularity.asc"
-          >
+          <SelectItem className=" duration-75" value="popularity.asc">
             Least popular
           </SelectItem>
-          <SelectItem
-            className="text-primary hover:bg-primaryText hover:text-primary duration-75"
-            value="revenue.desc"
-          >
+          <SelectItem className="  duration-75" value="revenue.desc">
             Highest revenue
           </SelectItem>
-          <SelectItem
-            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
-            value="revenue.asc"
-          >
+          <SelectItem className=" duration-75" value="revenue.asc">
             Lowest revenue
           </SelectItem>
           <SelectItem
-            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
+            className="  duration-75"
             value="primary_release_date.desc"
           >
             Newest release date
           </SelectItem>
-          <SelectItem
-            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
-            value="primary_release_date.asc"
-          >
+          <SelectItem className=" duration-75" value="primary_release_date.asc">
             Oldest release date
           </SelectItem>
 
-          <SelectItem
-            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
-            value="vote_average.desc"
-          >
+          <SelectItem className="  duration-75" value="vote_average.desc">
             Highest rated
           </SelectItem>
-          <SelectItem
-            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
-            value="vote_average.asc"
-          >
+          <SelectItem className="duration-75" value="vote_average.asc">
             Lowest rated
           </SelectItem>
-          <SelectItem
-            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
-            value="vote_count.desc"
-          >
+          <SelectItem className="duration-75" value="vote_count.desc">
             Most votes
           </SelectItem>
-          <SelectItem
-            className="text-secondaryText hover:bg-primaryText hover:text-white duration-75"
-            value="vote_count.asc"
-          >
+          <SelectItem className=" duration-75" value="vote_count.asc">
             Least votes
           </SelectItem>
         </SelectGroup>

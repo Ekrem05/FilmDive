@@ -1,4 +1,6 @@
-import svg from "../../assets/logo-transparent-white.svg";
+import whiteLogo from "../../assets/logo-transparent-white.svg";
+import darkLogo from "../../assets/logo-transparent-bg.svg";
+
 import { useInput } from "../hooks/useInput";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { getTrendingMovies } from "../../http/movies";
@@ -17,7 +19,7 @@ import { useEffect, useState } from "react";
 import Button from "../Buttons/Button";
 import { Link, useNavigate } from "react-router-dom";
 import Checkbox from "./Checkbox";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { login } from "@/http/auth";
 export default function LogIn() {
   const [serverValidation, setServerValidation] = useState({
@@ -61,6 +63,8 @@ export default function LogIn() {
     },
   });
   const navigate = useNavigate();
+  const theme = useSelector((state) => state.movie.theme);
+
   const [currentBg, setCurrentBg] = useState(0);
   useEffect(() => {
     setCurrentBg(Math.floor(Math.random() * 15));
@@ -124,14 +128,18 @@ export default function LogIn() {
           </div>
 
           <Link to="/">
-            <img className="w-32 mt-5 sm:mt-20 " src={svg} alt="" />
+            <img
+              className="w-32 mt-5 sm:mt-20 "
+              src={theme === "dark" ? whiteLogo : darkLogo}
+              alt=""
+            />
           </Link>
           <main className="w-full sm:w-5/6 md:w-4/6 2xl:w-1/3 flex justify-center">
             <form
               onSubmit={handleSubmission}
-              className="flex flex-col w-full md:w-4/6  bg-black bg-opacity-50 p-10  gap-5"
+              className="flex flex-col w-full md:w-4/6  bg-base bg-opacity-50 p-10  gap-5"
             >
-              <h2 className="text-5xl font-extrabold tracking-tight 2xl:text-5xl text-headersdrk max-w-xl xl:text-3xl mb-14">
+              <h2 className="text-5xl font-extrabold tracking-tight 2xl:text-5xl text-primaryText max-w-xl xl:text-3xl mb-14">
                 Login
               </h2>
               <Input
@@ -177,7 +185,7 @@ export default function LogIn() {
                 {submitting ? (
                   <button
                     disabled
-                    className="button text-2xl bg-headersdrk pt-1 pb-1 pl-3 pr-3 rounded-md 2xl:text-2xl xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full opacity-50"
+                    className="button text-2xl bg-primary pt-1 pb-1 pl-3 pr-3 rounded-md 2xl:text-2xl xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full opacity-50"
                   >
                     Logging in ...
                   </button>
@@ -186,19 +194,19 @@ export default function LogIn() {
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 500 }}
                     type="submit"
-                    className="button text-2xl bg-headersdrk pt-1 pb-1 pl-3 pr-3 rounded-md 2xl:text-2xl xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full"
+                    className="button text-2xl bg-primary pt-1 pb-1 pl-3 pr-3 rounded-md 2xl:text-2xl xl:text-2xl  2xl:scale-100 xl:scale-[.8] flex justify-center items-center gap-1 w-full"
                   >
                     Log In
                   </motion.button>
                 )}
               </p>
-              <footer className="text-headersdrk flex flex-col gap-5">
+              <footer className="text-primaryText flex flex-col gap-5">
                 <div className="flex gap-4">
                   <Checkbox />
                 </div>
                 <div className="flex gap-2">
                   <p>You don't have an account?</p>
-                  <Link to={"/auth/signup"} className="text-primaryText">
+                  <Link to={"/auth/signup"} className="text-primary">
                     Sign Up
                   </Link>
                 </div>

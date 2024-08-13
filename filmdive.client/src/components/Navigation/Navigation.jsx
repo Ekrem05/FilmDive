@@ -1,4 +1,6 @@
-import svg from "../../assets/logo-transparent-white.svg";
+import whiteLogo from "../../assets/logo-transparent-white.svg";
+import darkLogo from "../../assets/logo-transparent-bg.svg";
+
 import NavButton from "./NavButton";
 import { Link } from "react-router-dom";
 import {
@@ -11,8 +13,9 @@ import { useEffect, useState } from "react";
 import UserSection from "./UserSection";
 import { BsList } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
-import { black } from "tailwindcss/colors";
-import { duration } from "@mui/material";
+import { darkModeNavbar, lightModeNavbar } from "@/utils/animations";
+import { useDispatch, useSelector } from "react-redux";
+import { movieActions } from "@/store/movie";
 const listVariants = {
   initial: { opacity: 0 },
   animate: { opacity: 1, transition: { staggerChildren: 0.15 } },
@@ -24,16 +27,14 @@ const itemVariants = {
 };
 
 export default function Navigation() {
+  const theme = useSelector((state) => state.movie.theme);
+  const dispatch = useDispatch();
   const [open, setIsOpen] = useState(false);
   const { scrollY } = useScroll();
   const navOpacity = useTransform(
     scrollY,
     [0, 200, 500],
-    [
-      "linear-gradient(180deg,rgba(0, 0, 0, 0.7) 10%,transparent)",
-      "linear-gradient(180deg,rgba(0, 0, 0, 0.7) 50%,transparent)",
-      "linear-gradient(180deg,rgba(0, 0, 0, 0.8) 100%,transparent)",
-    ]
+    theme === "dark" ? darkModeNavbar : lightModeNavbar
   );
   function toggleMenu() {
     setIsOpen((prev) => !prev);
@@ -51,7 +52,8 @@ export default function Navigation() {
             <Link to="/">
               <img
                 className=" w-10 xl:w-16 hover:cursor-pointer"
-                src={svg}
+                src={theme === "dark" ? whiteLogo : darkLogo}
+                onClick={() => dispatch(movieActions.setPage(""))}
                 alt=""
               />
             </Link>
@@ -63,7 +65,7 @@ export default function Navigation() {
             <NavButton label={"TV Series"} link="/series" />
           </li>
           <li>
-            <NavButton label={"Watch list"} link="/watch" />
+            <NavButton label={"Watch list"} link="/watchlist" />
           </li>
         </ul>
         {!localStorage.getItem("token") ? (
@@ -80,14 +82,14 @@ export default function Navigation() {
         )}
       </ul>
       <motion.section
-        className={` sm:hidden flex flex-col ${open ? "bg-black" : ""} `}
+        className={` sm:hidden flex flex-col ${open ? "bg-base" : ""} `}
       >
         <ul className="w-full flex items-center py-5 px-5">
           <li className="flex-grow flex justify-center">
             <Link to="/">
               <img
                 className=" w-12 xl:w-16 hover:cursor-pointer"
-                src={svg}
+                src={theme === "dark" ? whiteLogo : darkLogo}
                 alt=""
               />
             </Link>
@@ -151,7 +153,7 @@ export default function Navigation() {
                 >
                   <NavButton
                     label={"Watch list"}
-                    link="/watch"
+                    link="/watchlist"
                     onClick={toggleMenu}
                   />
                 </motion.li>

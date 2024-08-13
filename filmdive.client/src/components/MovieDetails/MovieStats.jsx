@@ -16,12 +16,12 @@ export default function MovieStats({ movie }) {
       </p>
       <section className=" md:hidden flex-row justify-evenly">
         <div className={`flex items-center text-white`}>
-          <Star className={"w-7"} />
-          <span className={`text-xl md:text-xs lg:text-lg`}>
+          <Star className={"w-7 fill-primaryText"} />
+          <span className={`text-xl md:text-xs lg:text-lg text-primaryText `}>
             {movie.voteAverage.toFixed(1)}
           </span>
         </div>
-        <p className="text-primary tracking-tight   md:block ">{genres}</p>
+        <p className="text-callToAction tracking-tight   md:block ">{genres}</p>
       </section>
       <p className="text-primaryText md:w-[58rem] opacity-100">
         {movie.overview}

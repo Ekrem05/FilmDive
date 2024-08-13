@@ -54,14 +54,14 @@ export default function MovieDetails() {
 
                 <Button
                   text={"Watch now"}
-                  styling={"2xl:w-9/12 text-base"}
+                  styling={"2xl:w-9/12 text-base bg-primary"}
                   path={data.homepage}
                   newTab={true}
                 ></Button>
               </section>
 
               <article className="flex flex-col gap-4 w-full px-4 ">
-                <h2 className="text-4xl md:text-start text-center text-headersdrk max-w-xl font-extrabold tracking-tight lg:text-5xl scroll-m-20">
+                <h2 className="text-4xl md:text-start text-center text-primaryText max-w-xl font-extrabold tracking-tight lg:text-5xl scroll-m-20">
                   {data.title}
                 </h2>
                 <MovieStats movie={data} />
