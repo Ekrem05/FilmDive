@@ -78,10 +78,10 @@ namespace FilmDive.Server.Services.TVshows
             return series.Result;
         }
 
-        public async Task<MovieDetails> GetDetailsAsync(string id)
+        public async Task<SeriesDetails> GetDetailsAsync(string id)
         {
             var showDetailsReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/tv/{id}?language=en-US", GetApiKey());
-            var show = JsonConvert.DeserializeObject<MovieDetails>(showDetailsReq);
+            var show = JsonConvert.DeserializeObject<SeriesDetails>(showDetailsReq);
             var creditsReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/tv/{id}/credits?language=en-US", GetApiKey());
             var credits = JsonConvert.DeserializeObject<Credit>(creditsReq);
             show.ProductionCompanies = show.ProductionCompanies.Take(7).ToList();

@@ -14,7 +14,7 @@ namespace FilmDive.Server.Controllers
         [HttpPost, Route("signup")]
         public async Task<ApiResponse<AuthenticatedResponse>> Signup([FromBody] SignupViewModel signupViewModel)
         {
-            var data = await userService.SignInAsync(signupViewModel);
+            var data = await userService.SignUpAsync(signupViewModel);
             return new ApiResponse<AuthenticatedResponse>()
             {
                 Status = 200,

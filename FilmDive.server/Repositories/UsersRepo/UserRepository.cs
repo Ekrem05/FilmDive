@@ -8,9 +8,14 @@ namespace FilmDive.Server.Repositories.UserRepo
 {
     public class UserRepository(DapperContext context) : IUserRepository
     {
-        public async Task CreateUserAsync(User model)
+        public async Task<int> CreateUserAsync(User model)
         {
-            var query = "INSERT INTO public.\"Users\" (\"Email\",\"Username\", \"Password\", \"RefreshToken\", \"RefreshTokenExpiryTime\") VALUES (@Email, @Username, @Password, @RefreshToken, @RefreshTokenExpiryTime)";
+            var query = @"
+        INSERT INTO public.""Users"" 
+        (""Email"", ""Username"", ""Password"", ""RefreshToken"", ""RefreshTokenExpiryTime"") 
+        VALUES (@Email, @Username, @Password, @RefreshToken, @RefreshTokenExpiryTime)
+        RETURNING ""Id"";";
+
             var parameters = new DynamicParameters();
             parameters.Add("Email", model.Email, DbType.String);
             parameters.Add("Username", model.Username, DbType.String);
@@ -20,9 +25,10 @@ namespace FilmDive.Server.Repositories.UserRepo
 
             using (var connection = context.CreateConnection())
             {
-                await connection.ExecuteAsync(query, parameters);
+                return await connection.ExecuteScalarAsync<int>(query, parameters);
             }
         }
+
 
         public async Task<User> FindUserAsync(LoginViewModel model)
         {

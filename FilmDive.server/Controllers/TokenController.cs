@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmDive.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TokenController(ITokenService tokenService) : ControllerBase
     {
 
-        [HttpPost]
+        [HttpGet]
         [Route("refresh")]
-        public async Task<ApiResponse<AuthenticatedResponse>> Refresh(TokenApiModel tokenApiModel)
+        public async Task<ApiResponse<AuthenticatedResponse>> Refresh([FromQuery] TokenApiModel tokenApiModel)
         {
             var data = await tokenService.RefreshAsync(tokenApiModel);
             return new ApiResponse<AuthenticatedResponse>()

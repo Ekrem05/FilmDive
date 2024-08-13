@@ -38,7 +38,9 @@ namespace FilmDive.Server.Services.UserServiceFolder
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, model.Username)
+                new Claim(ClaimTypes.Name, model.Username),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
             var accessToken = tokenService.GenerateAccessToken(claims);
             var refreshToken = tokenService.GenerateRefreshToken();
@@ -55,7 +57,7 @@ namespace FilmDive.Server.Services.UserServiceFolder
             };
         }
 
-        public async Task<AuthenticatedResponse> SignInAsync(SignupViewModel model)
+        public async Task<AuthenticatedResponse> SignUpAsync(SignupViewModel model)
         {
             if (model is null)
             {
@@ -67,16 +69,8 @@ namespace FilmDive.Server.Services.UserServiceFolder
             if (user is not null)
                 throw new InvalidOperationException("A user with this username already exists.");
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, model.Username),
-                new Claim(ClaimTypes.Email, model.Email)
-            };
-            var accessToken = tokenService.GenerateAccessToken(claims);
-            var refreshToken = tokenService.GenerateRefreshToken();
-
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
-
+            string refreshToken = tokenService.GenerateRefreshToken();
             User newUser = new User()
             {
                 Username = model.Username,
@@ -85,8 +79,16 @@ namespace FilmDive.Server.Services.UserServiceFolder
                 RefreshToken = refreshToken,
                 RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7)
             };
+            long id = await userRepository.CreateUserAsync(newUser);
 
-            await userRepository.CreateUserAsync(newUser);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, model.Username),
+                new Claim(ClaimTypes.Email, model.Email),
+                new Claim(ClaimTypes.NameIdentifier, id.ToString())
+            };
+            var accessToken = tokenService.GenerateAccessToken(claims);
+
             return new AuthenticatedResponse
             {
                 Token = accessToken,

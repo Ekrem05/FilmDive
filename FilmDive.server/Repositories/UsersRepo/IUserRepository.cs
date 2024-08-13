@@ -8,7 +8,7 @@ namespace FilmDive.Server.Repositories.UserRepo
        Task<User> FindUserAsync(LoginViewModel model);
         Task<User> FindUserAsync(string username);
         Task<User> DoesUserExistAsync(string username,string email);
-       Task CreateUserAsync(User model);
+       Task<int> CreateUserAsync(User model);
        Task UpdateUserAsync(long id, User model);
     }
 }
