@@ -117,6 +117,7 @@ export default function SignUp() {
       userAlreadyExists: false,
     });
   }, [username, email, password]);
+
   function handleSubmission(event) {
     event.preventDefault();
     if (isEmailValid && isPasswordValid) {

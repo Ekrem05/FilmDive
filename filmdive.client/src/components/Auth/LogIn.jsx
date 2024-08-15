@@ -36,7 +36,7 @@ export default function LogIn() {
     onSuccess: (response) => {
       if (response.data) {
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("refresh token", response.data.refreshToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
         navigate("/");
       }
       if (response.status === 400) {

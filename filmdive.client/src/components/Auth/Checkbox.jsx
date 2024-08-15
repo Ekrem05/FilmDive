@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Checkbox() {
-  const [isChecked, setIsChecked] = useState(false);
-
+  const [isChecked, setIsChecked] = useState(() => {
+    const remember = localStorage.getItem("remember");
+    return remember === "true"; // Convert string "true"/"false" to boolean
+  });
   function handleClick() {
     setIsChecked(!isChecked);
   }
+  useEffect(() => {
+    if (isChecked) {
+      localStorage.setItem("remember", true);
+    } else if (!isChecked) {
+      localStorage.setItem("remember", false);
+    }
+  }, [isChecked]);
   return (
     <>
       <input

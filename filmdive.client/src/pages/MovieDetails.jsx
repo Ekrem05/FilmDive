@@ -1,4 +1,4 @@
-import { Await, Link, useParams } from "react-router-dom";
+import { Await, Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getMovieDetails, getRecommendations } from "../http/movies";
 import MovieStats from "../components/MovieDetails/MovieStats";
@@ -10,19 +10,38 @@ import { useLocation } from "react-router-dom";
 import DetailsSkeleton from "@/components/Skeleton/DetailsSkeleton";
 import Button from "@/components/Buttons/Button";
 import Companies from "@/components/MovieDetails/Companies";
+import { CiBookmark } from "react-icons/ci";
 import YouMayAlsoLike from "@/components/Lists/YouMayAlsoLike";
+import useWatchlist from "@/hooks/useWatchlist";
+import authorize from "@/utils/authorize";
 export default function MovieDetails() {
   const params = useParams();
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["details", params.id],
     queryFn: () => getMovieDetails(params.id),
   });
+  const { add } = useWatchlist();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   console.log(data);
   useEffect(() => {
-    console.log("here");
     window.scrollTo(0, 0);
   }, [pathname]);
+  async function handleBookmark() {
+    const token = await authorize();
+    if (token) {
+      add({
+        token: token,
+        id: params.id,
+        name: data.title,
+        rating: data.voteAverage,
+        date: data.releaseDate,
+        genre: "movie",
+      });
+    } else {
+      navigate("/auth/login");
+    }
+  }
   return (
     <>
       {isPending && (
@@ -43,12 +62,16 @@ export default function MovieDetails() {
 
             <section className="relative md:absolute top-40  md:top-[15%] md:left-52  flex flex-col md:flex-row gap-5">
               <section className="flex flex-col gap-4 md:justify-normal justify-center items-center">
-                <div>
+                <div className="relative">
                   <img
-                    className="self-start relative rounded-2xl"
+                    className="self-start  rounded-2xl"
                     width={"350px"}
                     src={`https://image.tmdb.org/t/p/original/${data.posterPath}`}
                     alt=""
+                  />
+                  <CiBookmark
+                    className="absolute top-1 right-1 z-10 text-white size-12 bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-3xl p-2"
+                    onClick={handleBookmark}
                   />
                 </div>
 

@@ -1,15 +1,10 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { browseMovies, getPopularMovies } from "../../http/movies";
 import { useEffect, useRef } from "react";
-import MovieCard from "../MovieCard/Card";
 import { useInView } from "react-intersection-observer";
-import MovieListSkeleton from "../Skeleton/MovieListSkeleton";
 import { useDispatch, useSelector } from "react-redux";
 import Badge from "../Browse/Genres/Badge";
 import { useParams } from "react-router";
 import { browseActions } from "@/store/browse";
 import Button from "../Buttons/Button";
-import OrderBy from "../Browse/Order/OrderBy";
 import useBrowseMovies from "@/hooks/useBrowseMovies";
 import { BsFilterLeft } from "react-icons/bs";
 import {
@@ -32,6 +27,7 @@ import Cast from "../Browse/Cast/Cast";
 import Rating from "../Browse/Rating/Rating";
 import useGenres from "@/hooks/useGenres";
 import BrowseCard from "../MovieCard/BrowseCard";
+import OrderBy from "../Browse/Order/OrderBy";
 import BrowseSkeleton from "../Skeleton/BrowseSkeleton";
 export default function BrowseMovies() {
   const { ref, inView } = useInView({
@@ -108,7 +104,7 @@ export default function BrowseMovies() {
             <h3 className="text-2xl 2xl:text-5xl xl:text-3xl font-bold text-headerColor ">
               Discover
             </h3>
-            <OrdyerBy />
+            <OrderBy />
           </section>
 
           <ul className="hidden 2xl:flex gap-3">
