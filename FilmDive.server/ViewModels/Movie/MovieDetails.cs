@@ -19,6 +19,10 @@ namespace FilmDive.Server.ViewModels.Movie
 
         public string Homepage { get; set; } = string.Empty;
 
+        public int Runtime { get; set; }
+        public long Revenue { get; set; }
+
+
         [JsonProperty("imdb_id")]
         public string ImdbId { get; set; } = string.Empty;
 
