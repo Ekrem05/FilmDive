@@ -16,6 +16,7 @@ import { IoMdClose } from "react-icons/io";
 import { darkModeNavbar, lightModeNavbar } from "@/utils/animations";
 import { useDispatch, useSelector } from "react-redux";
 import { movieActions } from "@/store/movie";
+import Search from "./Search";
 const listVariants = {
   initial: { opacity: 0 },
   animate: { opacity: 1, transition: { staggerChildren: 0.15 } },
@@ -68,18 +69,23 @@ export default function Navigation() {
             <NavButton label={"Watch list"} link="/watchlist" />
           </li>
         </ul>
-        {!localStorage.getItem("token") ? (
-          <ul className="flex gap-4">
-            <li>
-              <NavButton label={"Sign Up"} link="/auth/signup" />
-            </li>
-            <li>
-              <NavButton label={"Log In"} link="/auth/login" />
-            </li>
-          </ul>
-        ) : (
-          <UserSection />
-        )}
+        <ul className="flex gap-32 items-center">
+          <li>
+            <Search />
+          </li>
+          {!localStorage.getItem("token") ? (
+            <ul>
+              <li>
+                <NavButton label={"Sign Up"} link="/auth/signup" />
+              </li>
+              <li>
+                <NavButton label={"Log In"} link="/auth/login" />
+              </li>
+            </ul>
+          ) : (
+            <UserSection />
+          )}
+        </ul>
       </ul>
       <motion.section
         className={` sm:hidden flex flex-col ${open ? "bg-base" : ""} `}

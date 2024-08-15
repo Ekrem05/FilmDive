@@ -13,8 +13,12 @@ export default function MovieStats({ movie }) {
           </div>
           <span className="text-primary">|</span>
           <h4 className="text-lg">{movie.releaseDate.split("-")[0]}</h4>
-          <span className="text-primary">|</span>
-          <h4 className="text-lg">{movie.runtime}m</h4>
+          {movie.runtime !== 0 && (
+            <>
+              <span className="text-primary">|</span>
+              <h4 className="text-lg">{movie.runtime}m</h4>
+            </>
+          )}
         </div>
       </section>
       <p className="text-callToAction tracking-tight hidden  md:block ">
