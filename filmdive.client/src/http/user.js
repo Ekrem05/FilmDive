@@ -20,3 +20,20 @@ export async function addToWatchlist({ token, id, name, date, rating, genre }) {
   const data = await response.json();
   return data;
 }
+export async function removeFromWatchlist({ token, id, genre }) {
+  const response = await fetch(`/User/watchlist/${genre}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: `"${id}"`,
+  });
+  if (response.status === 401) {
+    throw Error("401");
+  } else if (!response.ok) {
+    return 400;
+  }
+  const data = await response.json();
+  return data;
+}

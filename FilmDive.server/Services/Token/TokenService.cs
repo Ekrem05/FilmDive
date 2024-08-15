@@ -58,7 +58,7 @@ namespace FilmDive.Server.Services.Token
                    issuer: config["JwtSettings:Issuer"],
                    audience: config["JwtSettings:Audience"],
                    claims: claims,
-                   expires: DateTime.Now.AddMinutes(1),
+                   expires: DateTime.Now.AddMinutes(15),
                    signingCredentials: signinCredentials
              );
 

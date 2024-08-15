@@ -95,17 +95,18 @@ export async function getNowPlayingMovies() {
   const data = await response.json();
   return data;
 }
-export async function getMovieDetails(id) {
+export async function getMovieDetails({ id, token }) {
   const response = await fetch(`/Movies/details?id=${id}`, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token} `,
     },
   });
   if (!response.ok) {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function getRecommendations(id) {
   console.log("recc");

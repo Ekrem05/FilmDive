@@ -1,7 +1,9 @@
 ﻿using FilmDive.Server.Services.Movies;
+using FilmDive.Server.ViewModels.Api;
 using FilmDive.Server.ViewModels.Movie;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 namespace FilmDive.Server.Controllers
 {
     [Route("[controller]")]
@@ -35,7 +37,15 @@ namespace FilmDive.Server.Controllers
         [HttpGet("details")]
         public async Task<IActionResult> GetMovieDetails(string id)
         {
-            return Ok(await movieService.GetDetailsAsync(id));
+
+            bool isAuth = User.Identity.IsAuthenticated;
+            var data = await movieService.GetDetailsAsync(id, isAuth ? int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) : null);
+
+            return new ApiResponse<MovieDetails>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
         [HttpGet("recommend")]
         public async Task<IActionResult> GetRecommendationsAsync(string id)

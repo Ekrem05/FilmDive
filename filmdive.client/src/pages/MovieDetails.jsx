@@ -5,37 +5,60 @@ import MovieStats from "../components/MovieDetails/MovieStats";
 import MovieCredits from "../components/MovieDetails/MovieCredits";
 import MovieClips from "../components/MovieDetails/MovieClips";
 import LazyImage from "@/components/Image/LazyImage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import DetailsSkeleton from "@/components/Skeleton/DetailsSkeleton";
 import Button from "@/components/Buttons/Button";
 import Companies from "@/components/MovieDetails/Companies";
-import { CiBookmark } from "react-icons/ci";
+import { IoBookmarkOutline } from "react-icons/io5";
+import { IoBookmark } from "react-icons/io5";
 import YouMayAlsoLike from "@/components/Lists/YouMayAlsoLike";
 import useWatchlist from "@/hooks/useWatchlist";
 import authorize from "@/utils/authorize";
 export default function MovieDetails() {
+  const [isSaved, setIsSaved] = useState(false);
   const params = useParams();
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["details", params.id],
-    queryFn: () => getMovieDetails(params.id),
+    queryFn: async () => {
+      const token = await authorize();
+      return getMovieDetails({ id: params.id, token: token });
+    },
   });
-  const { add } = useWatchlist();
+  const { add, remove } = useWatchlist();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   console.log(data);
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+    if (data) {
+      setIsSaved(data.isSaved);
+    }
+  }, [pathname, params.id, data]);
   async function handleBookmark() {
     const token = await authorize();
     if (token) {
+      setIsSaved(true);
       add({
         token: token,
         id: params.id,
         name: data.title,
         rating: data.voteAverage,
         date: data.releaseDate,
+        genre: "movie",
+      });
+    } else {
+      navigate("/auth/login");
+    }
+  }
+  async function handleRemoval() {
+    const token = await authorize();
+    if (token) {
+      setIsSaved(false);
+      console.log("sss");
+      remove({
+        token: token,
+        id: params.id,
         genre: "movie",
       });
     } else {
@@ -69,10 +92,17 @@ export default function MovieDetails() {
                     src={`https://image.tmdb.org/t/p/original/${data.posterPath}`}
                     alt=""
                   />
-                  <CiBookmark
-                    className="absolute top-1 right-1 z-10 text-white size-12 bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-3xl p-2"
-                    onClick={handleBookmark}
-                  />
+                  {isSaved ? (
+                    <IoBookmark
+                      className={`absolute top-1 right-1 z-10 text-primaryText size-12 hover:bg-primary  bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-2xl p-2 `}
+                      onClick={handleRemoval}
+                    />
+                  ) : (
+                    <IoBookmarkOutline
+                      className={`absolute top-1 right-1 z-10 text-white size-12 hover:bg-primary  bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-2xl p-2 `}
+                      onClick={handleBookmark}
+                    />
+                  )}
                 </div>
 
                 <Button

@@ -103,5 +103,9 @@ namespace FilmDive.Server.Services.UserServiceFolder
             await userMovieRepository.SaveToWatchlist(model, userId);
         }
 
+        public async Task DeleteFromWatchlist(string movieId, int userId)
+        {
+            await userMovieRepository.DeleteFromWatchlist(movieId, userId);
+        }
     }
 }

@@ -10,6 +10,6 @@ namespace FilmDive.Server.Services.UserServiceFolder
         Task<UserDetails> GetAsync(string accessToken);
 
         Task SaveToWatchlist(Watchlist model,int userId);
-
+        Task DeleteFromWatchlist(string movieId, int userId);
     }
 }

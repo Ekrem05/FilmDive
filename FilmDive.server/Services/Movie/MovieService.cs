@@ -1,4 +1,5 @@
-﻿using FilmDive.Server.Services.MovieClient;
+﻿using FilmDive.Server.Repositories.UserMoviesRepo;
+using FilmDive.Server.Services.MovieClient;
 using FilmDive.Server.Services.Movies;
 using FilmDive.Server.ViewModels.Movie;
 using FilmDive.Server.ViewModels.Movie.VideoDtos;
@@ -6,7 +7,9 @@ using Newtonsoft.Json;
 
 namespace FilmDive.Server.Services.Movie
 {
-    public class MovieService(IMovieClientService movieClientService, IConfiguration configuration) : IMovieService
+    public class MovieService(IMovieClientService movieClientService,
+        IConfiguration configuration,
+        IUserMovieRepository userMovieRepository) : IMovieService
     {
 
         public async Task<IEnumerable<TrendingMovie>> GetTrendingAsync()
@@ -54,7 +57,7 @@ namespace FilmDive.Server.Services.Movie
             return genresResponse.Genres;
         }
 
-        public async Task<MovieDetails> GetDetailsAsync(string id)
+        public async Task<MovieDetails> GetDetailsAsync(string id,int? userId = null)
         {
             var movieDetailsReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}?language=en-US", GetApiKey());
             var movie = JsonConvert.DeserializeObject<MovieDetails>(movieDetailsReq);
@@ -70,6 +73,11 @@ namespace FilmDive.Server.Services.Movie
             var videosReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/videos?language=en-US", GetApiKey());
             var videos = JsonConvert.DeserializeObject<VideoRoot>(videosReq);
             movie.Videos = videos.Videos.Where(video => video.Site == "YouTube").ToList();
+           if(userId is not null)
+            {
+                movie.IsSaved = await userMovieRepository.IsSaved(id, userId);
+            }
+
             return movie;
         }
       

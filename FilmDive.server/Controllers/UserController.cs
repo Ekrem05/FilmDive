@@ -14,10 +14,20 @@ namespace FilmDive.Server.Controllers
     public class UserController(IUserService userService) : ControllerBase
     {
         [HttpPost, Route("watchlist/{genre}")]
-        public async Task<ApiResponse<AuthenticatedResponse>> Watchlist([FromBody] Watchlist model,string genre)
+        public async Task<ApiResponse<AuthenticatedResponse>> AddToWatchlist([FromBody] Watchlist model,string genre)
         {
             var id = User.FindFirst(ClaimTypes.NameIdentifier);
             await userService.SaveToWatchlist(model, int.Parse(id.Value));
+            return new ApiResponse<AuthenticatedResponse>()
+            {
+                Status = 200
+            };
+        }
+        [HttpDelete, Route("watchlist/{genre}")]
+        public async Task<ApiResponse<AuthenticatedResponse>> DeleteFromWatchlist([FromBody] string Id, string genre)
+        {
+            var id = User.FindFirst(ClaimTypes.NameIdentifier);
+            await userService.DeleteFromWatchlist(Id, int.Parse(id.Value));
             return new ApiResponse<AuthenticatedResponse>()
             {
                 Status = 200

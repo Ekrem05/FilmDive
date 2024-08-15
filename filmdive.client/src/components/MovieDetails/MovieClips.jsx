@@ -11,7 +11,6 @@ export default function MovieClips({ movie }) {
           {movie.videos.map((video) => {
             return (
               <>
-                {" "}
                 <li
                   key={video.key}
                   className="bg bg-gradient-to-tr from-base hidden md:block to-primaryText"
@@ -19,17 +18,6 @@ export default function MovieClips({ movie }) {
                   <iframe
                     width="500px"
                     height="300px"
-                    src={`https://www.youtube.com/embed/${video.key}`}
-                    frameBorder="0"
-                    allowFullScreen="1"
-                    loading="lazy"
-                  ></iframe>
-                </li>
-                <li
-                  key={video.key}
-                  className="bg bg-gradient-to-tr from-base block md:hidden to-primaryText"
-                >
-                  <iframe
                     src={`https://www.youtube.com/embed/${video.key}`}
                     frameBorder="0"
                     allowFullScreen="1"

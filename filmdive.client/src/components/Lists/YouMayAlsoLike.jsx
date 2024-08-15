@@ -29,9 +29,7 @@ export default function YouMayAlsoLike({ id, subject, fn }) {
           <ul className=" flex gap-4 p-4   overflow-y-hidden overflow-x-auto 2xl:gap-5 xl:gap-5 md:w-full">
             {data.map((movie) => {
               return (
-                <li>
-                  <MovieCard key={movie.id} movie={movie} subject={subject} />
-                </li>
+                <MovieCard key={movie.id} movie={movie} subject={subject} />
               );
             })}
           </ul>

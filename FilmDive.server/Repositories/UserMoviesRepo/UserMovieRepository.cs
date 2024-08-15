@@ -7,6 +7,34 @@ namespace FilmDive.Server.Repositories.UserMoviesRepo
 {
     public class UserMovieRepository(DapperContext context) : IUserMovieRepository
     {
+        public async Task<bool> IsSaved(string movieId, int? userId)
+        {
+            var query = @"SELECT COUNT(1) FROM public. ""User_Movie"" WHERE ""User_Id"" = @User_Id AND ""Movie_Id"" = @Movie_Id;";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("User_Id",userId);
+            parameters.Add("Movie_Id", movieId);
+
+            using (var connection = context.CreateConnection())
+            {
+                int numberOfRows = await connection.ExecuteScalarAsync<int>(query,parameters);
+                return numberOfRows > 0;
+            }
+        }
+        public async Task DeleteFromWatchlist(string movieId, int userId)
+        {
+            var query = @"DELETE FROM public. ""User_Movie"" WHERE ""User_Id"" = @User_Id AND ""Movie_Id"" = @Movie_Id;";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("User_Id", userId);
+            parameters.Add("Movie_Id", movieId);
+
+            using (var connection = context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
+        }
+
         public async Task SaveToWatchlist(Watchlist model,int userId)
         {
             var query = @"
@@ -26,5 +54,6 @@ namespace FilmDive.Server.Repositories.UserMoviesRepo
                 await connection.ExecuteAsync(query, parameters);
             }
         }
+
     }
 }

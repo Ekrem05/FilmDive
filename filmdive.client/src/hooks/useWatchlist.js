@@ -1,17 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
-import { addToWatchlist } from "@/http/user";
+import { addToWatchlist, removeFromWatchlist } from "@/http/user";
 
 export default function useWatchlist() {
   const { mutate: add } = useMutation({
     mutationFn: addToWatchlist,
     onMutate: () => {},
-    onError: (err) => {
-      console.log("err", err);
-    },
-    onSuccess: (data) => {
-      console.log("succ");
-    },
+    onError: (err) => {},
+    onSuccess: (data) => {},
+  });
+  const { mutate: remove } = useMutation({
+    mutationFn: removeFromWatchlist,
+    onMutate: () => {},
+    onError: (err) => {},
+    onSuccess: (data) => {},
   });
 
-  return { add };
+  return { add, remove };
 }
