@@ -13,7 +13,7 @@ export default function MovieClips({ movie }) {
               <>
                 <li
                   key={video.key}
-                  className="bg bg-gradient-to-tr from-base hidden md:block to-primaryText"
+                  className="bg-gradient-to-tr from-base hidden md:block to-primaryText"
                 >
                   <iframe
                     width="500px"
@@ -30,7 +30,7 @@ export default function MovieClips({ movie }) {
         </ul>
         <ScrollBar
           orientation="horizontal"
-          className={"bg-primary hover:cursor-pointer "}
+          className={"bg-transparent hover:cursor-pointer "}
         />
       </ScrollArea>
     </section>

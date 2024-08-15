@@ -46,7 +46,7 @@ export default function MovieInfo({ movie }) {
       >
         <Button
           styling={
-            "bg-transparent text-callToAction hover:bg-primary transition-colors duration-200 text-callToAction"
+            "bg-callToAction text-base hover:bg-primary transition-colors duration-200"
           }
           text={"Watch now"}
         >
