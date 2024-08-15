@@ -11,7 +11,7 @@ namespace FilmDive.Server.Controllers
     public class TokenController(ITokenService tokenService) : ControllerBase
     {
 
-        [HttpGet]
+        [HttpPost]
         [Route("refresh")]
         public async Task<ApiResponse<AuthenticatedResponse>> Refresh([FromQuery] TokenApiModel tokenApiModel)
         {

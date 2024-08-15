@@ -11,12 +11,13 @@ namespace FilmDive.Server.Controllers
     
     [Route("[controller]")]
     [ApiController,Authorize]
-    public class UserController : ControllerBase
+    public class UserController(IUserService userService) : ControllerBase
     {
-        [HttpPost, Route("watchlist")]
-        public async Task<ApiResponse<AuthenticatedResponse>> Watchlist()
+        [HttpPost, Route("watchlist/{genre}")]
+        public async Task<ApiResponse<AuthenticatedResponse>> Watchlist([FromBody] Watchlist model,string genre)
         {
             var id = User.FindFirst(ClaimTypes.NameIdentifier);
+            await userService.SaveToWatchlist(model, int.Parse(id.Value));
             return new ApiResponse<AuthenticatedResponse>()
             {
                 Status = 200

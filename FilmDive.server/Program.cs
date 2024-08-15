@@ -1,5 +1,6 @@
 using FilmDive.Server.Data;
 using FilmDive.Server.Infrastructure.Middleware;
+using FilmDive.Server.Repositories.UserMoviesRepo;
 using FilmDive.Server.Repositories.UserRepo;
 using FilmDive.Server.Services.Movie;
 using FilmDive.Server.Services.MovieClient;
@@ -46,7 +47,9 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPeopleService, PeopleService>();
 builder.Services.AddScoped<ISeriesService, SeriesService>();
-builder.Services.AddScoped<IUserRepository,UserRepository>();   
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<IUserMovieRepository, UserMovieRepository>();
+
 var app = builder.Build();
 
 app.UseDefaultFiles();

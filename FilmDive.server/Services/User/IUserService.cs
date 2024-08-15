@@ -9,5 +9,7 @@ namespace FilmDive.Server.Services.UserServiceFolder
         Task<AuthenticatedResponse> LogInAsync(LoginViewModel model);
         Task<UserDetails> GetAsync(string accessToken);
 
+        Task SaveToWatchlist(Watchlist model,int userId);
+
     }
 }

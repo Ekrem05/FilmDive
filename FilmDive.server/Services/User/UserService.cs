@@ -1,6 +1,7 @@
 ﻿using BCrypt.Net;
 using FilmDive.Server.Data;
 using FilmDive.Server.Infrastructure.Data.Models;
+using FilmDive.Server.Repositories.UserMoviesRepo;
 using FilmDive.Server.Repositories.UserRepo;
 using FilmDive.Server.Services.Token;
 using FilmDive.Server.ViewModels.Api;
@@ -10,6 +11,7 @@ using User = FilmDive.Server.Infrastructure.Data.Models.User;
 namespace FilmDive.Server.Services.UserServiceFolder
 {
     public class UserService(IUserRepository userRepository,
+        IUserMovieRepository userMovieRepository,
         ITokenService tokenService) : IUserService
     {
         public async Task<UserDetails> GetAsync(string accessToken)
@@ -95,5 +97,11 @@ namespace FilmDive.Server.Services.UserServiceFolder
                 RefreshToken = refreshToken
             };
         }
+
+        public async Task SaveToWatchlist(Watchlist model,int userId)
+        {
+            await userMovieRepository.SaveToWatchlist(model, userId);
+        }
+
     }
 }
