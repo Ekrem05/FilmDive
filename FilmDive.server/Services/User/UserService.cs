@@ -3,6 +3,7 @@ using FilmDive.Server.Data;
 using FilmDive.Server.Infrastructure.Data.Models;
 using FilmDive.Server.Repositories.UserMoviesRepo;
 using FilmDive.Server.Repositories.UserRepo;
+using FilmDive.Server.Repositories.UserSeriesRepo;
 using FilmDive.Server.Services.Token;
 using FilmDive.Server.ViewModels.Api;
 using FilmDive.Server.ViewModels.User;
@@ -12,6 +13,7 @@ namespace FilmDive.Server.Services.UserServiceFolder
 {
     public class UserService(IUserRepository userRepository,
         IUserMovieRepository userMovieRepository,
+        IUserSeriesRepository userSeriesRepository,
         ITokenService tokenService) : IUserService
     {
         public async Task<UserDetails> GetAsync(string accessToken)
@@ -98,9 +100,16 @@ namespace FilmDive.Server.Services.UserServiceFolder
             };
         }
 
-        public async Task SaveToWatchlist(Watchlist model,int userId)
+        public async Task SaveToWatchlist(Watchlist model,int userId,string genre)
         {
-            await userMovieRepository.SaveToWatchlist(model, userId);
+            if (genre == "movie")
+            {
+                await userMovieRepository.SaveToWatchlist(model, userId);
+            }
+            else if (genre == "series")
+            {
+                await userSeriesRepository.SaveToWatchlist(model, userId);
+            }
         }
 
         public async Task DeleteFromWatchlist(string movieId, int userId)

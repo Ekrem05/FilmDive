@@ -41,10 +41,11 @@ export async function getAiringTodayTvSeries() {
 
   return data;
 }
-export async function getShowDetails(id) {
+export async function getShowDetails({ id, token }) {
   const response = await fetch(`/Series/details?id=${id}`, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token} `,
     },
   });
 
@@ -53,7 +54,7 @@ export async function getShowDetails(id) {
   }
   const data = await response.json();
 
-  return data;
+  return data.data;
 }
 export async function browseSeries({
   page,

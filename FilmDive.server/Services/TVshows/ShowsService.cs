@@ -1,4 +1,6 @@
-﻿using FilmDive.Server.Services.MovieClient;
+﻿using FilmDive.Server.Repositories.UserMoviesRepo;
+using FilmDive.Server.Repositories.UserSeriesRepo;
+using FilmDive.Server.Services.MovieClient;
 using FilmDive.Server.ViewModels.Movie;
 using FilmDive.Server.ViewModels.Movie.VideoDtos;
 using FilmDive.Server.ViewModels.Series;
@@ -7,7 +9,9 @@ using Newtonsoft.Json;
 
 namespace FilmDive.Server.Services.TVshows
 {
-    public class SeriesService(IMovieClientService movieClientService, IConfiguration configuration) : ISeriesService
+    public class SeriesService(IMovieClientService movieClientService,
+        IUserSeriesRepository userSeriesRepository,
+        IConfiguration configuration) : ISeriesService
     {
         public async Task<ApiRepsone<PopularSeries>> BrowseAsync(BrowseSeries model)
         {
@@ -78,7 +82,7 @@ namespace FilmDive.Server.Services.TVshows
             return series.Result;
         }
 
-        public async Task<SeriesDetails> GetDetailsAsync(string id)
+        public async Task<SeriesDetails> GetDetailsAsync(string id,int? userId=null)
         {
             var showDetailsReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/tv/{id}?language=en-US", GetApiKey());
             var show = JsonConvert.DeserializeObject<SeriesDetails>(showDetailsReq);
@@ -94,6 +98,10 @@ namespace FilmDive.Server.Services.TVshows
             var videosReq = await movieClientService.SendRequestAsync($"https://api.themoviedb.org/3/tv/{id}/videos?language=en-US", GetApiKey());
             var videos = JsonConvert.DeserializeObject<VideoRoot>(videosReq);
             show.Videos = videos.Videos.Where(video => video.Site == "YouTube").ToList();
+            if (userId is not null)
+            {
+                show.IsSaved = await userSeriesRepository.IsSaved(id, userId);
+            }
             return show;
         }
 

@@ -1,28 +1,70 @@
-import { Await, Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getMovieDetails } from "../http/movies";
 import MovieStats from "../components/MovieDetails/MovieStats";
 import MovieCredits from "../components/MovieDetails/MovieCredits";
 import MovieClips from "../components/MovieDetails/MovieClips";
 import LazyImage from "@/components/Image/LazyImage";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { IoBookmark, IoBookmarkOutline } from "react-icons/io5";
+import authorize from "@/utils/authorize";
+import useWatchlist from "@/hooks/useWatchlist";
+import { useLocation, useNavigate } from "react-router-dom";
 import DetailsSkeleton from "@/components/Skeleton/DetailsSkeleton";
 import Button from "@/components/Buttons/Button";
 import Companies from "@/components/MovieDetails/Companies";
 import YouMayAlsoLike from "@/components/Lists/YouMayAlsoLike";
 import { getRecommendations, getShowDetails } from "@/http/series";
+import SeriesStats from "@/components/MovieDetails/SeriesStats";
 export default function SeriesDetails() {
   const params = useParams();
+  const [isSaved, setIsSaved] = useState(false);
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["series-details", params.id],
-    queryFn: () => getShowDetails(params.id),
+    queryFn: async () => {
+      const token = await authorize();
+      return getShowDetails({ id: params.id, token: token });
+    },
   });
   const { pathname } = useLocation();
   useEffect(() => {
-    console.log("here");
     window.scrollTo(0, 0);
-  }, [pathname]);
+    if (data) {
+      console.log(data.isSaved);
+      setIsSaved(data.isSaved);
+    }
+  }, [pathname, params.id, data]);
+  const { add, remove } = useWatchlist();
+  const navigate = useNavigate();
+  async function handleBookmark() {
+    const token = await authorize();
+    if (token) {
+      setIsSaved(true);
+      add({
+        token: token,
+        id: params.id,
+        name: data.title,
+        rating: data.voteAverage,
+        date: data.firstAirDate.split("T")[0],
+        genre: "series",
+      });
+    } else {
+      navigate("/auth/login");
+    }
+  }
+  async function handleRemoval() {
+    const token = await authorize();
+    if (token) {
+      setIsSaved(false);
+      remove({
+        token: token,
+        id: params.id,
+        genre: "series",
+      });
+    } else {
+      navigate("/auth/login");
+    }
+  }
+  console.log(isSaved);
   return (
     <>
       {isPending && (
@@ -43,13 +85,24 @@ export default function SeriesDetails() {
 
             <section className="relative md:absolute top-40  md:top-[15%] md:left-52  flex flex-col md:flex-row gap-5">
               <section className="flex flex-col gap-4 md:justify-normal justify-center items-center">
-                <div>
+                <div className="relative">
                   <img
-                    className="self-start relative rounded-2xl"
+                    className="self-start  rounded-2xl"
                     width={"350px"}
                     src={`https://image.tmdb.org/t/p/original/${data.posterPath}`}
                     alt=""
                   />
+                  {isSaved ? (
+                    <IoBookmark
+                      className={`absolute top-1 right-1 z-10 text-primaryText size-12 hover:bg-primary  bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-2xl p-2 `}
+                      onClick={handleRemoval}
+                    />
+                  ) : (
+                    <IoBookmarkOutline
+                      className={`absolute top-1 right-1 z-10 text-white size-12 hover:bg-primary  bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-2xl p-2 `}
+                      onClick={handleBookmark}
+                    />
+                  )}
                 </div>
 
                 <Button
@@ -64,7 +117,7 @@ export default function SeriesDetails() {
                 <h2 className="text-4xl md:text-start text-center text-primaryText max-w-xl font-extrabold tracking-tight lg:text-5xl scroll-m-20">
                   {data.title}
                 </h2>
-                <MovieStats movie={data} />
+                <SeriesStats series={data} />
                 <MovieCredits movie={data} />
                 <MovieClips movie={data} />
               </article>

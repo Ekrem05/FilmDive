@@ -1,6 +1,6 @@
 import Star from "../Icons/Star";
-export default function MovieStats({ movie }) {
-  const genres = movie.genres.map((genre) => `${genre.name}`).join(", ");
+export default function SeriesStats({ series }) {
+  const genres = series.genres.map((genre) => `${genre.name}`).join(", ");
   return (
     <>
       <section className="stats md:flex hidden  flex-row items-center">
@@ -8,15 +8,28 @@ export default function MovieStats({ movie }) {
           <div className={`flex items-center text-primaryText`}>
             <Star className={"w-8 fill-primaryText"} />
             <span className={`text-xl md:text-xs  lg:text-xl`}>
-              {movie.voteAverage.toFixed(1)}
+              {series.voteAverage.toFixed(1)}
             </span>
           </div>
-          <span className="text-primaryText">|</span>
-          <h4 className="text-lg">{movie.releaseDate.split("-")[0]}</h4>
-          {movie.runtime !== 0 && (
+          {series.status !== "Ended" && (
             <>
               <span className="text-primaryText">|</span>
-              <h4 className="text-lg">{movie.runtime}m</h4>
+              <h4 className="text-lg">{series.firstAirDate.split("-")[0]}</h4>
+
+              <span className="text-primaryText">|</span>
+              <h4 className="text-lg text-primaryText">{series.status}</h4>
+            </>
+          )}
+          {series.status === "Ended" && (
+            <>
+              <span className="text-primaryText">|</span>
+              <h4 className="text-lg">
+                {series.firstAirDate.split("-")[0]} -{" "}
+                {series.lastAirDate.split("-")[0]}
+              </h4>
+
+              <span className="text-primaryText">|</span>
+              <h4 className="text-lg text-primaryText">{series.status}</h4>
             </>
           )}
         </div>
@@ -28,13 +41,13 @@ export default function MovieStats({ movie }) {
         <div className={`flex items-center text-white`}>
           <Star className={"w-7 fill-primaryText"} />
           <span className={`text-xl md:text-xs lg:text-lg text-primaryText `}>
-            {movie.voteAverage.toFixed(1)}
+            {series.voteAverage.toFixed(1)}
           </span>
         </div>
         <p className="text-callToAction tracking-tight   md:block ">{genres}</p>
       </section>
       <p className="text-primaryText md:w-[58rem] opacity-100">
-        {movie.overview}
+        {series.overview}
       </p>
     </>
   );

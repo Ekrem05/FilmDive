@@ -1,9 +1,12 @@
 ﻿using FilmDive.Server.Services.Movie;
 using FilmDive.Server.Services.Movies;
 using FilmDive.Server.Services.TVshows;
+using FilmDive.Server.ViewModels.Api;
+using FilmDive.Server.ViewModels.Movie;
 using FilmDive.Server.ViewModels.Series;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FilmDive.Server.Controllers
 {
@@ -40,7 +43,13 @@ namespace FilmDive.Server.Controllers
         [HttpGet("details")]
         public async Task<IActionResult> GetShowDetails(string id)
         {
-            return Ok(await seriesService.GetDetailsAsync(id));
+            bool isAuth = User.Identity.IsAuthenticated;
+            var data = await seriesService.GetDetailsAsync(id, isAuth ? int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) : null);
+            return new ApiResponse<SeriesDetails>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
 
         [HttpGet("browse")]

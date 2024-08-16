@@ -15,7 +15,7 @@ export default function MovieCredits({ movie }) {
         <p className="text-primaryText w-[50rem] opacity-90">{directing}</p>
       </section>
 
-      {movie.revenue !== 0 && (
+      {movie.revenue && movie.revenue !== 0 && (
         <section className="flex gap-4">
           <h5 className="text-callToAction">Revenue</h5>
           <p className="text-primaryText w-[50rem] opacity-90">

@@ -14,6 +14,6 @@ namespace FilmDive.Server.Services.TVshows
         Task<IEnumerable<Genre>> GetGenresAsync();
 
         
-        Task<SeriesDetails> GetDetailsAsync(string id);
+        Task<SeriesDetails> GetDetailsAsync(string id, int? userId=null);
     }
 }

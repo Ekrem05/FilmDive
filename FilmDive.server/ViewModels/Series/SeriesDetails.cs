@@ -9,11 +9,18 @@ namespace FilmDive.Server.ViewModels.Series
     {
         public int Id { get; set; }
 
-        public bool Adult { get; set; }
 
         [JsonProperty("backdrop_path")]
         public string BackdropPath { get; set; } = string.Empty;
-        
+
+        public bool IsSaved { get; set; }
+
+        [JsonProperty("first_air_date")]
+        public DateTime FirstAirDate { get; set; }
+
+        [JsonProperty("last_air_date")]
+        public DateTime LastAirDate { get; set; } 
+
         [JsonProperty("name")]
         public string Title { get; set; } = string.Empty;
 
@@ -46,10 +53,6 @@ namespace FilmDive.Server.ViewModels.Series
         [JsonProperty("vote_average")]
         [JsonConverter(typeof(OneDecimalPlaceConverter))]
         public decimal VoteAverage { get; set; }
-
-        public long Revenue { get; set; }
-
-        public int Runtime { get; set; }
 
         public string Status { get; set; } = string.Empty;
 
