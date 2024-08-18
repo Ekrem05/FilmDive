@@ -102,9 +102,15 @@ export default function Navigation() {
           </li>
           <li>
             {open ? (
-              <IoMdClose className="text-white size-6" onClick={toggleMenu} />
+              <IoMdClose
+                className="text-primaryText size-6"
+                onClick={toggleMenu}
+              />
             ) : (
-              <BsList className="text-white size-6" onClick={toggleMenu} />
+              <BsList
+                className="text-primaryText size-6"
+                onClick={toggleMenu}
+              />
             )}
           </li>
         </ul>
