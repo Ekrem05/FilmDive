@@ -74,7 +74,7 @@ export default function SeriesDetails() {
         </section>
       )}
       {!isPending && (
-        <main className=" bg-base flex flex-col gap-10 pb-32">
+        <main className=" bg-base flex flex-col gap-64 xl:gap-32 pb-32">
           <section className=" relative flex flex-col md:block gap-64 md:gap-5 bg-base pb-8 ">
             <div className="hidden md:block">
               <LazyImage
@@ -123,8 +123,9 @@ export default function SeriesDetails() {
                 <MovieClips movie={data} />
               </article>
             </section>
-            <Companies data={data.productionCompanies} />
           </section>
+          <Companies data={data.productionCompanies} />
+
           <YouMayAlsoLike
             id={data.id}
             fn={getRecommendations}

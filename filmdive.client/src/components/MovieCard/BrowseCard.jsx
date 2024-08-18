@@ -11,7 +11,7 @@ export default function BrowseCard({ subject, movie }) {
         whileHover={{ scale: 0.9 }}
       >
         <LazyImage path={movie.posterPath} />
-        <p className=" text-primaryText lg:text-lg w-full text-sm xl:w-64 text-center overflow-ellipsis overflow-hidden whitespace-nowrap  pr-3">
+        <p className=" text-primaryText lg:text-lg w-full text-sm  text-center overflow-ellipsis overflow-hidden whitespace-nowrap  pr-3">
           {movie.title}
         </p>
         <div className="w-[100%] flex justify-between items-center pr-3">

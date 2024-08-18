@@ -42,7 +42,7 @@ export default function MovieDetails() {
       add({
         token: token,
         id: params.id,
-        posterPath:data.posterPath,
+        posterPath: data.posterPath,
         title: data.title,
         voteAverage: data.voteAverage,
         releaseDate: data.releaseDate,
@@ -74,8 +74,8 @@ export default function MovieDetails() {
         </section>
       )}
       {!isPending && (
-        <main className=" bg-base flex flex-col gap-10 pb-32">
-          <section className=" relative flex flex-col md:block gap-64 md:gap-5 bg-base pb-8 ">
+        <main className=" bg-base flex flex-col gap-64 xl:gap-32 pb-32">
+          <section className=" relative flex flex-col md:flex gap-64 md:gap-[600px] bg-base pb-8 ">
             <div className="hidden md:block">
               <LazyImage
                 path={data.backdropPath}
@@ -123,8 +123,8 @@ export default function MovieDetails() {
                 <MovieClips movie={data} />
               </article>
             </section>
-            <Companies data={data.productionCompanies} />
           </section>
+          <Companies data={data.productionCompanies} />
           <YouMayAlsoLike
             id={data.id}
             fn={getRecommendations}

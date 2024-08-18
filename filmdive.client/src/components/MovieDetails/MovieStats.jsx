@@ -33,7 +33,7 @@ export default function MovieStats({ movie }) {
         </div>
         <p className="text-callToAction tracking-tight   md:block ">{genres}</p>
       </section>
-      <p className="text-primaryText md:w-[58rem] opacity-100">
+      <p className="text-primaryText md:max-w-[58rem] opacity-100">
         {movie.overview}
       </p>
     </>

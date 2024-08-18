@@ -74,7 +74,7 @@ export default function Navigation() {
             <Search />
           </li>
           {!localStorage.getItem("token") ? (
-            <ul>
+            <ul className="flex">
               <li>
                 <NavButton label={"Sign Up"} link="/auth/signup" />
               </li>
