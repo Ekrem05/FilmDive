@@ -25,7 +25,7 @@ namespace FilmDive.Server.Services.UserServiceFolder
             return new UserDetails()
             {
                 Username = principal.Identity.Name,
-                Email = principal.FindFirstValue("Email"),
+                Email = principal.FindFirstValue(ClaimTypes.Email),
             };
         }
 
@@ -100,7 +100,7 @@ namespace FilmDive.Server.Services.UserServiceFolder
             };
         }
 
-        public async Task SaveToWatchlist(Watchlist model,int userId,string genre)
+        public async Task SaveToWatchlist(WatchlistItem model,int userId,string genre)
         {
             if (genre == "movie")
             {
@@ -112,9 +112,43 @@ namespace FilmDive.Server.Services.UserServiceFolder
             }
         }
 
-        public async Task DeleteFromWatchlist(string movieId, int userId)
+        public async Task DeleteFromWatchlist(string movieId, int userId,string genre)
         {
-            await userMovieRepository.DeleteFromWatchlist(movieId, userId);
+            if(genre == "movie")
+            {
+                await userMovieRepository.DeleteFromWatchlist(movieId, userId);
+            }
+            else if (genre == "series")
+            {
+                await userSeriesRepository.DeleteFromWatchlist(movieId, userId);
+            }
+
+        }
+
+        public async Task<UserWatchlist> GetWatchlist(int userId)
+        {
+            var series = await userSeriesRepository.GetByUser(userId);
+            var movies = await userMovieRepository.GetByUser(userId);
+
+            return new UserWatchlist()
+            {
+                Series = series.Select(x=> new WatchlistItem()
+                {
+                    Id = x.SeriesId,
+                    PosterPath = x.PosterPath,
+                    Title = x.SeriesName,
+                    ReleaseDate = DateOnly.Parse(x.SeriesDate.ToString().Split(" ")[0]),
+                    VoteAverage = x.SeriesRating
+                }),
+                Movies = movies.Select(x => new WatchlistItem()
+                {
+                    Id = x.MovieId,
+                    PosterPath = x.PosterPath,
+                    Title = x.MovieName,
+                    ReleaseDate = DateOnly.Parse(x.MovieDate.ToString().Split(" ")[0]),
+                    VoteAverage = x.MovieRating
+                }),
+            };
         }
     }
 }

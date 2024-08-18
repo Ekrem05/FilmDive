@@ -14,7 +14,7 @@ namespace FilmDive.Server.Controllers
     public class UserController(IUserService userService) : ControllerBase
     {
         [HttpPost, Route("watchlist/{genre}")]
-        public async Task<ApiResponse<AuthenticatedResponse>> AddToWatchlist([FromBody] Watchlist model,string genre)
+        public async Task<ApiResponse<AuthenticatedResponse>> AddToWatchlist([FromBody] WatchlistItem model,string genre)
         {
             var id = User.FindFirst(ClaimTypes.NameIdentifier);
             await userService.SaveToWatchlist(model, int.Parse(id.Value),genre);
@@ -27,20 +27,22 @@ namespace FilmDive.Server.Controllers
         public async Task<ApiResponse<AuthenticatedResponse>> DeleteFromWatchlist([FromBody] string Id, string genre)
         {
             var id = User.FindFirst(ClaimTypes.NameIdentifier);
-            await userService.DeleteFromWatchlist(Id, int.Parse(id.Value));
+            await userService.DeleteFromWatchlist(Id, int.Parse(id.Value),genre);
             return new ApiResponse<AuthenticatedResponse>()
             {
                 Status = 200
             };
         }
-        [HttpDelete, Route("watchlist")]
-        public async Task<ApiResponse<AuthenticatedResponse>> Watchlist()
+
+        [HttpGet, Route("watchlist")]
+        public async Task<ApiResponse<UserWatchlist>> GetWatchlist()
         {
             var id = User.FindFirst(ClaimTypes.NameIdentifier);
-            //await userService.DeleteFromWatchlist(Id, int.Parse(id.Value));
-            return new ApiResponse<AuthenticatedResponse>()
+            var data = await userService.GetWatchlist(int.Parse(id.Value));
+            return new ApiResponse<UserWatchlist>()
             {
-                Status = 200
+                Status = 200,
+                Data = data
             };
         }
     }

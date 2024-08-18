@@ -8,8 +8,8 @@ namespace FilmDive.Server.Services.UserServiceFolder
         Task<AuthenticatedResponse> SignUpAsync(SignupViewModel model);
         Task<AuthenticatedResponse> LogInAsync(LoginViewModel model);
         Task<UserDetails> GetAsync(string accessToken);
-
-        Task SaveToWatchlist(Watchlist model,int userId,string genre);
-        Task DeleteFromWatchlist(string movieId, int userId);
+        Task<UserWatchlist> GetWatchlist(int userId);
+        Task SaveToWatchlist(WatchlistItem model,int userId,string genre);
+        Task DeleteFromWatchlist(string movieId, int userId,string genre);
     }
 }
