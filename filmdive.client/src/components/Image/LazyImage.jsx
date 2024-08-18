@@ -1,7 +1,7 @@
 import { useState } from "react";
 import placeholder from "../../assets/MoviePlaceholder.jpg";
 import { AnimatePresence, motion } from "framer-motion";
-export default function LazyImage({ path, ...props }) {
+export default function LazyImage({ path, lazyLoad = true, ...props }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   function handleLoad() {
@@ -10,7 +10,7 @@ export default function LazyImage({ path, ...props }) {
   return (
     <>
       <AnimatePresence mode="popLayout">
-        {!isLoaded && (
+        {!isLoaded && lazyLoad && (
           <motion.img
             src={placeholder}
             initial={{ opacity: 1 }}
@@ -28,6 +28,7 @@ export default function LazyImage({ path, ...props }) {
         }
         src={`https://image.tmdb.org/t/p/original/${path}`}
         alt=""
+        loading="eager"
         onLoad={handleLoad}
       />
     </>
