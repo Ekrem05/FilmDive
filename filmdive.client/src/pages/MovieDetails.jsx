@@ -42,9 +42,10 @@ export default function MovieDetails() {
       add({
         token: token,
         id: params.id,
-        name: data.title,
-        rating: data.voteAverage,
-        date: data.releaseDate,
+        posterPath:data.posterPath,
+        title: data.title,
+        voteAverage: data.voteAverage,
+        releaseDate: data.releaseDate,
         genre: "movie",
       });
     } else {
@@ -94,12 +95,12 @@ export default function MovieDetails() {
                   />
                   {isSaved ? (
                     <IoBookmark
-                      className={`absolute top-1 right-1 z-10 text-primaryText size-12 hover:bg-primary  bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-2xl p-2 `}
+                      className={`absolute top-1 right-1 z-1 text-primaryText size-12 hover:bg-primary  bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-2xl p-2 `}
                       onClick={handleRemoval}
                     />
                   ) : (
                     <IoBookmarkOutline
-                      className={`absolute top-1 right-1 z-10 text-white size-12 hover:bg-primary  bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-2xl p-2 `}
+                      className={`absolute top-1 right-1 z-1 text-white size-12 hover:bg-primary  bg-gray-600 hover:cursor-pointer bg-opacity-50 rounded-2xl p-2 `}
                       onClick={handleBookmark}
                     />
                   )}
