@@ -47,6 +47,7 @@ namespace FilmDive.Server.Controllers
                 Data = data
             };
         }
+
         [HttpGet("recommend")]
         public async Task<IActionResult> GetRecommendationsAsync(string id)
         {

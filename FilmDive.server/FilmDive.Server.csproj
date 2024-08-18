@@ -32,4 +32,8 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Constants\" />
+  </ItemGroup>
+
 </Project>

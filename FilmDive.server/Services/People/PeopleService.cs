@@ -11,7 +11,7 @@ namespace FilmDive.Server.Services.People
         {
             string body = await movieClientService
               .SendRequestAsync("https://api.themoviedb.org/3/person/popular?language=en-US&page=1", GetApiKey());
-            var people = JsonConvert.DeserializeObject<ApiRepsone<Individual>>(body);
+            var people = JsonConvert.DeserializeObject<MovieApiResponse<Individual>>(body);
 
             return people.Result;
         }
@@ -20,7 +20,7 @@ namespace FilmDive.Server.Services.People
         {
             string body = await movieClientService
               .SendRequestAsync($"https://api.themoviedb.org/3/search/person?query={name}&include_adult=false&language=en-US&page=1", GetApiKey());
-            var people = JsonConvert.DeserializeObject<ApiRepsone<Individual>>(body);
+            var people = JsonConvert.DeserializeObject<MovieApiResponse<Individual>>(body);
             var filteredPeople = people.Result.Where(individual => !string.IsNullOrEmpty(individual.ProfilePicture));
             return filteredPeople;
         }

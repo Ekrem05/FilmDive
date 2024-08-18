@@ -13,6 +13,6 @@ namespace FilmDive.Server.Services.Movies
         Task<IEnumerable<TrendingMovie>> GetUpcomingAsync();
         Task<MovieDetails> GetDetailsAsync(string id, int? userId=null);
         Task<IEnumerable<TrendingMovie>> GetRecommendationsAsync(string id);
-        Task<ApiRepsone<TrendingMovie>> BrowseAsync(MovieBrowse model);
+        Task<MovieApiResponse<TrendingMovie>> BrowseAsync(MovieBrowse model);
     }
 }

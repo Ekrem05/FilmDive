@@ -16,7 +16,7 @@ namespace FilmDive.Server.Services.Movie
         {
             string body = await movieClientService
                 .SendRequestAsync("https://api.themoviedb.org/3/trending/movie/day?language=en-US", GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<MovieApiResponse<TrendingMovie>>(body);
 
             return movies.Result;
 
@@ -27,7 +27,7 @@ namespace FilmDive.Server.Services.Movie
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1", GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<MovieApiResponse<TrendingMovie>>(body);
 
             return movies.Result;
         }
@@ -36,7 +36,7 @@ namespace FilmDive.Server.Services.Movie
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/movie/upcoming", GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<MovieApiResponse<TrendingMovie>>(body);
 
             return movies.Result;
         }
@@ -44,7 +44,7 @@ namespace FilmDive.Server.Services.Movie
         {
             string body = await movieClientService
               .SendRequestAsync("https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1", GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<MovieApiResponse<TrendingMovie>>(body);
 
             return movies.Result;
         }
@@ -81,7 +81,7 @@ namespace FilmDive.Server.Services.Movie
             return movie;
         }
       
-        public async Task<ApiRepsone<TrendingMovie>> BrowseAsync(MovieBrowse model)
+        public async Task<MovieApiResponse<TrendingMovie>> BrowseAsync(MovieBrowse model)
         {
 
             var baseUrl = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US";
@@ -137,7 +137,7 @@ namespace FilmDive.Server.Services.Movie
             var requestUrl = $"{baseUrl}&{queryString}";
 
             var searchRequest = await movieClientService.SendRequestAsync(requestUrl, GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(searchRequest);
+            var movies = JsonConvert.DeserializeObject<MovieApiResponse<TrendingMovie>>(searchRequest);
             return movies;
         }
 
@@ -145,7 +145,7 @@ namespace FilmDive.Server.Services.Movie
         {
             string body = await movieClientService
               .SendRequestAsync($"https://api.themoviedb.org/3/movie/{id}/recommendations", GetApiKey());
-            var movies = JsonConvert.DeserializeObject<ApiRepsone<TrendingMovie>>(body);
+            var movies = JsonConvert.DeserializeObject<MovieApiResponse<TrendingMovie>>(body);
 
             return movies.Result;
         }

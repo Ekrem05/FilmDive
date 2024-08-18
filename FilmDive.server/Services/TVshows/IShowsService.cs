@@ -9,7 +9,7 @@ namespace FilmDive.Server.Services.TVshows
 
         Task<IEnumerable<PopularSeries>> GetAiringTodayAsync();
         Task<IEnumerable<PopularSeries>> GetRecommendationsAsync(string id);
-        Task<ApiRepsone<PopularSeries>> BrowseAsync(BrowseSeries model);
+        Task<MovieApiResponse<PopularSeries>> BrowseAsync(BrowseSeries model);
         Task<IEnumerable<PopularSeries>> GetOnTheAirAsync();
         Task<IEnumerable<Genre>> GetGenresAsync();
 

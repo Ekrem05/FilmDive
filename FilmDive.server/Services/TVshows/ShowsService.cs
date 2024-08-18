@@ -13,7 +13,7 @@ namespace FilmDive.Server.Services.TVshows
         IUserSeriesRepository userSeriesRepository,
         IConfiguration configuration) : ISeriesService
     {
-        public async Task<ApiRepsone<PopularSeries>> BrowseAsync(BrowseSeries model)
+        public async Task<MovieApiResponse<PopularSeries>> BrowseAsync(BrowseSeries model)
         {
             var baseUrl = "https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1";
             var queryParams = new List<string>();
@@ -69,7 +69,7 @@ namespace FilmDive.Server.Services.TVshows
             var requestUrl = $"{baseUrl}&{queryString}";
 
             var searchRequest = await movieClientService.SendRequestAsync(requestUrl, GetApiKey());
-            var shows = JsonConvert.DeserializeObject<ApiRepsone<PopularSeries>>(searchRequest);
+            var shows = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(searchRequest);
             return shows;
         }
 
@@ -77,7 +77,7 @@ namespace FilmDive.Server.Services.TVshows
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1", GetApiKey());
-            var series = JsonConvert.DeserializeObject<ApiRepsone<PopularSeries>>(body);
+            var series = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(body);
 
             return series.Result;
         }
@@ -118,7 +118,7 @@ namespace FilmDive.Server.Services.TVshows
         {
             string body = await movieClientService
               .SendRequestAsync("https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=1", GetApiKey());
-            var series = JsonConvert.DeserializeObject<ApiRepsone<PopularSeries>>(body);
+            var series = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(body);
 
             return series.Result;
         }
@@ -127,7 +127,7 @@ namespace FilmDive.Server.Services.TVshows
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/tv/popular?language=en-US&page=1", GetApiKey());
-            var series = JsonConvert.DeserializeObject<ApiRepsone<PopularSeries>>(body);
+            var series = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(body);
 
             return series.Result;
         }
@@ -137,7 +137,7 @@ namespace FilmDive.Server.Services.TVshows
             
             string body = await movieClientService
                 .SendRequestAsync($"https://api.themoviedb.org/3/tv/{id}/recommendations", GetApiKey());
-            var series = JsonConvert.DeserializeObject<ApiRepsone<PopularSeries>>(body);
+            var series = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(body);
 
             return series.Result;
             
