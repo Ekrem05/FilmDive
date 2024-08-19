@@ -4,7 +4,7 @@ const initialState = {
   trendingMovies: [],
   theme: null,
   page: null,
-  searchResult: [],
+  searchFilter: null,
 };
 
 const movieSlice = createSlice({
@@ -24,8 +24,8 @@ const movieSlice = createSlice({
     setPage(state, action) {
       state.page = action.payload;
     },
-    setSearchResult(state, action) {
-      state.searchResult = action.payload;
+    setSearchFilter(state, action) {
+      state.searchFilter = action.payload;
     },
   },
 });

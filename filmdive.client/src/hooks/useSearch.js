@@ -14,9 +14,6 @@ export default function useSearch() {
     error,
   } = useMutation({
     mutationFn: search,
-    onSuccess: (data) => {
-      dispatch(movieActions.setSearchResult(data));
-    },
   });
 
   return { mutate, result, isPending, isError, error };

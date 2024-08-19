@@ -16,7 +16,7 @@ import { IoMdClose } from "react-icons/io";
 import { darkModeNavbar, lightModeNavbar } from "@/utils/animations";
 import { useDispatch, useSelector } from "react-redux";
 import { movieActions } from "@/store/movie";
-import Search from "./Search";
+import Search from "./Search/Search";
 const listVariants = {
   initial: { opacity: 0 },
   animate: { opacity: 1, transition: { staggerChildren: 0.15 } },

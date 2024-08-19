@@ -86,8 +86,6 @@ namespace FilmDive.Server.Services.Search
                         _ => ItemType.Movie.ToString()
                     }
                 });
-                var serializedItems = JsonConvert.SerializeObject(items, options);
-                System.Console.WriteLine(serializedItems);
                 return items;
             }
         }

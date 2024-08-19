@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-
+import { FaRegUser } from "react-icons/fa6";
 export default function SearchItem({ item }) {
   const navigate = useNavigate();
   function handleClick() {
@@ -17,11 +17,16 @@ export default function SearchItem({ item }) {
       onClick={handleClick}
       key={item.key}
     >
-      <img
-        src={`https://image.tmdb.org/t/p/original/${item.imagePath}`}
-        className="w-16 rounded-3xl"
-        alt=""
-      />
+      {item.imagePath && item.imagePath !== "" ? (
+        <img
+          src={`https://image.tmdb.org/t/p/original/${item.imagePath}`}
+          className="w-16 rounded-3xl"
+          alt=""
+        />
+      ) : (
+        <FaRegUser className="size-10" />
+      )}
+
       <p>{item.name}</p>
       <p className="text-callToAction">{item.year}</p>
     </div>
