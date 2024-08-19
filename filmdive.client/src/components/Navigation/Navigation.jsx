@@ -91,15 +91,6 @@ export default function Navigation() {
         className={` sm:hidden flex flex-col ${open ? "bg-base" : ""} `}
       >
         <ul className="w-full flex items-center py-5 px-5">
-          <li className="flex-grow flex justify-center">
-            <Link to="/">
-              <img
-                className=" w-12 xl:w-16 hover:cursor-pointer"
-                src={theme === "dark" ? whiteLogo : darkLogo}
-                alt=""
-              />
-            </Link>
-          </li>
           <li>
             {open ? (
               <IoMdClose
@@ -112,6 +103,18 @@ export default function Navigation() {
                 onClick={toggleMenu}
               />
             )}
+          </li>
+          <li className="flex-grow flex justify-center">
+            <Link to="/">
+              <img
+                className=" w-12 xl:w-16 hover:cursor-pointer"
+                src={theme === "dark" ? whiteLogo : darkLogo}
+                alt=""
+              />
+            </Link>
+          </li>
+          <li>
+            <Search />
           </li>
         </ul>
         <AnimatePresence>
