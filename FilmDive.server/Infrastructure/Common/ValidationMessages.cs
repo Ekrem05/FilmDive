@@ -1,4 +1,4 @@
-﻿namespace FilmDive.Server.Common
+﻿namespace FilmDive.Server.Infrastructure.Common
 {
     public static class ValidationMessages
     {

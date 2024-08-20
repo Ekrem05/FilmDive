@@ -1,5 +1,5 @@
 ﻿using FilmDive.Server.Infrastructure.Attributes;
-using static FilmDive.Server.Common.ValidationMessages;
+using static FilmDive.Server.Infrastructure.Common.ValidationMessages;
 using System.ComponentModel.DataAnnotations;
 
 namespace FilmDive.Server.ViewModels.User
