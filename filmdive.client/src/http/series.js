@@ -11,7 +11,7 @@ export async function getPopularTvSeries() {
   }
   const data = await response.json();
 
-  return data;
+  return data.data;
 }
 export async function getAiringTvSeries() {
   const response = await fetch("/Series/airing", {
@@ -25,7 +25,7 @@ export async function getAiringTvSeries() {
   }
   const data = await response.json();
 
-  return data;
+  return data.data;
 }
 export async function getAiringTodayTvSeries() {
   const response = await fetch("/Series/airing-today", {
@@ -39,7 +39,7 @@ export async function getAiringTodayTvSeries() {
   }
   const data = await response.json();
 
-  return data;
+  return data.data;
 }
 export async function getShowDetails({ id, token }) {
   const response = await fetch(`/Series/details?id=${id}`, {
@@ -101,7 +101,7 @@ export async function browseSeries({
   }
 
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function seriesGenres() {
   console.log("genres");
@@ -114,7 +114,7 @@ export async function seriesGenres() {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 
 export async function getRecommendations(id) {
@@ -129,5 +129,5 @@ export async function getRecommendations(id) {
   }
   const data = await response.json();
 
-  return data;
+  return data.data;
 }

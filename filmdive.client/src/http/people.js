@@ -8,7 +8,7 @@ export async function getPeople() {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function searchFor({ name }) {
   console.log(name);
@@ -21,5 +21,5 @@ export async function searchFor({ name }) {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }

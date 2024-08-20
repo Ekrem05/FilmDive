@@ -8,7 +8,7 @@ export async function getTrendingMovies() {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function getPopularMovies() {
   const response = await fetch("/Movies/popular", {
@@ -20,7 +20,7 @@ export async function getPopularMovies() {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function getGenres() {
   const response = await fetch("/Movies/genres", {
@@ -32,7 +32,7 @@ export async function getGenres() {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function browseMovies({
   page,
@@ -68,7 +68,7 @@ export async function browseMovies({
   }
 
   const data = await response.json();
-  return data;
+  return data.data;
 }
 
 export async function getUpcomingMovies() {
@@ -81,7 +81,7 @@ export async function getUpcomingMovies() {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function getNowPlayingMovies() {
   const response = await fetch("Movies/now-playing", {
@@ -93,7 +93,7 @@ export async function getNowPlayingMovies() {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function getMovieDetails({ id, token }) {
   const response = await fetch(`/Movies/details?id=${id}`, {
@@ -119,5 +119,5 @@ export async function getRecommendations(id) {
     throw new Error();
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }

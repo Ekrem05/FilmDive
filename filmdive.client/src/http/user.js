@@ -27,7 +27,7 @@ export async function addToWatchlist({
     return 400;
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function removeFromWatchlist({ token, id, genre }) {
   const response = await fetch(`/User/watchlist/${genre}`, {
@@ -44,7 +44,7 @@ export async function removeFromWatchlist({ token, id, genre }) {
     return 400;
   }
   const data = await response.json();
-  return data;
+  return data.data;
 }
 export async function getWatchlist({ token }) {
   console.log(token);
