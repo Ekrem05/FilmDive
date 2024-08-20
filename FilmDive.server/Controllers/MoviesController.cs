@@ -16,7 +16,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetPopularMovies()
         {
             var data = await movieService.GetMostPopularAsync();
-            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            return new ApiResponse<IEnumerable<MovieViewModel>>()
             {
                 Status = 200,
                 Data = data
@@ -27,7 +27,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetTrendingMovies()
         {
             var data = await movieService.GetTrendingAsync();
-            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            return new ApiResponse<IEnumerable<MovieViewModel>>()
             {
                 Status = 200,
                 Data = data
@@ -38,7 +38,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetNowPlayingAsync()
         {
             var data = await movieService.GetNowPlayingAsync();
-            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            return new ApiResponse<IEnumerable<MovieViewModel>>()
             {
                 Status = 200,
                 Data = data
@@ -49,7 +49,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetUpcomingMovies()
         {
             var data = await movieService.GetUpcomingAsync();
-            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            return new ApiResponse<IEnumerable<MovieViewModel>>()
             {
                 Status = 200,
                 Data = data
@@ -73,7 +73,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetRecommendationsAsync(string id)
         {
             var data = await movieService.GetRecommendationsAsync(id);
-            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            return new ApiResponse<IEnumerable<MovieViewModel>>()
             {
                 Status = 200,
                 Data = data
@@ -93,7 +93,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> BrowseMovies([FromQuery] MovieBrowse request)
         {
             var data = await movieService.BrowseAsync(request);
-            return new ApiResponse<MovieApiResponse<TrendingMovie>>()
+            return new ApiResponse<MovieApiResponse<MovieViewModel>>()
             {
                 Status = 200,
                 Data = data

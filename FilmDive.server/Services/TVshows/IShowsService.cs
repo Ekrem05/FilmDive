@@ -5,12 +5,12 @@ namespace FilmDive.Server.Services.TVshows
 {
     public interface ISeriesService
     {
-        Task<IEnumerable<PopularSeries>> GetPopularSeriesAsync();
+        Task<IEnumerable<SeriesViewModel>> GetPopularSeriesAsync();
 
-        Task<IEnumerable<PopularSeries>> GetAiringTodayAsync();
-        Task<IEnumerable<PopularSeries>> GetRecommendationsAsync(string id);
-        Task<MovieApiResponse<PopularSeries>> BrowseAsync(BrowseSeries model);
-        Task<IEnumerable<PopularSeries>> GetOnTheAirAsync();
+        Task<IEnumerable<SeriesViewModel>> GetAiringTodayAsync();
+        Task<IEnumerable<SeriesViewModel>> GetRecommendationsAsync(string id);
+        Task<MovieApiResponse<SeriesViewModel>> BrowseAsync(BrowseSeries model);
+        Task<IEnumerable<SeriesViewModel>> GetOnTheAirAsync();
         Task<IEnumerable<Genre>> GetGenresAsync();
 
         

@@ -4,15 +4,15 @@ namespace FilmDive.Server.Services.Movies
 {
     public interface IMovieService
     {
-        Task<IEnumerable<TrendingMovie>> GetNowPlayingAsync();
+        Task<IEnumerable<MovieViewModel>> GetNowPlayingAsync();
 
-        Task<IEnumerable<TrendingMovie>> GetTrendingAsync();
-        Task<IEnumerable<TrendingMovie>> GetMostPopularAsync();
+        Task<IEnumerable<MovieViewModel>> GetTrendingAsync();
+        Task<IEnumerable<MovieViewModel>> GetMostPopularAsync();
         Task<IEnumerable<Genre>> GetGenresAsync();
 
-        Task<IEnumerable<TrendingMovie>> GetUpcomingAsync();
+        Task<IEnumerable<MovieViewModel>> GetUpcomingAsync();
         Task<MovieDetails> GetDetailsAsync(string id, int? userId=null);
-        Task<IEnumerable<TrendingMovie>> GetRecommendationsAsync(string id);
-        Task<MovieApiResponse<TrendingMovie>> BrowseAsync(MovieBrowse model);
+        Task<IEnumerable<MovieViewModel>> GetRecommendationsAsync(string id);
+        Task<MovieApiResponse<MovieViewModel>> BrowseAsync(MovieBrowse model);
     }
 }

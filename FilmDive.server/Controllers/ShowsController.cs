@@ -18,7 +18,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetPopularTvSeries()
         {
             var data = await seriesService.GetPopularSeriesAsync();
-            return new ApiResponse<IEnumerable<PopularSeries>>()
+            return new ApiResponse<IEnumerable<SeriesViewModel>>()
             {
                 Status = 200,
                 Data = data
@@ -29,7 +29,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetAiringTvSeries()
         {
             var data = await seriesService.GetOnTheAirAsync();
-            return new ApiResponse<IEnumerable<PopularSeries>>()
+            return new ApiResponse<IEnumerable<SeriesViewModel>>()
             {
                 Status = 200,
                 Data = data
@@ -39,7 +39,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetRecomendations(string id)
         {
             var data = await seriesService.GetRecommendationsAsync(id);
-            return new ApiResponse<IEnumerable<PopularSeries>>()
+            return new ApiResponse<IEnumerable<SeriesViewModel>>()
             {
                 Status = 200,
                 Data = data
@@ -49,7 +49,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> GetAiringTodayTvSeries()
         {
             var data = await seriesService.GetAiringTodayAsync();
-            return new ApiResponse<IEnumerable<PopularSeries>>()
+            return new ApiResponse<IEnumerable<SeriesViewModel>>()
             {
                 Status = 200,
                 Data = data
@@ -81,7 +81,7 @@ namespace FilmDive.Server.Controllers
         public async Task<IActionResult> BrowseTvSeries([FromQuery] BrowseSeries model)
         {
             var data = await seriesService.BrowseAsync(model);
-            return new ApiResponse<MovieApiResponse<PopularSeries>>()
+            return new ApiResponse<MovieApiResponse<SeriesViewModel>>()
             {
                 Status = 200,
                 Data = data

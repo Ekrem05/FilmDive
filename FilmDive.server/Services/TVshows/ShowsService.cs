@@ -13,7 +13,7 @@ namespace FilmDive.Server.Services.TVshows
         IUserSeriesRepository userSeriesRepository,
         IConfiguration configuration) : ISeriesService
     {
-        public async Task<MovieApiResponse<PopularSeries>> BrowseAsync(BrowseSeries model)
+        public async Task<MovieApiResponse<SeriesViewModel>> BrowseAsync(BrowseSeries model)
         {
             var baseUrl = "https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=1";
             var queryParams = new List<string>();
@@ -69,15 +69,15 @@ namespace FilmDive.Server.Services.TVshows
             var requestUrl = $"{baseUrl}&{queryString}";
 
             var searchRequest = await movieClientService.SendRequestAsync(requestUrl, GetApiKey());
-            var shows = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(searchRequest);
+            var shows = JsonConvert.DeserializeObject<MovieApiResponse<SeriesViewModel>>(searchRequest);
             return shows;
         }
 
-        public async Task<IEnumerable<PopularSeries>> GetAiringTodayAsync()
+        public async Task<IEnumerable<SeriesViewModel>> GetAiringTodayAsync()
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1", GetApiKey());
-            var series = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(body);
+            var series = JsonConvert.DeserializeObject<MovieApiResponse<SeriesViewModel>>(body);
 
             return series.Result;
         }
@@ -114,30 +114,30 @@ namespace FilmDive.Server.Services.TVshows
             return genresResponse.Genres;
         }
 
-        public async Task<IEnumerable<PopularSeries>> GetOnTheAirAsync()
+        public async Task<IEnumerable<SeriesViewModel>> GetOnTheAirAsync()
         {
             string body = await movieClientService
               .SendRequestAsync("https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=1", GetApiKey());
-            var series = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(body);
+            var series = JsonConvert.DeserializeObject<MovieApiResponse<SeriesViewModel>>(body);
 
             return series.Result;
         }
 
-        public async Task<IEnumerable<PopularSeries>> GetPopularSeriesAsync()
+        public async Task<IEnumerable<SeriesViewModel>> GetPopularSeriesAsync()
         {
             string body = await movieClientService
                .SendRequestAsync("https://api.themoviedb.org/3/tv/popular?language=en-US&page=1", GetApiKey());
-            var series = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(body);
+            var series = JsonConvert.DeserializeObject<MovieApiResponse<SeriesViewModel>>(body);
 
             return series.Result;
         }
 
-        public async Task<IEnumerable<PopularSeries>> GetRecommendationsAsync(string id)
+        public async Task<IEnumerable<SeriesViewModel>> GetRecommendationsAsync(string id)
         {
             
             string body = await movieClientService
                 .SendRequestAsync($"https://api.themoviedb.org/3/tv/{id}/recommendations", GetApiKey());
-            var series = JsonConvert.DeserializeObject<MovieApiResponse<PopularSeries>>(body);
+            var series = JsonConvert.DeserializeObject<MovieApiResponse<SeriesViewModel>>(body);
 
             return series.Result;
             
