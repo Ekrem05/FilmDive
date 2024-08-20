@@ -1,4 +1,5 @@
 ﻿using FilmDive.Server.Services.Movies;
+using FilmDive.Server.Services.UserServiceFolder;
 using FilmDive.Server.ViewModels.Api;
 using FilmDive.Server.ViewModels.Movie;
 using Microsoft.AspNetCore.Authorization;
@@ -14,25 +15,45 @@ namespace FilmDive.Server.Controllers
         [HttpGet("popular")]
         public async Task<IActionResult> GetPopularMovies()
         {
-            return Ok(await movieService.GetMostPopularAsync());
+            var data = await movieService.GetMostPopularAsync();
+            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
 
         [HttpGet("trending")]
         public async Task<IActionResult> GetTrendingMovies()
         {
-            return Ok(await movieService.GetTrendingAsync());
+            var data = await movieService.GetTrendingAsync();
+            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
 
         [HttpGet("now-playing")]
         public async Task<IActionResult> GetNowPlayingAsync()
         {
-            return Ok(await movieService.GetNowPlayingAsync());
+            var data = await movieService.GetNowPlayingAsync();
+            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
 
         [HttpGet("upcoming")]
         public async Task<IActionResult> GetUpcomingMovies()
         {
-            return Ok(await movieService.GetUpcomingAsync());
+            var data = await movieService.GetUpcomingAsync();
+            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
         [HttpGet("details")]
         public async Task<IActionResult> GetMovieDetails(string id)
@@ -51,17 +72,32 @@ namespace FilmDive.Server.Controllers
         [HttpGet("recommend")]
         public async Task<IActionResult> GetRecommendationsAsync(string id)
         {
-            return Ok(await movieService.GetRecommendationsAsync(id));
+            var data = await movieService.GetRecommendationsAsync(id);
+            return new ApiResponse<IEnumerable<TrendingMovie>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
         [HttpGet("genres")]
         public async Task<IActionResult> GetGenres()
         {
-            return Ok(await movieService.GetGenresAsync());
+            var data = await movieService.GetGenresAsync();
+            return new ApiResponse<IEnumerable<Genre>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
         [HttpGet("browse")]
         public async Task<IActionResult> BrowseMovies([FromQuery] MovieBrowse request)
         {
-            return Ok(await movieService.BrowseAsync(request));
+            var data = await movieService.BrowseAsync(request);
+            return new ApiResponse<MovieApiResponse<TrendingMovie>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
     }
 }

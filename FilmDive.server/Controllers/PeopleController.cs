@@ -1,5 +1,9 @@
 ﻿using FilmDive.Server.Services.Movie;
+using FilmDive.Server.Services.Movies;
 using FilmDive.Server.Services.People;
+using FilmDive.Server.ViewModels.Api;
+using FilmDive.Server.ViewModels.Movie;
+using FilmDive.Server.ViewModels.People;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.CompilerServices;
@@ -14,13 +18,23 @@ namespace FilmDive.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPeopleAsync()
         {
-            return Ok(await peopleService.GetPopularAsync());
+            var data = await peopleService.GetPopularAsync();
+            return new ApiResponse<IEnumerable<Individual>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
 
         [HttpGet("search/{name}")]
         public async Task<IActionResult> SearchAsync(string name)
         {
-            return Ok(await peopleService.SearchAsync(name));
+            var data = await peopleService.SearchAsync(name);
+            return new ApiResponse<IEnumerable<Individual>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
     }
 }

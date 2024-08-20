@@ -17,28 +17,53 @@ namespace FilmDive.Server.Controllers
         [HttpGet("popular")]
         public async Task<IActionResult> GetPopularTvSeries()
         {
-            return Ok(await seriesService.GetPopularSeriesAsync());
+            var data = await seriesService.GetPopularSeriesAsync();
+            return new ApiResponse<IEnumerable<PopularSeries>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
 
         [HttpGet("airing")]
         public async Task<IActionResult> GetAiringTvSeries()
         {
-            return Ok(await seriesService.GetOnTheAirAsync());
+            var data = await seriesService.GetOnTheAirAsync();
+            return new ApiResponse<IEnumerable<PopularSeries>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
         [HttpGet("recommend")]
         public async Task<IActionResult> GetRecomendations(string id)
         {
-            return Ok(await seriesService.GetRecommendationsAsync(id));
+            var data = await seriesService.GetRecommendationsAsync(id);
+            return new ApiResponse<IEnumerable<PopularSeries>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
         [HttpGet("airing-today")]
         public async Task<IActionResult> GetAiringTodayTvSeries()
         {
-            return Ok(await seriesService.GetAiringTodayAsync());
+            var data = await seriesService.GetAiringTodayAsync();
+            return new ApiResponse<IEnumerable<PopularSeries>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
         [HttpGet("genres")]
         public async Task<IActionResult> GetGenres()
         {
-            return Ok(await seriesService.GetGenresAsync());
+            var data = await seriesService.GetGenresAsync();
+            return new ApiResponse<IEnumerable<Genre>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
         [HttpGet("details")]
         public async Task<IActionResult> GetShowDetails(string id)
@@ -55,7 +80,12 @@ namespace FilmDive.Server.Controllers
         [HttpGet("browse")]
         public async Task<IActionResult> BrowseTvSeries([FromQuery] BrowseSeries model)
         {
-            return Ok(await seriesService.BrowseAsync(model));
+            var data = await seriesService.BrowseAsync(model);
+            return new ApiResponse<MovieApiResponse<PopularSeries>>()
+            {
+                Status = 200,
+                Data = data
+            };
         }
     }
 }

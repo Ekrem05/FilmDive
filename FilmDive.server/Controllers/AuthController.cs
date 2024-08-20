@@ -12,7 +12,7 @@ namespace FilmDive.Server.Controllers
     public class AuthController(IUserService userService) : ControllerBase
     {
         [HttpPost, Route("signup")]
-        public async Task<ApiResponse<AuthenticatedResponse>> Signup([FromBody] SignupViewModel signupViewModel)
+        public async Task<IActionResult> Signup([FromBody] SignupViewModel signupViewModel)
         {
             var data = await userService.SignUpAsync(signupViewModel);
             return new ApiResponse<AuthenticatedResponse>()
@@ -23,7 +23,7 @@ namespace FilmDive.Server.Controllers
         }
 
         [HttpPost, Route("login")]
-        public async Task<ApiResponse<AuthenticatedResponse>> Login([FromBody] LoginViewModel loginModel)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel loginModel)
         {
             var data = await userService.LogInAsync(loginModel);
             return new ApiResponse<AuthenticatedResponse>()
@@ -34,7 +34,7 @@ namespace FilmDive.Server.Controllers
         }
 
         [HttpGet,Route("user/{accessToken}")]
-        public async Task<ApiResponse<UserDetails>> UserData([FromRoute] string accessToken)
+        public async Task<IActionResult> UserData([FromRoute] string accessToken)
         {
             var data = await userService.GetAsync(accessToken);
             return new ApiResponse<UserDetails>()
