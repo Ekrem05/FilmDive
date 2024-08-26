@@ -14,6 +14,9 @@ namespace FilmDive.Server.ViewModels.Movie
         [JsonProperty("title")]
         public string Title { get; set; } = string.Empty;
 
+        [JsonProperty("homepage")]
+        public string Homepage { get; set; } = string.Empty;
+
         [JsonProperty("overview")]
         public string Overview { get; set; } = string.Empty;
 
