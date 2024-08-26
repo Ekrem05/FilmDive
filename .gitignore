@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 FilmDive.server/appsettings.json
+FilmDive.server/appsettings.json

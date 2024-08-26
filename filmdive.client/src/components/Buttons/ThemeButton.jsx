@@ -7,6 +7,7 @@ export default function ThemeButton() {
   const theme = useSelector((state) => state.movie.theme);
   const dispatch = useDispatch();
   function handleClick() {
+    localStorage.setItem("theme", theme === "light" ? "dark" : "light");
     dispatch(movieActions.setTheme(theme === "light" ? "dark" : "light"));
   }
   return (
