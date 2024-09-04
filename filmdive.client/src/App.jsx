@@ -9,6 +9,7 @@ import LogIn from "./components/Auth/LogIn";
 import Series from "./pages/Series";
 import SeriesDetails from "./pages/SeriesDetails";
 import Watchlist from "./pages/Watchlist";
+import NotFound from "./pages/NotFound";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
         element: <Watchlist />,
       },
     ],
+    errorElement: <NotFound />,
   },
   {
     path: "/auth",

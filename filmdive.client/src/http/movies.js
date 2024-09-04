@@ -46,9 +46,8 @@ export async function browseMovies({
 }) {
   const params = new URLSearchParams();
   if (page && page !== "") params.append("Page", page);
-  if (genres && genres.length > 0) {
+  if (genres && genres.length > 0)
     genres.map((genre) => params.append("WithGenres", genre));
-  }
   if (fromRating && fromRating !== "") params.append("FromRating", fromRating);
   if (toRating && toRating !== "") params.append("ToRating", toRating);
   if (fromYear && fromYear !== "") params.append("FromYear", fromYear);

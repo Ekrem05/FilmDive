@@ -137,7 +137,7 @@ export default function LogIn() {
           <main className="w-full sm:w-5/6 md:w-4/6 2xl:w-1/3 flex justify-center">
             <form
               onSubmit={handleSubmission}
-              className="flex flex-col w-full md:w-4/6  bg-base bg-opacity-50 p-10  gap-5"
+              className="flex flex-col w-full md:w-4/6 xl:w-[37%] 2xl:w-4/5  bg-base bg-opacity-50 p-10  gap-5"
             >
               <h2 className="text-5xl font-extrabold tracking-tight 2xl:text-5xl text-primaryText max-w-xl xl:text-3xl mb-14">
                 Login

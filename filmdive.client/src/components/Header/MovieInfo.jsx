@@ -48,16 +48,12 @@ export default function MovieInfo({ movie }) {
           styling={
             "bg-callToAction text-base hover:bg-primary transition-colors duration-200"
           }
-          text={"Watch now"}
+          isLink={true}
+          path={`movie/${movie.id}`}
+          text={"Learn more"}
         >
           <FaPlay className="w-4" />
         </Button>
-        <Button
-          styling={"text-primaryText bg-transparentdrk  "}
-          isLink={true}
-          path={`movie/${movie.id}`}
-          text={"More Info"}
-        ></Button>
       </motion.section>
     </motion.section>
   );

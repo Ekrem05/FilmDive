@@ -10,7 +10,8 @@ const client = new QueryClient();
 
 export default function Layout() {
   const theme = useSelector((state) => state.movie.theme);
-  useMyTheme(theme);
+  useMyTheme();
+
   return (
     <main className={theme}>
       <QueryClientProvider client={client}>

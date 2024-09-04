@@ -58,6 +58,7 @@ export default function BrowseMovies() {
       toYear,
       fromRating,
       toRating,
+      fromYear,
       orderBy: orderBy ? orderBy : "popularity.desc",
       cast: cast && cast !== "all" ? cast.split(" ") : [],
     });
