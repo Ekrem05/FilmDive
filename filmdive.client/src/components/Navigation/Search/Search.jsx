@@ -147,7 +147,7 @@ export default function Search() {
                 }`}
               />
             </div>
-            {search.isTyping && <SearchingSkeletion />}
+            {(search.isTyping || isPending) && <SearchingSkeletion />}
 
             {!showFilters &&
               !search.isTyping &&
@@ -160,6 +160,17 @@ export default function Search() {
                       <SearchItem item={item} />
                     </li>
                   ))}
+                </ul>
+              )}
+            {!showFilters &&
+              !search.isTyping &&
+              !isPending &&
+              result &&
+              result.length === 0 && (
+                <ul className="absolute bg-base flex flex-col gap-5 rounded-b-md overflow-y-auto overflow-x-hidden h-12 text-primaryText text-center  w-64 sm:w-72  px-3 py-2">
+                  <li>
+                    <p>No result</p>
+                  </li>
                 </ul>
               )}
           </section>

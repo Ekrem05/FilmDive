@@ -54,11 +54,10 @@ export default function BrowseMovies() {
     getFirstPage({
       page: 1,
       genres: genreIds !== "all" && genreIds ? genreIds.split(" ") : [],
-      fromYear: fromYear,
-      toYear: toYear,
-      fromRating: fromRating,
-      toRating: toRating,
-      fromYear: fromYear,
+      fromYear,
+      toYear,
+      fromRating,
+      toRating,
       orderBy: orderBy ? orderBy : "popularity.desc",
       cast: cast && cast !== "all" ? cast.split(" ") : [],
     });
@@ -87,9 +86,10 @@ export default function BrowseMovies() {
     loadMore({
       page: movies.page + 1,
       genres: genreIds !== "all" && genreIds ? genreIds.split(" ") : [],
-      fromRating: fromRating,
-
-      toYear: toYear,
+      fromRating,
+      toRating,
+      fromYear,
+      toYear,
       orderBy: orderBy ? orderBy : "popularity.desc",
       cast: cast && cast !== "all" ? cast.split(" ") : [],
     });

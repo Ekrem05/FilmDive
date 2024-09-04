@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
-import { addToWatchlist } from "@/http/user";
-import { useNavigation } from "react-router";
-import { refreshToken } from "@/http/token";
+import { useNavigate } from "react-router";
 import useWatchlist from "@/hooks/useWatchlist";
 import authorize from "@/utils/authorize";
 import { useSelector } from "react-redux";
 import Card from "@/components/MovieCard/Card";
 export default function Watchlist() {
-  const navigate = useNavigation();
+  const navigate = useNavigate();
   const [selected, setSelected] = useState("movies");
   const items = useSelector((state) => state.watchlist.items);
   const { get } = useWatchlist();
   useEffect(() => {
     async function fetchData() {
       const token = await authorize();
-      get({ token: token });
+      console.log(token);
+      if (token) {
+        get({ token: token });
+      } else {
+        navigate("/auth/login");
+      }
     }
     fetchData();
   }, []);

@@ -29,10 +29,10 @@ export default function Lists() {
       />
       <CardList
         fn={getUpcomingMovies}
-        fnKey={["upcomming-movies"]}
+        fnKey={["upcoming-movies"]}
         subject={"movie"}
-        title={"Upcomming"}
-        key={"upcomming-movies"}
+        title={"Upcoming"}
+        key={"upcoming-movies"}
       />
       <CardList
         fn={getPopularTvSeries}
