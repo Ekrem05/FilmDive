@@ -31,7 +31,6 @@ export default function SideBar() {
       getMovieRecipes();
     }
   }, [route]);
-  console.log("side", route);
   return (
     <>
       <ul className="hidden  mt-32 sm:flex flex-col ml-10 bg-#1F1D36 text-secondaryText sm:h-screen ">

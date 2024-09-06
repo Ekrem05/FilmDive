@@ -47,9 +47,8 @@ export default function Search() {
         setSearch((prevState) => ({ ...prevState, isTyping: false }));
       }, 1000);
     }
-    console.log(search);
+
     return () => {
-      console.log("clear");
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }

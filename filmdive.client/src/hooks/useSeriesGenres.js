@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getGenres } from "@/http/movies";
 import { seriesGenres } from "@/http/series";
 export default function useSeriesGenres() {
-  console.log("getting");
   const {
     isPending,
     isError,

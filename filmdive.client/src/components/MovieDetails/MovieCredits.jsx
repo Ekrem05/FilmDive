@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 export default function MovieCredits({ movie }) {
-  console.log(movie);
   const starring = movie.credits.cast.map((person) => person.name).join(", ");
   const directing = movie.credits.crew.map((person) => person.name).join(", ");
 

@@ -1,5 +1,4 @@
 export async function getPopularTvSeries() {
-  console.log("hii");
   const response = await fetch("/Series/popular", {
     headers: {
       "Content-Type": "application/json",
@@ -67,16 +66,7 @@ export async function browseSeries({
   cast,
 }) {
   const params = new URLSearchParams();
-  console.log({
-    page,
-    genres,
-    fromRating,
-    toRating,
-    fromYear,
-    toYear,
-    orderBy,
-    cast,
-  });
+
   if (page && page !== "") params.append("Page", page);
   if (genres && genres.length > 0)
     genres.map((genre) => params.append("WithGenres", genre));
@@ -104,7 +94,6 @@ export async function browseSeries({
   return data.data;
 }
 export async function seriesGenres() {
-  console.log("genres");
   const response = await fetch("/Series/genres", {
     headers: {
       "Content-Type": "application/json",

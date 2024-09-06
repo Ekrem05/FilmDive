@@ -217,7 +217,7 @@ export default function BrowseMovies() {
               })}
               {isPending && <BrowseSkeleton />}
             </ul>
-            {console.log(movies.totalPages)}
+
             {movies.page < movies.totalPages && (
               <Button styling={"mt-16 bg-primary"} onClick={handleLoadMore}>
                 Load More

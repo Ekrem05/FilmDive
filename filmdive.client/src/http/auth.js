@@ -11,7 +11,6 @@ export async function signup({ email, username, password }) {
     }),
   });
   const data = await response.json();
-  console.log(data);
 
   return data;
 }
@@ -30,7 +29,6 @@ export async function login({ username, password }) {
   return data;
 }
 export async function userDetails({ token }) {
-  console.log("hello");
   const response = await fetch(`/Auth/user/${token}`, {
     method: "GET",
     headers: {

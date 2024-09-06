@@ -104,9 +104,6 @@ export default function LogIn() {
       mutate({ username: inputs.username, password: inputs.password });
     }
   }
-  {
-    console.log(currentBg);
-  }
   return (
     <section className="bg-base gap-10 relative flex-wrap min-h-[100vh] z-0 flex flex-col  items-center">
       {data && (

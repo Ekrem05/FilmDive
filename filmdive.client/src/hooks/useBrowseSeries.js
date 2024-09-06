@@ -10,11 +10,8 @@ export default function useBrowseSeries() {
   const dispatch = useDispatch();
   const { mutate: loadMore, isPending: gettingMovies } = useMutation({
     mutationFn: browseSeries,
-    onMutate: () => {
-      console.log("get");
-    },
+    onMutate: () => {},
     onSuccess: (data) => {
-      console.log(data);
       dispatch(browseActions.loadMoreSeries(data));
     },
   });
@@ -22,7 +19,6 @@ export default function useBrowseSeries() {
     mutationFn: browseSeries,
     onMutate: () => {},
     onSuccess: (data) => {
-      console.log(data);
       dispatch(browseActions.getFirstPageSeries(data));
     },
   });

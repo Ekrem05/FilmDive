@@ -10,7 +10,6 @@ export default function Cast() {
   const { searchNow, searchResult, searching } = useSearchCast();
 
   function handleChange(event) {
-    console.log(event.target.value);
     setValue({ isTyping: true, message: event.target.value });
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);

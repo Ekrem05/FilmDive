@@ -42,7 +42,7 @@ export default function BrowseSeries() {
   const { getFirstPage, loadMore, gettingMovies, isPending } =
     useBrowseSeries();
   const { data } = useSeriesGenres();
-  console.log("genre ", data);
+
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.browse.genres);

@@ -110,7 +110,6 @@ export async function getMovieDetails({ id, token }) {
   return data.data;
 }
 export async function getRecommendations(id) {
-  console.log("recc");
   const response = await fetch(`/Movies/recommend?id=${id}`, {
     headers: {
       "Content-Type": "application/json",

@@ -9,7 +9,7 @@ export default function GenreSelection({ data }) {
   const formRef = useRef();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  console.log("inserie", data);
+
   const navigate = useNavigate();
   const { genres, year, rating, orderBy, cast } = useParams();
 
@@ -27,7 +27,6 @@ export default function GenreSelection({ data }) {
       }
     });
 
-    console.log(arrayOfGenreIds);
     dispatch(browseActions.setGenres(arrayOfGenres));
     const currentYear = new Date().getFullYear();
     const root = pathname.split("/")[1];

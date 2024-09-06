@@ -11,7 +11,6 @@ export default function useBrowseMovies() {
     mutationFn: browseMovies,
     onMutate: () => {},
     onSuccess: (data) => {
-      console.log(data);
       dispatch(browseActions.loadMoreMovies(data));
     },
   });
@@ -19,7 +18,6 @@ export default function useBrowseMovies() {
     mutationFn: browseMovies,
     onMutate: () => {},
     onSuccess: (data) => {
-      console.log(data);
       dispatch(browseActions.getFirstPageMovies(data));
     },
   });

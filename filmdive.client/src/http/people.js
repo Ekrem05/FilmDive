@@ -11,7 +11,6 @@ export async function getPeople() {
   return data.data;
 }
 export async function searchFor({ name }) {
-  console.log(name);
   const response = await fetch(`/People/search/${name}`, {
     headers: {
       "Content-Type": "application/json",
