@@ -29,7 +29,6 @@ export default function SeriesDetails() {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (data) {
-      console.log(data.isSaved);
       setIsSaved(data.isSaved);
     }
   }, [pathname, params.id, data]);
@@ -49,6 +48,8 @@ export default function SeriesDetails() {
         genre: "series",
       });
     } else {
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
       navigate("/auth/login");
     }
   }
@@ -65,7 +66,6 @@ export default function SeriesDetails() {
       navigate("/auth/login");
     }
   }
-  console.log(isSaved);
   return (
     <>
       {isPending && (

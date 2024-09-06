@@ -12,10 +12,11 @@ export default function Watchlist() {
   useEffect(() => {
     async function fetchData() {
       const token = await authorize();
-      console.log(token);
       if (token) {
         get({ token: token });
       } else {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
         navigate("/auth/login");
       }
     }
@@ -49,7 +50,6 @@ export default function Watchlist() {
         <div>
           {
             <ul className="grid grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 bg-transparentdrk border-t-2 border-primary">
-              {console.log(items.movies.length)}
               {selected === "movies" ? (
                 items.movies.length > 0 ? (
                   items.movies.map((item) => (

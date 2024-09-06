@@ -28,7 +28,6 @@ export default function MovieDetails() {
   const { add, remove } = useWatchlist();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  console.log(data);
   useEffect(() => {
     window.scrollTo(0, 0);
     if (data) {
@@ -49,6 +48,8 @@ export default function MovieDetails() {
         genre: "movie",
       });
     } else {
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
       navigate("/auth/login");
     }
   }
@@ -56,7 +57,6 @@ export default function MovieDetails() {
     const token = await authorize();
     if (token) {
       setIsSaved(false);
-      console.log("sss");
       remove({
         token: token,
         id: params.id,

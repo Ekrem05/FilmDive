@@ -81,7 +81,7 @@ export default function Footer() {
                 <Link to={"/series"}>Tv Series</Link>
               </li>
               <li className="font-light">
-                <Link to={"/browse"}>Watch list</Link>
+                <Link to={"/watchlist"}>Watch list</Link>
               </li>
             </ul>
           </li>

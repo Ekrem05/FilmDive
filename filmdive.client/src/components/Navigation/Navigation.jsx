@@ -17,6 +17,9 @@ import { darkModeNavbar, lightModeNavbar } from "@/utils/animations";
 import { useDispatch, useSelector } from "react-redux";
 import { movieActions } from "@/store/movie";
 import Search from "./Search/Search";
+import { userDetails } from "@/http/auth";
+import { useQuery } from "@tanstack/react-query";
+import authorize from "@/utils/authorize";
 const listVariants = {
   initial: { opacity: 0 },
   animate: { opacity: 1, transition: { staggerChildren: 0.15 } },
@@ -32,6 +35,20 @@ export default function Navigation() {
   const dispatch = useDispatch();
   const [open, setIsOpen] = useState(false);
   const { scrollY } = useScroll();
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ["details"],
+    queryFn: async () => {
+      "run");
+      const token = await authorize();
+      if (token) {
+        "pls");
+
+        return userDetails({ token });
+      }
+      throw Error();
+    },
+  });
+
   const navOpacity = useTransform(
     scrollY,
     [0, 200, 500],
@@ -73,7 +90,7 @@ export default function Navigation() {
           <li>
             <Search />
           </li>
-          {!localStorage.getItem("token") ? (
+          {isError || !localStorage.getItem("token") ? (
             <ul className="flex">
               <li>
                 <NavButton label={"Sign Up"} link="/auth/signup" />
@@ -174,7 +191,7 @@ export default function Navigation() {
                 </motion.li>
               </motion.ul>
 
-              {!localStorage.getItem("token") ? (
+              {isError || !localStorage.getItem("token") ? (
                 <motion.ul className="flex gap-4">
                   <motion.li
                     initial={{

@@ -21,7 +21,7 @@ export default function UserSection() {
   const navigate = useNavigate();
   function logout() {
     localStorage.removeItem("token");
-    localStorage.removeItem("refresh token");
+    localStorage.removeItem("refreshToken");
     navigate("/auth/login");
   }
   return (

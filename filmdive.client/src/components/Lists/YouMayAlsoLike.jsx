@@ -21,11 +21,10 @@ export default function YouMayAlsoLike({ id, subject, fn }) {
         </h3>
         {!data && (
           <div className="flex  md:gap-11 overflow-x-auto gap-1">
-            {console.log("wtf")}
             <MovieListSkeleton />
           </div>
         )}
-        {data && (
+        {data && data.length > 0 && (
           <ul className=" flex gap-4 p-4   overflow-y-hidden overflow-x-auto 2xl:gap-5 xl:gap-5 md:w-full">
             {data.map((movie) => {
               return (
@@ -33,6 +32,11 @@ export default function YouMayAlsoLike({ id, subject, fn }) {
               );
             })}
           </ul>
+        )}
+        {data && data.length === 0 && (
+          <p className="text-primaryText text-center text-normal md:text-xl">
+            Wow! That's rare! We don't have any similar titles
+          </p>
         )}
       </section>
     </>

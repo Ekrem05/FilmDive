@@ -35,14 +35,11 @@ export default function SignUp() {
   });
   const { mutate, isPending: isSubmitting } = useMutation({
     mutationFn: signup,
-    onMutate: () => {
-      console.log("mutating");
-    },
+    onMutate: () => {},
     onSuccess: (response) => {
-      console.log(response);
       if (response.data) {
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("refresh token", response.data.refreshToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
         navigate("/");
       }
       if (response.status === 400) {
@@ -59,15 +56,12 @@ export default function SignUp() {
             newValidationState.email = false;
           }
           if (errors.Username) {
-            console.log("usernameerror");
-
             newValidationState.username = false;
           }
           if (errors.Password) {
             newValidationState.password = false;
           }
           if (errors[0]) {
-            console.log("Set");
             newValidationState.userAlreadyExists = true;
           }
         }
@@ -123,7 +117,7 @@ export default function SignUp() {
     if (isEmailValid && isPasswordValid) {
       const fd = new FormData(event.target);
       const inputs = Object.fromEntries(fd.entries());
-      console.log(inputs);
+
       mutate({
         email: inputs.email,
         username: inputs.username,

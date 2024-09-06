@@ -3,11 +3,14 @@ import { jwtDecode } from "jwt-decode";
 export function isTokenExpired(token) {
   if (!token) return true;
   console.log("wee");
-  const decoded = jwtDecode(token);
-  console.log(decoded);
-  const now = Date.now().valueOf() / 1000;
+  try {
+    const decoded = jwtDecode(token);
+    const now = Date.now().valueOf() / 1000;
 
-  return decoded.exp < now;
+    return decoded.exp < now;
+  } catch (error) {
+    return false;
+  }
 }
 
 function isTokenAboutToExpire(token, timeWindowInSeconds = 300) {

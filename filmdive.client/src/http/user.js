@@ -47,7 +47,6 @@ export async function removeFromWatchlist({ token, id, genre }) {
   return data.data;
 }
 export async function getWatchlist({ token }) {
-  console.log(token);
   const response = await fetch(`/User/watchlist`, {
     method: "GET",
     headers: {
@@ -56,9 +55,9 @@ export async function getWatchlist({ token }) {
     },
   });
   if (response.status === 401) {
-    throw Error("401");
+    throw Error(401);
   } else if (!response.ok) {
-    return 400;
+    throw Error();
   }
   const data = await response.json();
   return data.data;

@@ -13,6 +13,12 @@ const watchlistSlice = createSlice({
     setWatchlist(state, action) {
       state.items = action.payload;
     },
+    clearWatchlist(state, action) {
+      state.items = {
+        movies: [],
+        series: [],
+      };
+    },
   },
 });
 
