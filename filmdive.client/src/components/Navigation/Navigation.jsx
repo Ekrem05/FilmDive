@@ -38,11 +38,8 @@ export default function Navigation() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["details"],
     queryFn: async () => {
-      "run");
       const token = await authorize();
       if (token) {
-        "pls");
-
         return userDetails({ token });
       }
       throw Error();
