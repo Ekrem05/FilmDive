@@ -10,7 +10,7 @@ Explore and discover a wide range of movies with **FilmDive**! Browse through tr
 - **Browse TV Series**: Explore on air, upcomming and trending tv series.
 - **Watch Trailers**: Preview movie trailers directly within the app.
 - **Watchlist**: Add your favorite movies to a watchlist to keep track of what you want to watch.
-- **Search**: Find movies by title or keyword.
+- **Search**: Find movies, tv series, people with the search bar.
 - **Authentication**: Secure your account with JWT authentication.
 - **Light/Dark Mode**: Switch between light and dark themes for a comfortable viewing experience.
 
